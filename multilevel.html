@@ -372,7 +372,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ## Note:                            *p&lt;0.1; **p&lt;0.05; ***p&lt;0.01</code></pre>
 <p>You’ll notice that our intercept and slope parameters are actually pretty much the same - in both cases, the intercept is around 31, and the slope is around -0.12. The only differences are in the <em>standard errors</em> of these parameters - the standard errors of the intercept and slope in the multilevel model (0.43 and 0.032, respectively) are larger than the standard errors in the regression model (0.31 and 0.026, respectively). In this case, this difference did not change the inferential results (e.g., the effect of age is still significant), but you could imagine that having a standard error that is too small may lead us to reject the null hypothesis incorrectly.</p>
 <p>To visually illustrate the differences between a regression model, or a model with random intercept and slope, look at the graphs below.</p>
-<p><img src="_main_files/figure-html/unnamed-chunk-78-1.png" width="672" /></p>
+<p><img src="main_files/figure-html/unnamed-chunk-78-1.png" width="672" /></p>
 <p>In these graphs, the thick blue line represents the average trajectory - e.g., across all continents, what is the predicted relation between age and neuroticism. However, in the OLS model on the far right, the single line shown means that we expect this relation to hold for any individual in our sample, regardless of what continent they are from. In the model with a random intercept (middle), different continents are allowed to have different intercepts (random intercept) but the relation between age and neuroticism remains the same (fixed slope). This can be seen in how the different colored lines for each continent are parallel to each other, but just shifted vertically. Finally, the model with random intercept and random slope (far left), different continents are allowed to have both different intercepts and different slopes, which is represented by how the different colored lines have different starting points and different levels of steepness.</p>
 </div>
 </div>
@@ -391,7 +391,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb172-9"><a href="multilevel.html#cb172-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_classic</span>()<span class="sc">+</span></span>
 <span id="cb172-10"><a href="multilevel.html#cb172-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">&quot;Age&quot;</span>, <span class="at">y =</span> <span class="st">&quot;Predicted Neuroticism&quot;</span>, <span class="at">color =</span> <span class="st">&quot;Continent&quot;</span>,</span>
 <span id="cb172-11"><a href="multilevel.html#cb172-11" aria-hidden="true" tabindex="-1"></a>       <span class="at">title =</span> <span class="st">&quot;Relation between Age and Neuroticism by Continent&quot;</span>)</span></code></pre></div>
-<p><img src="_main_files/figure-html/unnamed-chunk-79-1.png" width="672" /></p>
+<p><img src="main_files/figure-html/unnamed-chunk-79-1.png" width="672" /></p>
 
 </div>
 </div>
