@@ -277,26 +277,26 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb19-2"><a href="descriptives.html#cb19-2" aria-hidden="true" tabindex="-1"></a>        <span class="at">horizontal =</span> <span class="cn">TRUE</span>, <span class="do">##orient the plot horizontally</span></span>
 <span id="cb19-3"><a href="descriptives.html#cb19-3" aria-hidden="true" tabindex="-1"></a>        <span class="at">main =</span> <span class="st">&quot;Boxplot of Agreeableness Variable&quot;</span>, <span class="do">##name the plot</span></span>
 <span id="cb19-4"><a href="descriptives.html#cb19-4" aria-hidden="true" tabindex="-1"></a>        <span class="at">xlab =</span> <span class="st">&quot;Agreeableness Sum Score&quot;</span>) <span class="do">##label the x-axis</span></span></code></pre></div>
-<p><img src="_main_files/figure-html/unnamed-chunk-6-1.png" width="672" /></p>
+<p><img src="main_files/figure-html/unnamed-chunk-6-1.png" width="672" /></p>
 <p>We could also look at the shape of our distribution using a histogram, or density
 plot:</p>
 <div class="sourceCode" id="cb20"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb20-1"><a href="descriptives.html#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="do">##create a histogram</span></span>
 <span id="cb20-2"><a href="descriptives.html#cb20-2" aria-hidden="true" tabindex="-1"></a><span class="fu">hist</span>(big5<span class="sc">$</span>AgreeablenessSum)</span></code></pre></div>
-<p><img src="_main_files/figure-html/unnamed-chunk-7-1.png" width="672" /></p>
+<p><img src="main_files/figure-html/unnamed-chunk-7-1.png" width="672" /></p>
 <div class="sourceCode" id="cb21"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb21-1"><a href="descriptives.html#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="do">##Use the breaks argument to adjust bins by providing:</span></span>
 <span id="cb21-2"><a href="descriptives.html#cb21-2" aria-hidden="true" tabindex="-1"></a><span class="do">##A vector of user-specified cutoff values:</span></span>
 <span id="cb21-3"><a href="descriptives.html#cb21-3" aria-hidden="true" tabindex="-1"></a><span class="fu">hist</span>(big5<span class="sc">$</span>AgreeablenessSum, <span class="at">breaks=</span><span class="fu">c</span>(<span class="dv">15</span>,<span class="dv">22</span>,<span class="dv">23</span>,<span class="dv">36</span>,<span class="dv">42</span>,<span class="dv">60</span>)) </span></code></pre></div>
-<p><img src="_main_files/figure-html/unnamed-chunk-7-2.png" width="672" /></p>
+<p><img src="main_files/figure-html/unnamed-chunk-7-2.png" width="672" /></p>
 <div class="sourceCode" id="cb22"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb22-1"><a href="descriptives.html#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="do">##A function, like seq(), that computes the breakpoints:</span></span>
 <span id="cb22-2"><a href="descriptives.html#cb22-2" aria-hidden="true" tabindex="-1"></a><span class="fu">hist</span>(big5<span class="sc">$</span>AgreeablenessSum, <span class="at">breaks=</span><span class="fu">seq</span>(<span class="dv">21</span>, <span class="dv">48</span>, <span class="at">by =</span> <span class="dv">3</span>)) </span></code></pre></div>
-<p><img src="_main_files/figure-html/unnamed-chunk-7-3.png" width="672" /></p>
+<p><img src="main_files/figure-html/unnamed-chunk-7-3.png" width="672" /></p>
 <div class="sourceCode" id="cb23"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb23-1"><a href="descriptives.html#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="do">##A value representing the number of desired bins:</span></span>
 <span id="cb23-2"><a href="descriptives.html#cb23-2" aria-hidden="true" tabindex="-1"></a><span class="fu">hist</span>(big5<span class="sc">$</span>AgreeablenessSum, <span class="at">breaks=</span><span class="dv">22</span>) </span></code></pre></div>
-<p><img src="_main_files/figure-html/unnamed-chunk-7-4.png" width="672" /></p>
+<p><img src="main_files/figure-html/unnamed-chunk-7-4.png" width="672" /></p>
 <div class="sourceCode" id="cb24"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb24-1"><a href="descriptives.html#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="do">##create a density plot</span></span>
 <span id="cb24-2"><a href="descriptives.html#cb24-2" aria-hidden="true" tabindex="-1"></a>density_values <span class="ot">&lt;-</span> <span class="fu">density</span>(big5<span class="sc">$</span>AgreeablenessSum)</span>
 <span id="cb24-3"><a href="descriptives.html#cb24-3" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(density_values)</span></code></pre></div>
-<p><img src="_main_files/figure-html/unnamed-chunk-7-5.png" width="672" /></p>
+<p><img src="main_files/figure-html/unnamed-chunk-7-5.png" width="672" /></p>
 <p>While these plots get the job done to look at our distributions, they may not be
 as presentable as we’d like for posters of presentations. We can use a special set
 of functions in R’s <code>ggplot2</code> package to make more attractive graphs!</p>
@@ -304,7 +304,7 @@ of functions in R’s <code>ggplot2</code> package to make more attractive graph
 Agreeableness in <code>ggplot</code>. First, we need to create the axes and background of the plot:</p>
 <div class="sourceCode" id="cb25"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb25-1"><a href="descriptives.html#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
 <span id="cb25-2"><a href="descriptives.html#cb25-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data=</span> big5, <span class="fu">aes</span>(<span class="at">x=</span>AgreeablenessSum))</span></code></pre></div>
-<p><img src="_main_files/figure-html/unnamed-chunk-8-1.png" width="672" /></p>
+<p><img src="main_files/figure-html/unnamed-chunk-8-1.png" width="672" /></p>
 <p>In this first line of code, we’ve specified the dataset we’d like to work with, as
 well as the variables we’d like to plot in the <code>aes()</code> function. The argument x
 used in the <code>aes()</code> function corresponds to the x-axis of our graph. Now, we’re going
@@ -313,7 +313,7 @@ help us define the graph we’d like to create:</p>
 <div class="sourceCode" id="cb26"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb26-1"><a href="descriptives.html#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data=</span> big5, <span class="fu">aes</span>(<span class="at">x=</span>AgreeablenessSum))<span class="sc">+</span> <span class="do">##our original line of code</span></span>
 <span id="cb26-2"><a href="descriptives.html#cb26-2" aria-hidden="true" tabindex="-1"></a>  <span class="co"># add a plus sign at the end of each line before adding a new line</span></span>
 <span id="cb26-3"><a href="descriptives.html#cb26-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(<span class="at">bins=</span><span class="dv">25</span>)<span class="do">## new line</span></span></code></pre></div>
-<p><img src="_main_files/figure-html/unnamed-chunk-9-1.png" width="672" /></p>
+<p><img src="main_files/figure-html/unnamed-chunk-9-1.png" width="672" /></p>
 <p>Now we’ve created a basic histogram in ggplot! We can continue to layer code
 onto our plots to get them to look the way we’d like:</p>
 <div class="sourceCode" id="cb27"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb27-1"><a href="descriptives.html#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data=</span> big5, <span class="fu">aes</span>(<span class="at">x=</span>AgreeablenessSum))<span class="sc">+</span></span>
@@ -322,7 +322,7 @@ onto our plots to get them to look the way we’d like:</p>
 <span id="cb27-4"><a href="descriptives.html#cb27-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">y =</span> <span class="st">&quot;Frequency&quot;</span>, <span class="at">x=</span><span class="st">&quot;Agreeableness&quot;</span>)<span class="sc">+</span></span>
 <span id="cb27-5"><a href="descriptives.html#cb27-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_classic</span>()<span class="sc">+</span></span>
 <span id="cb27-6"><a href="descriptives.html#cb27-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">plot.title =</span> <span class="fu">element_text</span>(<span class="at">face =</span> <span class="st">&quot;bold&quot;</span>, <span class="at">hjust =</span> .<span class="dv">5</span>))</span></code></pre></div>
-<p><img src="_main_files/figure-html/unnamed-chunk-10-1.png" width="672" /></p>
+<p><img src="main_files/figure-html/unnamed-chunk-10-1.png" width="672" /></p>
 <p>The ggplot2 package is very comprehensive, and cannot be gone over in its entirety
 here. However, I encourage you to check out the link below and try to google any
 specific issues you might be having. GGplot is fairly well documented, and there
@@ -365,7 +365,7 @@ a basic template for a frequency bar in ggplot:</p>
 <span id="cb32-4"><a href="descriptives.html#cb32-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x=</span> <span class="st">&quot;Native English Speaker&quot;</span>)<span class="sc">+</span> <span class="do">##axis labels</span></span>
 <span id="cb32-5"><a href="descriptives.html#cb32-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_classic</span>()<span class="sc">+</span> <span class="do">##get rid of gridlines/grey background</span></span>
 <span id="cb32-6"><a href="descriptives.html#cb32-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">plot.title =</span> <span class="fu">element_text</span>(<span class="at">hjust =</span> .<span class="dv">5</span>)) <span class="do">## center title</span></span></code></pre></div>
-<p><img src="_main_files/figure-html/unnamed-chunk-13-1.png" width="672" /></p>
+<p><img src="main_files/figure-html/unnamed-chunk-13-1.png" width="672" /></p>
 </div>
 <div id="descriptive-plots-of-multiple-variables" class="section level3 hasAnchor" number="3.1.5">
 <h3><span class="header-section-number">3.1.5</span> Descriptive Plots of Multiple Variables<a href="descriptives.html#descriptive-plots-of-multiple-variables" class="anchor-section" aria-label="Anchor link to header"></a></h3>
@@ -407,7 +407,7 @@ break up a set of actions on a dataset across multiple lines. When you see a pip
 <span id="cb35-5"><a href="descriptives.html#cb35-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_classic</span>()<span class="sc">+</span> <span class="do">##get rid of gridlines/grey background</span></span>
 <span id="cb35-6"><a href="descriptives.html#cb35-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_fill_manual</span>(<span class="at">values=</span><span class="fu">natparks.pals</span>(<span class="st">&quot;Yellowstone&quot;</span>, <span class="dv">5</span>))<span class="sc">+</span> <span class="do">##change the colors!</span></span>
 <span id="cb35-7"><a href="descriptives.html#cb35-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">plot.title =</span> <span class="fu">element_text</span>(<span class="at">hjust =</span> .<span class="dv">5</span>)) <span class="do">## center title</span></span></code></pre></div>
-<p><img src="_main_files/figure-html/unnamed-chunk-15-1.png" width="672" /></p>
+<p><img src="main_files/figure-html/unnamed-chunk-15-1.png" width="672" /></p>
 <p>Here is another example of plotting multiple variables. In the graph below, I’ve created a scatterplot between two continuous variables, Agreeableness and Extraversion, and used the color argument to color the individual data points by which continent that participant is from:</p>
 <div class="sourceCode" id="cb36"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb36-1"><a href="descriptives.html#cb36-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data=</span>big5, <span class="fu">aes</span>(<span class="at">x=</span>AgreeablenessSum, <span class="at">y=</span>ExtraversionSum, <span class="at">color=</span>continent))<span class="sc">+</span></span>
 <span id="cb36-2"><a href="descriptives.html#cb36-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">alpha=</span>.<span class="dv">1</span>)<span class="sc">+</span> <span class="do">##geom that specifies I want a scatterplot</span></span>
@@ -417,7 +417,7 @@ break up a set of actions on a dataset across multiple lines. When you see a pip
 <span id="cb36-6"><a href="descriptives.html#cb36-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggtitle</span>(<span class="st">&quot;The Relationship of Agreeableness and Extraversion&quot;</span>)<span class="sc">+</span> <span class="do">##title</span></span>
 <span id="cb36-7"><a href="descriptives.html#cb36-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x=</span> <span class="st">&quot;Agreeableness&quot;</span>, <span class="at">y=</span><span class="st">&quot;Extraversion&quot;</span>)<span class="sc">+</span> <span class="do">##axis labels</span></span>
 <span id="cb36-8"><a href="descriptives.html#cb36-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">plot.title =</span> <span class="fu">element_text</span>(<span class="at">hjust =</span> .<span class="dv">5</span>)) <span class="do">## center title</span></span></code></pre></div>
-<p><img src="_main_files/figure-html/unnamed-chunk-16-1.png" width="672" /></p>
+<p><img src="main_files/figure-html/unnamed-chunk-16-1.png" width="672" /></p>
 <p>Remember, these are just illustrations of the things you can do in ggplot2. Just because you can use lots of colors doesn’t necessarily mean you should :-). In this graph, color-coding by continent might make the graph more difficult to interpret.</p>
 
 </div>
