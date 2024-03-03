@@ -256,14 +256,14 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>As with t-tests, some solutions may be to try data transformations on the variables– often, making the raw distributions more normal leads to a more normal residual distribution. We can also rely on properties of the CLT and say we have sufficient sample size to move forward. T-test and ANOVA are robust to normality violations, which means that they still return mostly accurate results even if our data aren’t quite normal.</p>
 <div class="sourceCode" id="cb64"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb64-1"><a href="anova.html#cb64-1" aria-hidden="true" tabindex="-1"></a><span class="do">##QQplot of residuals</span></span>
 <span id="cb64-2"><a href="anova.html#cb64-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="fu">lm</span>(ExtraversionSum <span class="sc">~</span> continent, <span class="at">data=</span>big5), <span class="at">which =</span> <span class="dv">2</span>)</span></code></pre></div>
-<p><img src="_main_files/figure-html/unnamed-chunk-29-1.png" width="672" /></p>
+<p><img src="main_files/figure-html/unnamed-chunk-29-1.png" width="672" /></p>
 </div>
 <div id="linearity-of-residuals" class="section level3 hasAnchor" number="5.1.2">
 <h3><span class="header-section-number">5.1.2</span> Linearity of residuals<a href="anova.html#linearity-of-residuals" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>Another assumption of these tests is that the relationships among variables are linear. The plot below is a residuals vs fitted plot. It plots the predictions (fitted values) your model made for each individual against the residuals (the differences between an individual’s actual value on Openness and what the ANOVA predicted that value to be). For linearity, we want to make sure the red line in this plot is straight and centered at 0.</p>
 <div class="sourceCode" id="cb65"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb65-1"><a href="anova.html#cb65-1" aria-hidden="true" tabindex="-1"></a><span class="do">##Residuals vs fitted plot</span></span>
 <span id="cb65-2"><a href="anova.html#cb65-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="fu">lm</span>(OpennessSum <span class="sc">~</span> continent, <span class="at">data=</span>big5), <span class="at">which =</span> <span class="dv">1</span>)</span></code></pre></div>
-<p><img src="_main_files/figure-html/unnamed-chunk-30-1.png" width="672" /></p>
+<p><img src="main_files/figure-html/unnamed-chunk-30-1.png" width="672" /></p>
 </div>
 <div id="homogeneity-of-variance-of-residuals" class="section level3 hasAnchor" number="5.1.3">
 <h3><span class="header-section-number">5.1.3</span> Homogeneity of variance (of residuals)<a href="anova.html#homogeneity-of-variance-of-residuals" class="anchor-section" aria-label="Anchor link to header"></a></h3>
@@ -279,7 +279,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </div>
 <div class="sourceCode" id="cb67"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb67-1"><a href="anova.html#cb67-1" aria-hidden="true" tabindex="-1"></a><span class="do">##Residuals vs fitted plot</span></span>
 <span id="cb67-2"><a href="anova.html#cb67-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="fu">lm</span>(OpennessSum <span class="sc">~</span> continent, <span class="at">data=</span>big5), <span class="at">which =</span> <span class="dv">1</span>)</span></code></pre></div>
-<p><img src="_main_files/figure-html/unnamed-chunk-31-1.png" width="672" /></p>
+<p><img src="main_files/figure-html/unnamed-chunk-31-1.png" width="672" /></p>
 </div>
 </div>
 <div id="run-an-one-way-anova" class="section level2 hasAnchor" number="5.2">
@@ -437,7 +437,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb91-15"><a href="anova.html#cb91-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggtitle</span>(<span class="st">&quot;Neuroticism Across Continent and Gender&quot;</span>)<span class="sc">+</span> <span class="do">##title</span></span>
 <span id="cb91-16"><a href="anova.html#cb91-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x=</span> <span class="st">&quot;Continent&quot;</span>, <span class="at">y=</span><span class="st">&quot;Average Neuroticism&quot;</span>)<span class="sc">+</span></span>
 <span id="cb91-17"><a href="anova.html#cb91-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_classic</span>()</span></code></pre></div>
-<p><img src="_main_files/figure-html/unnamed-chunk-38-1.png" width="672" /></p>
+<p><img src="main_files/figure-html/unnamed-chunk-38-1.png" width="672" /></p>
 <p>Here is average neuroticism of both groups plotted together on a single line graph. From here, it becomes clear that the interpretations of the main effects of our analysis become inaccurate when there is an interaction term. When we interpret a main effect, we do not take into account any other groups in the analysis. Let’s look at the means across the male and female levels of our gender variable:</p>
 <div class="sourceCode" id="cb92"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb92-1"><a href="anova.html#cb92-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(big5<span class="sc">$</span>NeuroSum[big5<span class="sc">$</span>gender <span class="sc">==</span> <span class="dv">1</span>], <span class="at">na.rm =</span> <span class="cn">TRUE</span>)</span></code></pre></div>
 <pre><code>## [1] 30.28788</code></pre>
