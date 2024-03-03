@@ -1,0 +1,898 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>7 Simple and Multiple Linear Regression | Statistics ‘Office Hours’: Introduction to Common Statistical Methods in R</title>
+  <meta name="description" content="<p>This is a minimal example of using the bookdown package to write a book.
+The HTML output format for this example is bookdown::gitbook,
+set in the _output.yml file.</p>" />
+  <meta name="generator" content="bookdown 0.37 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="7 Simple and Multiple Linear Regression | Statistics ‘Office Hours’: Introduction to Common Statistical Methods in R" />
+  <meta property="og:type" content="book" />
+  
+  <meta property="og:description" content="<p>This is a minimal example of using the bookdown package to write a book.
+The HTML output format for this example is bookdown::gitbook,
+set in the _output.yml file.</p>" />
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="7 Simple and Multiple Linear Regression | Statistics ‘Office Hours’: Introduction to Common Statistical Methods in R" />
+  
+  <meta name="twitter:description" content="<p>This is a minimal example of using the bookdown package to write a book.
+The HTML output format for this example is bookdown::gitbook,
+set in the _output.yml file.</p>" />
+  
+
+<meta name="author" content="Simran K. Johal and Danielle Siegel" />
+
+
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="correlation.html"/>
+<link rel="next" href="multilevel.html"/>
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<link href="libs/pagedtable-1.1/css/pagedtable.css" rel="stylesheet" />
+<script src="libs/pagedtable-1.1/js/pagedtable.js"></script>
+<link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
+<link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
+
+
+<style type="text/css">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { color: #008000; } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { color: #008000; font-weight: bold; } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<style type="text/css">
+  
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+</style>
+
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Introduction</a></li>
+<li class="chapter" data-level="2" data-path="dataintro.html"><a href="dataintro.html"><i class="fa fa-check"></i><b>2</b> Introduction to the Data</a></li>
+<li class="chapter" data-level="3" data-path="descriptives.html"><a href="descriptives.html"><i class="fa fa-check"></i><b>3</b> Descriptive Statistics</a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="descriptives.html"><a href="descriptives.html#descriptive-statistics"><i class="fa fa-check"></i><b>3.1</b> Descriptive Statistics</a>
+<ul>
+<li class="chapter" data-level="3.1.1" data-path="descriptives.html"><a href="descriptives.html#descriptives-for-continuous-data"><i class="fa fa-check"></i><b>3.1.1</b> Descriptives for Continuous Data</a></li>
+<li class="chapter" data-level="3.1.2" data-path="descriptives.html"><a href="descriptives.html#descriptive-plots-for-continuous-variables"><i class="fa fa-check"></i><b>3.1.2</b> Descriptive Plots for Continuous Variables</a></li>
+<li class="chapter" data-level="3.1.3" data-path="descriptives.html"><a href="descriptives.html#categorical-variables"><i class="fa fa-check"></i><b>3.1.3</b> Categorical Variables</a></li>
+<li class="chapter" data-level="3.1.4" data-path="descriptives.html"><a href="descriptives.html#plots-of-categorical-data"><i class="fa fa-check"></i><b>3.1.4</b> Plots of Categorical Data</a></li>
+<li class="chapter" data-level="3.1.5" data-path="descriptives.html"><a href="descriptives.html#descriptive-plots-of-multiple-variables"><i class="fa fa-check"></i><b>3.1.5</b> Descriptive Plots of Multiple Variables</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="ttests.html"><a href="ttests.html"><i class="fa fa-check"></i><b>4</b> Two-Sample T-Tests</a>
+<ul>
+<li class="chapter" data-level="4.1" data-path="ttests.html"><a href="ttests.html#t-test-assumptions"><i class="fa fa-check"></i><b>4.1</b> T-test Assumptions</a>
+<ul>
+<li class="chapter" data-level="4.1.1" data-path="ttests.html"><a href="ttests.html#normality"><i class="fa fa-check"></i><b>4.1.1</b> Normality</a></li>
+<li class="chapter" data-level="4.1.2" data-path="ttests.html"><a href="ttests.html#homogeneity-of-variance-hov"><i class="fa fa-check"></i><b>4.1.2</b> Homogeneity of Variance (HOV)</a></li>
+<li class="chapter" data-level="4.1.3" data-path="ttests.html"><a href="ttests.html#independence-of-groups"><i class="fa fa-check"></i><b>4.1.3</b> Independence of Groups</a></li>
+</ul></li>
+<li class="chapter" data-level="4.2" data-path="ttests.html"><a href="ttests.html#conducting-and-interpreting-the-t-test"><i class="fa fa-check"></i><b>4.2</b> Conducting and Interpreting the t-test</a></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="anova.html"><a href="anova.html"><i class="fa fa-check"></i><b>5</b> Analysis of Variance (ANOVA)</a>
+<ul>
+<li class="chapter" data-level="5.1" data-path="anova.html"><a href="anova.html#assumptions-of-anova"><i class="fa fa-check"></i><b>5.1</b> Assumptions of ANOVA</a>
+<ul>
+<li class="chapter" data-level="5.1.1" data-path="anova.html"><a href="anova.html#normality-of-residuals"><i class="fa fa-check"></i><b>5.1.1</b> Normality of residuals</a></li>
+<li class="chapter" data-level="5.1.2" data-path="anova.html"><a href="anova.html#linearity-of-residuals"><i class="fa fa-check"></i><b>5.1.2</b> Linearity of residuals</a></li>
+<li class="chapter" data-level="5.1.3" data-path="anova.html"><a href="anova.html#homogeneity-of-variance-of-residuals"><i class="fa fa-check"></i><b>5.1.3</b> Homogeneity of variance (of residuals)</a></li>
+</ul></li>
+<li class="chapter" data-level="5.2" data-path="anova.html"><a href="anova.html#run-an-one-way-anova"><i class="fa fa-check"></i><b>5.2</b> Run an one-way ANOVA</a></li>
+<li class="chapter" data-level="5.3" data-path="anova.html"><a href="anova.html#run-a-post-hoc-analysis"><i class="fa fa-check"></i><b>5.3</b> Run a Post-hoc Analysis</a></li>
+<li class="chapter" data-level="5.4" data-path="anova.html"><a href="anova.html#run-a-factorial-anova"><i class="fa fa-check"></i><b>5.4</b> Run a factorial ANOVA</a>
+<ul>
+<li class="chapter" data-level="5.4.1" data-path="anova.html"><a href="anova.html#simple-main-effects-analysis"><i class="fa fa-check"></i><b>5.4.1</b> Simple Main Effects Analysis</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="correlation.html"><a href="correlation.html"><i class="fa fa-check"></i><b>6</b> Correlation and Tests of Correlations</a>
+<ul>
+<li class="chapter" data-level="6.1" data-path="correlation.html"><a href="correlation.html#estimating-correlations"><i class="fa fa-check"></i><b>6.1</b> Estimating Correlations</a>
+<ul>
+<li class="chapter" data-level="6.1.1" data-path="correlation.html"><a href="correlation.html#option-1-base-r"><i class="fa fa-check"></i><b>6.1.1</b> Option 1: Base R</a></li>
+<li class="chapter" data-level="6.1.2" data-path="correlation.html"><a href="correlation.html#option-2-ggplot"><i class="fa fa-check"></i><b>6.1.2</b> Option 2: ggplot</a></li>
+</ul></li>
+<li class="chapter" data-level="6.2" data-path="correlation.html"><a href="correlation.html#tests-for-correlations"><i class="fa fa-check"></i><b>6.2</b> Tests for Correlations</a></li>
+<li class="chapter" data-level="6.3" data-path="correlation.html"><a href="correlation.html#visualizing-correlations"><i class="fa fa-check"></i><b>6.3</b> Visualizing Correlations</a></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="regression.html"><a href="regression.html"><i class="fa fa-check"></i><b>7</b> Simple and Multiple Linear Regression</a>
+<ul>
+<li class="chapter" data-level="7.1" data-path="regression.html"><a href="regression.html#simple-regression"><i class="fa fa-check"></i><b>7.1</b> Simple Regression</a>
+<ul>
+<li class="chapter" data-level="7.1.1" data-path="regression.html"><a href="regression.html#simple-regression-with-a-continuous-predictor"><i class="fa fa-check"></i><b>7.1.1</b> Simple Regression with a Continuous Predictor</a></li>
+<li class="chapter" data-level="7.1.2" data-path="regression.html"><a href="regression.html#simple-regression-with-a-centered-continuous-predictor"><i class="fa fa-check"></i><b>7.1.2</b> Simple Regression with a Centered Continuous Predictor</a></li>
+<li class="chapter" data-level="7.1.3" data-path="regression.html"><a href="regression.html#simple-regression-with-a-binary-predictor"><i class="fa fa-check"></i><b>7.1.3</b> Simple Regression with a Binary Predictor</a></li>
+<li class="chapter" data-level="7.1.4" data-path="regression.html"><a href="regression.html#simple-regression-with-a-categorical-predictor-2-categories"><i class="fa fa-check"></i><b>7.1.4</b> Simple Regression with a Categorical Predictor (&gt; 2 categories)</a></li>
+</ul></li>
+<li class="chapter" data-level="7.2" data-path="regression.html"><a href="regression.html#multiple-regression"><i class="fa fa-check"></i><b>7.2</b> Multiple Regression</a>
+<ul>
+<li class="chapter" data-level="7.2.1" data-path="regression.html"><a href="regression.html#higher-order-polynomials"><i class="fa fa-check"></i><b>7.2.1</b> Higher-Order Polynomials</a></li>
+<li class="chapter" data-level="7.2.2" data-path="regression.html"><a href="regression.html#interactions"><i class="fa fa-check"></i><b>7.2.2</b> Interactions</a></li>
+</ul></li>
+<li class="chapter" data-level="7.3" data-path="regression.html"><a href="regression.html#visualizing-regression-lines"><i class="fa fa-check"></i><b>7.3</b> Visualizing Regression Lines</a>
+<ul>
+<li class="chapter" data-level="7.3.1" data-path="regression.html"><a href="regression.html#visualizing-multiple-regression-one-continuous-predictor-one-categorical"><i class="fa fa-check"></i><b>7.3.1</b> Visualizing Multiple Regression: One Continuous Predictor, One Categorical</a></li>
+<li class="chapter" data-level="7.3.2" data-path="regression.html"><a href="regression.html#visualizing-multiple-regression-two-continuous-predictors"><i class="fa fa-check"></i><b>7.3.2</b> Visualizing Multiple Regression: Two Continuous Predictors</a></li>
+<li class="chapter" data-level="7.3.3" data-path="regression.html"><a href="regression.html#visualizing-multiple-regression-polynomials"><i class="fa fa-check"></i><b>7.3.3</b> Visualizing Multiple Regression: Polynomials</a></li>
+</ul></li>
+<li class="chapter" data-level="7.4" data-path="regression.html"><a href="regression.html#checking-assumptions-of-the-regression-model"><i class="fa fa-check"></i><b>7.4</b> Checking Assumptions of the Regression Model</a></li>
+</ul></li>
+<li class="chapter" data-level="8" data-path="multilevel.html"><a href="multilevel.html"><i class="fa fa-check"></i><b>8</b> Multilevel Modeling</a>
+<ul>
+<li class="chapter" data-level="8.1" data-path="multilevel.html"><a href="multilevel.html#clarifying-some-terminology"><i class="fa fa-check"></i><b>8.1</b> Clarifying Some Terminology</a></li>
+<li class="chapter" data-level="8.2" data-path="multilevel.html"><a href="multilevel.html#the-intra-class-correlation-coefficient"><i class="fa fa-check"></i><b>8.2</b> The Intra-Class Correlation Coefficient</a></li>
+<li class="chapter" data-level="8.3" data-path="multilevel.html"><a href="multilevel.html#running-a-multilevel-model"><i class="fa fa-check"></i><b>8.3</b> Running a Multilevel Model</a>
+<ul>
+<li class="chapter" data-level="8.3.1" data-path="multilevel.html"><a href="multilevel.html#simple-multilevel-model"><i class="fa fa-check"></i><b>8.3.1</b> Simple Multilevel Model</a></li>
+</ul></li>
+<li class="chapter" data-level="8.4" data-path="multilevel.html"><a href="multilevel.html#visualizing-a-multilevel-model"><i class="fa fa-check"></i><b>8.4</b> Visualizing a Multilevel Model</a></li>
+</ul></li>
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Statistics ‘Office Hours’: Introduction to Common Statistical Methods in R</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="regression" class="section level1 hasAnchor" number="7">
+<h1><span class="header-section-number">7</span> Simple and Multiple Linear Regression<a href="regression.html#regression" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<div class="sourceCode" id="cb126"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb126-1"><a href="regression.html#cb126-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2) <span class="co"># for general data visualization</span></span>
+<span id="cb126-2"><a href="regression.html#cb126-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(skedastic) <span class="co"># for testing model assumptions</span></span></code></pre></div>
+<p>Although correlations can help us evaluate the association between a pair of variables, this association is not directional: either X can lead to Y or Y can lead to X. But most of the time we are interested in <strong>directional</strong> relations between variables, either because we think it can help us uncover possible causal associations, or because the relation only makes sense in a particular direction (e.g., age is likely to affect how extraverted someone is, but how extraverted someone is will not affect their age).</p>
+<p>To answer questions where we have one (or more) variables predicting a continuous outcome, we can use regression. Some of the terminology I will be using below is:</p>
+<ul>
+<li><p>Independent variable / predictor variable / explanatory variable: The variable that you think affects or explains your outcome variable</p></li>
+<li><p>Dependent variable / outcome variable: The variable that you want to try and predict or explain</p></li>
+</ul>
+<div id="simple-regression" class="section level2 hasAnchor" number="7.1">
+<h2><span class="header-section-number">7.1</span> Simple Regression<a href="regression.html#simple-regression" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Simple regression is used when we have <strong>one</strong> independent variable predicting the outcome variable. We will start off with a continuous independent variable; a bit further down the page, we will talk about what to do when you have categorical variables (with 2 or more categories).</p>
+<div id="simple-regression-with-a-continuous-predictor" class="section level3 hasAnchor" number="7.1.1">
+<h3><span class="header-section-number">7.1.1</span> Simple Regression with a Continuous Predictor<a href="regression.html#simple-regression-with-a-continuous-predictor" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>One of the most straightforward cases of simple regression is when both your independent and dependent variables are continuous. For an example, let us say we wanted to predict Neuroticism using a person’s age.</p>
+<p>All linear regression models use the same code:</p>
+<p><code>lm(Dep.Variable ~ Indep.Variable, data = dataset.name)</code></p>
+<p>As you have more than one independent variable (multiple regression) you just separate them using the + sign.</p>
+<p>So, if we wanted to predict Neuroticism (our dependent variable) using age (our independent variable), we could just write:</p>
+<div class="sourceCode" id="cb127"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb127-1"><a href="regression.html#cb127-1" aria-hidden="true" tabindex="-1"></a><span class="fu">lm</span>(NeuroSum <span class="sc">~</span> age, <span class="at">data =</span> big5)</span></code></pre></div>
+<pre><code>## 
+## Call:
+## lm(formula = NeuroSum ~ age, data = big5)
+## 
+## Coefficients:
+## (Intercept)          age  
+##     34.5249      -0.1254</code></pre>
+<p>However, this gives us no information except for the estimates of our model intercept and our slope. Therefore, it is usually better to save your model as an object. Then you can use functions like <code>summary</code> to access not only the estimates of those coefficients, but also the associated test statistics and p-values.</p>
+<div class="sourceCode" id="cb129"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb129-1"><a href="regression.html#cb129-1" aria-hidden="true" tabindex="-1"></a>model1 <span class="ot">=</span> <span class="fu">lm</span>(NeuroSum <span class="sc">~</span> age, <span class="at">data =</span> big5)</span>
+<span id="cb129-2"><a href="regression.html#cb129-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(model1)</span></code></pre></div>
+<pre><code>## 
+## Call:
+## lm(formula = NeuroSum ~ age, data = big5)
+## 
+## Residuals:
+##      Min       1Q   Median       3Q      Max 
+## -20.1376  -5.1411  -0.0165   4.8568  16.6089 
+## 
+## Coefficients:
+##             Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept) 34.52491    0.75791  45.553  &lt; 2e-16 ***
+## age         -0.12535    0.02594  -4.832 1.81e-06 ***
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Residual standard error: 6.834 on 498 degrees of freedom
+## Multiple R-squared:  0.04478,    Adjusted R-squared:  0.04286 
+## F-statistic: 23.34 on 1 and 498 DF,  p-value: 1.806e-06</code></pre>
+<p>Now we have a lot more information! What does this tell us?</p>
+<ul>
+<li><p><strong>Intercept</strong>: The intercept (34.52) is the expected value of our outcome (Neuroticism) when our independent variable (age) is 0.</p></li>
+<li><p><strong>Slope for age</strong>: The slope representing the effect of age on Neuroticism is -0.12. This means for that every 1-year increase in a person’s age, their Neuroticism score is expected to decrease by 0.12 points. This value is significantly different from 0, indicating that age does have a relation with Neuroticism.</p></li>
+</ul>
+<p>Another value of interest from this model output is the <span class="math inline">\(R^2\)</span> value at the bottom of the summary. You’ll notice that there are two values - Multiple R-Squared and Adjusted R-Squared. Although the two are pretty similar in this example, Adjusted R-Squared accounts for the fact that as you add more and more predictors to your model, <span class="math inline">\(R^2\)</span> will always increase, and so can be preferred.</p>
+<p><span class="math inline">\(R^2\)</span> tells you what proportion of variance in your outcome variable is explained by the predictors in your model. So in this case, about <span class="math inline">\(4.3\%\)</span> of the variance in Neuroticism is explained by people’s age.</p>
+<p>If we wanted to visualize this relation, we could use <code>ggplot</code>.</p>
+<div class="sourceCode" id="cb131"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb131-1"><a href="regression.html#cb131-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> big5, <span class="fu">aes</span>(<span class="at">x =</span> age, <span class="at">y =</span> NeuroSum))<span class="sc">+</span></span>
+<span id="cb131-2"><a href="regression.html#cb131-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>()<span class="sc">+</span> <span class="co"># plot the data points</span></span>
+<span id="cb131-3"><a href="regression.html#cb131-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="at">method =</span> <span class="st">&quot;lm&quot;</span>, <span class="at">se =</span> <span class="cn">TRUE</span>)<span class="sc">+</span> <span class="co"># adds in the estimated regression line (along with the standard error of prediction to show how uncertain we are)</span></span>
+<span id="cb131-4"><a href="regression.html#cb131-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_classic</span>()<span class="sc">+</span> <span class="co"># removes some of the background</span></span>
+<span id="cb131-5"><a href="regression.html#cb131-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">&quot;Age&quot;</span>, <span class="at">y =</span> <span class="st">&quot;Neuroticism&quot;</span>, <span class="at">title =</span> <span class="st">&quot;Plot of Age versus Neuroticism&quot;</span>) <span class="co"># add plot labels so people seeing this plot on its own know what it&#39;s about!</span></span></code></pre></div>
+<pre><code>## `geom_smooth()` using formula = &#39;y ~ x&#39;</code></pre>
+<p><img src="_main_files/figure-html/unnamed-chunk-57-1.png" width="672" /></p>
+</div>
+<div id="simple-regression-with-a-centered-continuous-predictor" class="section level3 hasAnchor" number="7.1.2">
+<h3><span class="header-section-number">7.1.2</span> Simple Regression with a Centered Continuous Predictor<a href="regression.html#simple-regression-with-a-centered-continuous-predictor" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>One thing you may have noticed is that the intercept in our previous model was pretty meaningless. A Neuroticism score for someone who is 0 years old?!</p>
+<p>Therefore, you’ll often find people <strong>centering</strong> their predictor variables at more meaningful values, such as the mean of that variable. This keeps the relation between your predictor and outcome unchanged, but puts the intercept somewhere more meaningful to interpret.</p>
+<p>To center your predictor, all you have to do is subtract the mean of your independent variable from every value of the independent variable. You can save this as a new column in your dataset, and then use that as a predictor in your regression model like we did above.</p>
+<div class="sourceCode" id="cb133"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb133-1"><a href="regression.html#cb133-1" aria-hidden="true" tabindex="-1"></a><span class="co"># create centered predictor variable as a new column</span></span>
+<span id="cb133-2"><a href="regression.html#cb133-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb133-3"><a href="regression.html#cb133-3" aria-hidden="true" tabindex="-1"></a>big5<span class="sc">$</span>age_centered <span class="ot">=</span> big5<span class="sc">$</span>age <span class="sc">-</span> <span class="fu">mean</span>(big5<span class="sc">$</span>age, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb133-4"><a href="regression.html#cb133-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb133-5"><a href="regression.html#cb133-5" aria-hidden="true" tabindex="-1"></a><span class="co"># run the regression model</span></span>
+<span id="cb133-6"><a href="regression.html#cb133-6" aria-hidden="true" tabindex="-1"></a>centered_model <span class="ot">=</span> <span class="fu">lm</span>(NeuroSum <span class="sc">~</span> age_centered, <span class="at">data =</span> big5)</span>
+<span id="cb133-7"><a href="regression.html#cb133-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb133-8"><a href="regression.html#cb133-8" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(centered_model)</span></code></pre></div>
+<pre><code>## 
+## Call:
+## lm(formula = NeuroSum ~ age_centered, data = big5)
+## 
+## Residuals:
+##      Min       1Q   Median       3Q      Max 
+## -20.1376  -5.1411  -0.0165   4.8568  16.6089 
+## 
+## Coefficients:
+##              Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept)  31.17400    0.30565 101.994  &lt; 2e-16 ***
+## age_centered -0.12535    0.02594  -4.832 1.81e-06 ***
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Residual standard error: 6.834 on 498 degrees of freedom
+## Multiple R-squared:  0.04478,    Adjusted R-squared:  0.04286 
+## F-statistic: 23.34 on 1 and 498 DF,  p-value: 1.806e-06</code></pre>
+<p>The interpretation of these parameters is very similar to before - but which parameters changed their value?</p>
+<ul>
+<li><p><strong>Intercept</strong>: The intercept (31.17) is the expected value of our outcome (Neuroticism) when our independent variable (age_centered) is 0. In this case however, age_centered (<span class="math inline">\(Age - \bar{Age}\)</span>) is only 0 when <span class="math inline">\(Age = \bar{Age}\)</span>, so our intercept represents the expected value of Neuroticism for someone who is the average age in our dataset (which is 26.73). This value has changed from our initial model, because we have changed at which value of age we interpret our intercept.</p></li>
+<li><p><strong>Slope for age</strong>: The slope representing the effect of age_centered on Neuroticism is -0.12. This means for that every 1-year increase in a person’s age, their Neuroticism score is expected to decrease by 0.12 points. This value did not change from our initial analysis, because centering our predictor variable is a linear transformation, and does not change the relation between our predictor and outcome variable.</p></li>
+</ul>
+</div>
+<div id="simple-regression-with-a-binary-predictor" class="section level3 hasAnchor" number="7.1.3">
+<h3><span class="header-section-number">7.1.3</span> Simple Regression with a Binary Predictor<a href="regression.html#simple-regression-with-a-binary-predictor" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Although regression is typically conducted with a continuous predictor, it can also handle binary or categorical predictor variables. We will first walk through the interpretation of the regression model when the predictor is binary (only 2 categories), and then go on to when the predictor is categorical (&gt;2 categories). In the case of a simple regression model with a binary predictor variable, this is the same as conducting a t-test to examine whether there are group differences in the mean of our continuous variable!</p>
+<p>To run a linear regression with a binary variable, first make sure your binary variable is saved as a factor in R. Suppose we wanted to examine whether there were differences in average levels of Openness for people who were left versus right-handed (remember this from our #ttests section?).</p>
+<div class="sourceCode" id="cb135"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb135-1"><a href="regression.html#cb135-1" aria-hidden="true" tabindex="-1"></a><span class="fu">class</span>(big5<span class="sc">$</span>hand) <span class="co"># currently, the class of our handedness variable is an integer; in fact it has the values 0 (didn&#39;t answer the question), 1 (right-handed), 2 (left-handed), 3 (both)</span></span></code></pre></div>
+<pre><code>## [1] &quot;integer&quot;</code></pre>
+<div class="sourceCode" id="cb137"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb137-1"><a href="regression.html#cb137-1" aria-hidden="true" tabindex="-1"></a><span class="co"># since I just want to compare left- and right-handed participants, I will just create a subset of the data with only those participants for this example</span></span>
+<span id="cb137-2"><a href="regression.html#cb137-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb137-3"><a href="regression.html#cb137-3" aria-hidden="true" tabindex="-1"></a>big5_subset <span class="ot">=</span> big5[big5<span class="sc">$</span>hand <span class="sc">==</span> <span class="dv">1</span> <span class="sc">|</span> big5<span class="sc">$</span>hand <span class="sc">==</span> <span class="dv">2</span>, ]</span>
+<span id="cb137-4"><a href="regression.html#cb137-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb137-5"><a href="regression.html#cb137-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Now, I will make hand in this subsetted data frame a factor variable</span></span>
+<span id="cb137-6"><a href="regression.html#cb137-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb137-7"><a href="regression.html#cb137-7" aria-hidden="true" tabindex="-1"></a>big5_subset<span class="sc">$</span>hand <span class="ot">=</span> <span class="fu">factor</span>(big5_subset<span class="sc">$</span>hand)</span>
+<span id="cb137-8"><a href="regression.html#cb137-8" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(big5_subset<span class="sc">$</span>hand) <span class="co"># you will notice that the levels of hand are still 1 and 2 - if we wanted to, we could rename these to be something more meaningful (e.g., right/left), but for now we&#39;ll keep it as is</span></span></code></pre></div>
+<pre><code>## [1] 1 1 1 1 1 1
+## Levels: 1 2</code></pre>
+<p>Once our binary variable is saved as a factor, we can run a regression model just as we have been doing.</p>
+<div class="sourceCode" id="cb139"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb139-1"><a href="regression.html#cb139-1" aria-hidden="true" tabindex="-1"></a>model2 <span class="ot">=</span> <span class="fu">lm</span>(OpennessSum <span class="sc">~</span> hand, <span class="at">data =</span> big5_subset)</span>
+<span id="cb139-2"><a href="regression.html#cb139-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb139-3"><a href="regression.html#cb139-3" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(model2)</span></code></pre></div>
+<pre><code>## 
+## Call:
+## lm(formula = OpennessSum ~ hand, data = big5_subset)
+## 
+## Residuals:
+##      Min       1Q   Median       3Q      Max 
+## -14.0607  -2.0607  -0.0607   2.9393  12.9393 
+## 
+## Coefficients:
+##             Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept) 33.06067    0.18848 175.404   &lt;2e-16 ***
+## hand2        0.05697    0.70746   0.081    0.936    
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Residual standard error: 3.976 on 477 degrees of freedom
+##   (4 observations deleted due to missingness)
+## Multiple R-squared:  1.36e-05,   Adjusted R-squared:  -0.002083 
+## F-statistic: 0.006485 on 1 and 477 DF,  p-value: 0.9358</code></pre>
+<p>Ok, so how can we interpret each of these regression parameters?</p>
+<ul>
+<li><strong>(Intercept)</strong>: The intercept of 33.06 is the expected Openness score when our predictor variable (hand) is 0. But how can this be - our predictor variable only has 2 options - 1 or 2!</li>
+</ul>
+<p>When you use a categorical variable as a predictor in a regression model, R is doing some stuff behind-the-scenes to make the intercept interpretable. It is assigning a value of 0 to the first category in our predictor variable - unless you’ve specified otherwise, the first category is whichever value comes first alphanumerically. This is called the <strong>reference group</strong>.</p>
+<p>So in this case, since the two options of our binary variable are 1 and 2, and 1 comes first numerically, everyone who was in that group (everyone who is right-handed) gets assigned a 0 for their group value behind-the-scenes.</p>
+<p>The intercept of 33.06 is actually the expected value of Openness when a person is right-handed. This expected value is just the average of the group, so 33.06 is the average Openness score for right-handed people in our sample.</p>
+<p><em>When your predictor is binary, the intercept represents the average value of the “reference group”, or the group whose value on the binary variable comes first alphanumerically.</em></p>
+<ul>
+<li><strong>hand2</strong>: What does hand2 mean? Well, hand is the name of our predictor variable, and the 2 is indicating which group this slope is representing (this will become more important when we have more than 2 groups). When you have categorical variables, the slope represents the difference between the mean of the reference group and the mean of the group for that slope - so left-handed people have an average Openness score that is 0.06 points higher than right-handed people (which means their Openness score is <span class="math inline">\(33.06 + 0.06 = 33.12\)</span>).</li>
+</ul>
+<p>This slope is not significant - this means that the difference in means is not significantly different from 0, or right-handed and left-handed people have Openness scores that are not significantly different from each other. This matches the results of the t-test we conducted earlier - in fact, the t-value (0.08) is roughly same as the test statistic we calculated earlier (with maybe a difference in sign, due to a difference in the order the test statistic is calculated). This is why a simple linear regression with binary variable is the same as a two-sample t-test: because a test of the slope is the same as testing the difference in the two means!</p>
+</div>
+<div id="simple-regression-with-a-categorical-predictor-2-categories" class="section level3 hasAnchor" number="7.1.4">
+<h3><span class="header-section-number">7.1.4</span> Simple Regression with a Categorical Predictor (&gt; 2 categories)<a href="regression.html#simple-regression-with-a-categorical-predictor-2-categories" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>We can apply the same strategy when we have a categorical variable with more than 2 categories. As with two categories, we will have a reference group (typically the first group alphanumerically unless we specify otherwise), and then slopes for each group which represent the difference in means between the reference group and that group. A regression with a categorical variable with more than two groups is similar to an ANOVA, although it gives slightly different information.</p>
+<p>Let us re-do the ANOVA we did before, examining the relation between Openness and which continent a person is from, but this time in the regression framework.</p>
+<div class="sourceCode" id="cb141"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb141-1"><a href="regression.html#cb141-1" aria-hidden="true" tabindex="-1"></a>model3 <span class="ot">=</span> <span class="fu">lm</span>(OpennessSum <span class="sc">~</span> continent, <span class="at">data =</span> big5)</span>
+<span id="cb141-2"><a href="regression.html#cb141-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb141-3"><a href="regression.html#cb141-3" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(model3)</span></code></pre></div>
+<pre><code>## 
+## Call:
+## lm(formula = OpennessSum ~ continent, data = big5)
+## 
+## Residuals:
+##    Min     1Q Median     3Q    Max 
+## -14.40  -2.38   0.49   2.60  12.62 
+## 
+## Coefficients:
+##                   Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept)        33.4000     0.3919  85.223  &lt; 2e-16 ***
+## continentAmericas  -0.1600     0.5543  -0.289  0.77295    
+## continentAsia      -1.4900     0.5543  -2.688  0.00742 ** 
+## continentEurope    -0.0200     0.5543  -0.036  0.97123    
+## continentOceania    0.1100     0.5543   0.198  0.84276    
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Residual standard error: 3.919 on 495 degrees of freedom
+## Multiple R-squared:  0.02277,    Adjusted R-squared:  0.01487 
+## F-statistic: 2.883 on 4 and 495 DF,  p-value: 0.02219</code></pre>
+<p>As before, R has re-coded our variables to set one group as the reference group (in this case, Africa), and then has created indicator variables for all other continents.</p>
+<ul>
+<li><p><strong>(Intercept)</strong>: The intercept represents the expected value (or mean) of our outcome variable for our reference group. Thus, 33.40 is the average value of Openness for participants from Africa.</p></li>
+<li><p><strong>Slopes</strong>: Each slope represents the difference in average Openness between the reference group and the group represented by the slope. The significance test will tell us whether these differences are significant or not (i.e., allows us to conduct pairiwse comparisons).</p>
+<ul>
+<li>continentAmericas: The average level of Openness for participants from the Americas is 0.16 points <em>lower</em> than the average level of
+Openness for participants from Africa.</li>
+<li>continentAsia: The average level of Openness for participants from Asia is 1.49 points lower than the average level of
+Openness for participants from Africa.</li>
+<li>continentEurope: The average level of Openness for participants from Europe is 0.02 points lower than the average level of
+Openness for participants from Africa.</li>
+<li>continentOceania: The average level of Openness for participants from Oceania is 0.11 points <em>higher</em> than the average level of
+Openness for participants from Africa.</li>
+</ul></li>
+</ul>
+<p>You will notice that the F-statistic for the model (2.88), df (4 and 495), and p-value (.02) is the same as the F-statistic, df, and p-value from the ANOVA we calculated earlier. So we can get the same conclusion as the ANOVA before (e.g., there is a difference in Openness across continents), but unlike the ANOVA, we don’t have to conduct a separate post-hoc test, as the pairwise comparison between the reference and other groups is already done.</p>
+<p>However, you’ll notice that the only comparisons we have are between the reference group and other groups. For example, we no information on whether the mean of Openness for participants from the Americas is different than the mean of Openness for European participants. Therefore, the choice between an ANOVA (and post-hoc tests) versus a regression might depend on which group comparisons you’d like to make in the end.</p>
+<p><em>Side note:</em> You might notice that some of the results of the pairwise comparisons are different from what we calculated before (e.g., the difference between Africa and Asia is now significant, even though it wasn’t before). This is because the Tukey test corrects for multiple comparisons, and uses a slightly different reference distribution than the regression model.</p>
+</div>
+</div>
+<div id="multiple-regression" class="section level2 hasAnchor" number="7.2">
+<h2><span class="header-section-number">7.2</span> Multiple Regression<a href="regression.html#multiple-regression" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>When we have two or more predictor variables, we move from simple linear regression to multiple linear regression. This allows us to examine the effects each predictor variable has on the outcome, controlling for the other predictor variable(s). In other words, what is the relation between our predictor and outcome, after taking into account people’s scores on the other predictor variables.</p>
+<p>To estimate a multiple regression model, we do the exact same thing we did before with simple regression models. But now, we separate our different predictor variables using <code>+</code>. So if we wanted to estimate the effects both age and Agreeableness have on Neuroticism, we could do this as follows:</p>
+<div class="sourceCode" id="cb143"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb143-1"><a href="regression.html#cb143-1" aria-hidden="true" tabindex="-1"></a>multiplereg_model <span class="ot">=</span> <span class="fu">lm</span>(OpennessSum <span class="sc">~</span> age <span class="sc">+</span> AgreeablenessSum,</span>
+<span id="cb143-2"><a href="regression.html#cb143-2" aria-hidden="true" tabindex="-1"></a>                       <span class="at">data =</span> big5)</span>
+<span id="cb143-3"><a href="regression.html#cb143-3" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(multiplereg_model)</span></code></pre></div>
+<pre><code>## 
+## Call:
+## lm(formula = OpennessSum ~ age + AgreeablenessSum, data = big5)
+## 
+## Residuals:
+##      Min       1Q   Median       3Q      Max 
+## -13.8640  -2.6121   0.0639   2.5997  13.3627 
+## 
+## Coefficients:
+##                   Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept)      29.085295   1.617036  17.987   &lt;2e-16 ***
+## age               0.009449   0.014931   0.633   0.5271    
+## AgreeablenessSum  0.116943   0.048255   2.423   0.0157 *  
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Residual standard error: 3.932 on 497 degrees of freedom
+## Multiple R-squared:  0.01233,    Adjusted R-squared:  0.008352 
+## F-statistic: 3.101 on 2 and 497 DF,  p-value: 0.04586</code></pre>
+<p>How to interpret these parameters?</p>
+<ul>
+<li><strong>(Intercept)</strong>: The intercept has the same interpretation as before - it is the expected value of our outcome variable when all predictors in our model are equal to 0. So in this case, the intercept of 29.09 is the expected Neuroticism score for someone who is 0 years old (<em>age = 0</em>) and has an Agreeableness score of 0.</li>
+</ul>
+<p>The slopes in a multiple regression model are generally interpreted the same way as in a simple regression model. The only difference is that now the slope represents the change in the outcome for a 1-unit change in our predictor, <em>holding all other predictors constant</em>. The reason we want to hold other predictors constant is so that we can isolate the effect of the single predictor variable, so the only thing that should be changing is the one predictor we’re interpreting.</p>
+<ul>
+<li><strong>age</strong>: The slope of 0.01 means that for every 1-year increase in a person’s age, their Neuroticism score is expected to increase by 0.01 points, holding their Agreeableness score constant. One way you could think about this is, if we had two people with the exact same Agreeableness score (say, for example, they both had a score of 20) but one person was 25 and one person was 26, we would expect the 26-year-old to have a Neuroticism score that is 0.01 points higher than the score of the 25-year-old.</li>
+</ul>
+<p>The slope of age is not significant, so there is no relation between Neuroticism and age after taking into account people’s level of Agreeableness.</p>
+<ul>
+<li><p><strong>AgreeablenessSum</strong>: The slope of 0.12 means that for every 1-point increase on a person’s Agreeableness score, their Neuroticsm score is expected to increase by 0.12 points, holding age constant. This slope is significant, so there is a relation between Agreeableness and Neuroticism even after accounting for age.</p></li>
+<li><p><strong>Adjusted R-Squared</strong>: As before, we also have a <span class="math inline">\(R^2\)</span> value that tells us the proportion of variance in our outcome that is explained by our predictors. However, we want to report the <em>Adjusted R-Squared</em>, as this accounts for having multiple predictors in the model (which will increase <span class="math inline">\(R^2\)</span>, even if the predictors are just explaining noise). So less than 1% of the variation in Neuroticism is explained by age and Agreeableness.</p></li>
+</ul>
+<div id="higher-order-polynomials" class="section level3 hasAnchor" number="7.2.1">
+<h3><span class="header-section-number">7.2.1</span> Higher-Order Polynomials<a href="regression.html#higher-order-polynomials" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Another type of multiple regression is including polynomial terms in your model (e.g., quadratic or cubic terms). In this case, although you do have multiple predictors (e.g., a linear term and quadratic term), the predictor itself is actually the same, just raised to different powers.</p>
+<p>Polynomial models are the simplest way to account for potential nonlinear relations between your predictor and outcome variable, but the interpretations of the model parameters become a little bit more complicated.</p>
+<p>To include a polynomial term in the model, you just write your predictor raised to whatever power you want to include (e.g., x^2), but you have to include it as the argument to a function called <code>I()</code>, so that R doesn’t think the ^ is part of the formula, but instead tells R to treat ^ “as is” (basically, raise the predictor to that power like we intended).</p>
+<p>Let’s see this in our example of the relation between age and Neuroticism, only know we think this relation is better described with a quadratic model.</p>
+<div class="sourceCode" id="cb145"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb145-1"><a href="regression.html#cb145-1" aria-hidden="true" tabindex="-1"></a>quadmod <span class="ot">=</span> <span class="fu">lm</span>(NeuroSum <span class="sc">~</span> age <span class="sc">+</span> <span class="fu">I</span>(age<span class="sc">^</span><span class="dv">2</span>), <span class="at">data =</span> big5)</span>
+<span id="cb145-2"><a href="regression.html#cb145-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb145-3"><a href="regression.html#cb145-3" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(quadmod)</span></code></pre></div>
+<pre><code>## 
+## Call:
+## lm(formula = NeuroSum ~ age + I(age^2), data = big5)
+## 
+## Residuals:
+##      Min       1Q   Median       3Q      Max 
+## -19.4294  -5.1183  -0.2755   4.9175  16.9716 
+## 
+## Coefficients:
+##              Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept) 37.996261   1.927492  19.713  &lt; 2e-16 ***
+## age         -0.363584   0.124407  -2.923  0.00363 ** 
+## I(age^2)     0.003395   0.001734   1.958  0.05082 .  
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Residual standard error: 6.815 on 497 degrees of freedom
+## Multiple R-squared:  0.05209,    Adjusted R-squared:  0.04827 
+## F-statistic: 13.65 on 2 and 497 DF,  p-value: 1.687e-06</code></pre>
+<p>Not so hard! How do we interpret each of these parameters?</p>
+<p><strong>Intercept</strong>: The intercept interpretation remains the same before: it is the expected value on our outcome when all predictors are 0. Therefore, 38.00 is the expected Neuroticism score for someone who is 0 years old (as this leads to both predictors to be 0). If we wanted this to be more interpretable, we could mean-center age like we did before.</p>
+<p><strong>Linear slope of age (age)</strong>: The linear slope of age (-0.36) has changed interpretation. It is no longer the change in Neuroticism for a 1-year change in age, but it is the slope of the tangent line (or the rate of change) at our intercept (when our predictors are 0). In other words, for someone who is 0 years old, we would expect the relation between age and Neuroticism to have a slope of -0.36.</p>
+<p>This can be seen as the slope of the dashed line in the plot below - the dashed line represents the tangent line at age = 0.</p>
+<p><strong>Quadratic slope of age (I(age^2))</strong>: The quadratic slope of age can be viewed as the interaction between age and itself - in other words, how does the relation between age and Neuroticism change at different values of age?</p>
+<div class="sourceCode" id="cb147"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb147-1"><a href="regression.html#cb147-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> big5, <span class="fu">aes</span>(<span class="at">x =</span> age, <span class="at">y =</span> NeuroSum))<span class="sc">+</span></span>
+<span id="cb147-2"><a href="regression.html#cb147-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">alpha =</span> .<span class="dv">1</span>)<span class="sc">+</span></span>
+<span id="cb147-3"><a href="regression.html#cb147-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="at">method =</span> <span class="st">&quot;lm&quot;</span>, <span class="at">formula =</span> y <span class="sc">~</span> <span class="fu">poly</span>(x, <span class="dv">2</span>), <span class="at">se =</span> <span class="cn">FALSE</span>)<span class="sc">+</span></span>
+<span id="cb147-4"><a href="regression.html#cb147-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_abline</span>(<span class="at">intercept =</span> <span class="fl">37.996</span>, <span class="at">slope =</span> <span class="sc">-</span><span class="fl">0.364</span>, <span class="at">linetype =</span> <span class="st">&quot;dashed&quot;</span>)<span class="sc">+</span></span>
+<span id="cb147-5"><a href="regression.html#cb147-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_classic</span>()<span class="sc">+</span></span>
+<span id="cb147-6"><a href="regression.html#cb147-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">&quot;Age&quot;</span>, <span class="at">y =</span> <span class="st">&quot;Neuroticism&quot;</span>)</span></code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-64-1.png" width="672" /></p>
+</div>
+<div id="interactions" class="section level3 hasAnchor" number="7.2.2">
+<h3><span class="header-section-number">7.2.2</span> Interactions<a href="regression.html#interactions" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>The final aspect of regression models we will cover is interactions. Interactions are useful for studying <strong>moderation effects</strong>, when we think that the relation between a predictor variable and outcome variable depends on the level of a second predictor variable. This is typically done (or easiest to interpret) with one continuous and one categorical variable (e.g., the relation between the continuous predictor and continuous outcome is different depending on which group you are in) but can be done when both predictors are continuous or both categorical (for both variables being categorical, refer back to the section on interactions in anova).</p>
+<p>To specify interactions in regression models, you can simply use an asterisk (*) between the predictors you want to specify an interaction between. You do <em>not</em> have to specify the predictors separately from the interaction: writing out predictor1*predictor2 is interpreted by R as wanting both main effects (the effect of predictor1, and the effect of predictor2) as well as their interaction.</p>
+<p>Let us see this in an example, looking at how Neuroticism predicts Conscientiousness, and how this relation is moderated by participant’s gender.</p>
+<div class="sourceCode" id="cb148"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb148-1"><a href="regression.html#cb148-1" aria-hidden="true" tabindex="-1"></a>big5_subset2 <span class="ot">=</span> big5 <span class="sc">%&gt;%</span> <span class="fu">filter</span>(gender <span class="sc">==</span> <span class="dv">1</span> <span class="sc">|</span> gender <span class="sc">==</span> <span class="dv">2</span>)</span>
+<span id="cb148-2"><a href="regression.html#cb148-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb148-3"><a href="regression.html#cb148-3" aria-hidden="true" tabindex="-1"></a><span class="co"># categorical variables should be of class &quot;factor&quot; or &quot;character&quot; to run appropriately; right now, gender is of class numeric</span></span>
+<span id="cb148-4"><a href="regression.html#cb148-4" aria-hidden="true" tabindex="-1"></a>big5_subset2<span class="sc">$</span>gender <span class="ot">=</span> <span class="fu">as.factor</span>(big5_subset2<span class="sc">$</span>gender)</span>
+<span id="cb148-5"><a href="regression.html#cb148-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb148-6"><a href="regression.html#cb148-6" aria-hidden="true" tabindex="-1"></a><span class="co"># specify the interaction between Neuroticism and gender with NeuroSum*gender</span></span>
+<span id="cb148-7"><a href="regression.html#cb148-7" aria-hidden="true" tabindex="-1"></a>multiplereg_interaction <span class="ot">=</span> <span class="fu">lm</span>(ConscSum <span class="sc">~</span> NeuroSum<span class="sc">*</span>gender,</span>
+<span id="cb148-8"><a href="regression.html#cb148-8" aria-hidden="true" tabindex="-1"></a>                             <span class="at">data =</span> big5_subset2)</span>
+<span id="cb148-9"><a href="regression.html#cb148-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb148-10"><a href="regression.html#cb148-10" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(multiplereg_interaction)</span></code></pre></div>
+<pre><code>## 
+## Call:
+## lm(formula = ConscSum ~ NeuroSum * gender, data = big5_subset2)
+## 
+## Residuals:
+##     Min      1Q  Median      3Q     Max 
+## -10.966  -2.292  -0.158   2.281  11.737 
+## 
+## Coefficients:
+##                  Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept)      30.54975    1.09220  27.971   &lt;2e-16 ***
+## NeuroSum          0.02854    0.03507   0.814   0.4162    
+## gender2          -3.50497    1.47966  -2.369   0.0182 *  
+## NeuroSum:gender2  0.11208    0.04661   2.405   0.0166 *  
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Residual standard error: 3.58 on 492 degrees of freedom
+## Multiple R-squared:  0.04231,    Adjusted R-squared:  0.03647 
+## F-statistic: 7.245 on 3 and 492 DF,  p-value: 9.166e-05</code></pre>
+<p>You can see in our output that we have estimates for the intercept ((Intercept)), the two main effects of our predictor variables (NeuroSum and gender) and the interaction between the two (NeuroSum:gender). Let’s interpret each of these terms:</p>
+<ul>
+<li><p><strong>(Intercept)</strong>: As before, the intercept is the expected value of our outcome when all predictors in our model are equal to 0. Notice that if both Neuroticism and gender are equal to 0, then the interaction term (which is created by multiplying Neuroticism by gender) is also equal to 0. So a male (gender = 0) who has a score of 0 on Neuroticism is expected to have a Conscientiousness score of 30.55.</p></li>
+<li><p>Main effects of Neuroticism and gender:</p>
+<ul>
+<li>In a multiple regression model, when we interpreted one slope, we just had to state that the other predictor variable was being held constant, but it did not matter which value it was held constant at. Now, with the interaction term in our model, we have to specify that the other predictor variable is held constant at 0 - this is because a change in our predictor variable of interest will affect both the slope we’re interested in <em>and</em> and the interaction term, which does not allow us to isolate the main effect unless the interaction term is set to 0.
+<ul>
+<li>Also, many researchers say that if the interaction term in a model is significant, the main effects should not be interpreted. This is because a significant interaction term means that the effect of one predictor on the outcome (a main effect) depends on the level of the other predictor, so what is the point in interpreting the main effect without mentioning the interaction.</li>
+<li>If we were to interpret it anyways, the main effect of Neuroticism (-0.08) means that when gender = 0 (the participant is male), a 1-point increase in Neuroticism will lead to a 0.08 decrease in Conscientiousness score. The main effect of gender means that, when the Neuroticism score is 0, females are expected to have average Conscientiousness scores that are 3.50 points lower than males.</li>
+</ul></li>
+</ul></li>
+<li><p>The interaction term is significant. The value of the interaction term is the difference in slopes representing the effect of Neuroticism on Conscientiousness between males and females. Since it is significant, the effect of Neuroticism on Conscietiousness is different between males and females.</p></li>
+</ul>
+<p>Now that we know the relation between Neuroticism and Conscientiousness depends on gender, we might want to know <em>how</em> the relation is different for males and females. You can do this visually (as we will do below), but also by conducting a “simple effects” analysis, where you re-run the regression model separately for each group.</p>
+<div class="sourceCode" id="cb150"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb150-1"><a href="regression.html#cb150-1" aria-hidden="true" tabindex="-1"></a><span class="co"># re-run the regression between Neuroticism and Conscientiousness for males</span></span>
+<span id="cb150-2"><a href="regression.html#cb150-2" aria-hidden="true" tabindex="-1"></a>model_male <span class="ot">=</span> <span class="fu">lm</span>(ConscSum <span class="sc">~</span> NeuroSum,</span>
+<span id="cb150-3"><a href="regression.html#cb150-3" aria-hidden="true" tabindex="-1"></a>                  <span class="at">data =</span> big5 <span class="sc">%&gt;%</span> <span class="fu">filter</span>(gender <span class="sc">==</span> <span class="dv">1</span>))</span>
+<span id="cb150-4"><a href="regression.html#cb150-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb150-5"><a href="regression.html#cb150-5" aria-hidden="true" tabindex="-1"></a><span class="co"># re-run the regression between Neuroticism and Conscientiousness for females</span></span>
+<span id="cb150-6"><a href="regression.html#cb150-6" aria-hidden="true" tabindex="-1"></a>model_female <span class="ot">=</span> <span class="fu">lm</span>(ConscSum <span class="sc">~</span> NeuroSum,</span>
+<span id="cb150-7"><a href="regression.html#cb150-7" aria-hidden="true" tabindex="-1"></a>                  <span class="at">data =</span> big5 <span class="sc">%&gt;%</span> <span class="fu">filter</span>(gender <span class="sc">==</span> <span class="dv">2</span>))</span>
+<span id="cb150-8"><a href="regression.html#cb150-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb150-9"><a href="regression.html#cb150-9" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(model_male)</span></code></pre></div>
+<pre><code>## 
+## Call:
+## lm(formula = ConscSum ~ NeuroSum, data = big5 %&gt;% filter(gender == 
+##     1))
+## 
+## Residuals:
+##      Min       1Q   Median       3Q      Max 
+## -10.4345  -2.2918  -0.1919   1.9009   8.3943 
+## 
+## Coefficients:
+##             Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept) 30.54975    1.09648  27.862   &lt;2e-16 ***
+## NeuroSum     0.02854    0.03521   0.811    0.419    
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Residual standard error: 3.594 on 196 degrees of freedom
+## Multiple R-squared:  0.003341,   Adjusted R-squared:  -0.001744 
+## F-statistic: 0.6571 on 1 and 196 DF,  p-value: 0.4186</code></pre>
+<div class="sourceCode" id="cb152"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb152-1"><a href="regression.html#cb152-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(model_female)</span></code></pre></div>
+<pre><code>## 
+## Call:
+## lm(formula = ConscSum ~ NeuroSum, data = big5 %&gt;% filter(gender == 
+##     2))
+## 
+## Residuals:
+##      Min       1Q   Median       3Q      Max 
+## -10.9665  -2.2595  -0.1384   2.4632  11.7366 
+## 
+## Coefficients:
+##             Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept) 27.04479    0.99565  27.163  &lt; 2e-16 ***
+## NeuroSum     0.14062    0.03062   4.592 6.51e-06 ***
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Residual standard error: 3.571 on 296 degrees of freedom
+## Multiple R-squared:  0.06649,    Adjusted R-squared:  0.06334 
+## F-statistic: 21.08 on 1 and 296 DF,  p-value: 6.508e-06</code></pre>
+<p>By examining the summary output, we can see that the relation between Neuroticism and Conscientiousness only exists (is significant) for females, whereas it is nonsignificant for males.</p>
+</div>
+</div>
+<div id="visualizing-regression-lines" class="section level2 hasAnchor" number="7.3">
+<h2><span class="header-section-number">7.3</span> Visualizing Regression Lines<a href="regression.html#visualizing-regression-lines" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>When you visualize a regression model, it’s pretty standard to plot your observed data as a scatterplot, and then put your estimated regression line on top of that.</p>
+<p>For a simple regression with a continuous predictor, this is pretty straightforward (and if you have a categorical predictor, you can use the visualization methods you learned about for t-tests and ANOVAs).</p>
+<div class="sourceCode" id="cb154"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb154-1"><a href="regression.html#cb154-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> big5, <span class="fu">aes</span>(<span class="at">x =</span> age, <span class="at">y =</span> NeuroSum))<span class="sc">+</span></span>
+<span id="cb154-2"><a href="regression.html#cb154-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>()<span class="sc">+</span> <span class="co"># to plot a scatterplot of the data</span></span>
+<span id="cb154-3"><a href="regression.html#cb154-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="at">method =</span> <span class="st">&quot;lm&quot;</span>, <span class="at">se =</span> <span class="cn">TRUE</span>)<span class="sc">+</span> <span class="co"># to overlay the estimated regrssion line along with the standard error of the line</span></span>
+<span id="cb154-4"><a href="regression.html#cb154-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_classic</span>()<span class="sc">+</span></span>
+<span id="cb154-5"><a href="regression.html#cb154-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">&quot;Age&quot;</span>, <span class="at">y =</span> <span class="st">&quot;Neuroticism&quot;</span>, <span class="at">title =</span> <span class="st">&quot;Age versus Neuroticism&quot;</span>)</span></code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-67-1.png" width="672" /></p>
+<p>Things get a little more complicated once you have have multiple predictor variables. We will talk about the situation with 2 predictor variables (one continuous predictor, and the other predictor is either categorical, continuous, or a polynomial term). These approaches can then be extended if you have more than 2 predictor variables, although it’s likely to get a lot messier.</p>
+<div id="visualizing-multiple-regression-one-continuous-predictor-one-categorical" class="section level3 hasAnchor" number="7.3.1">
+<h3><span class="header-section-number">7.3.1</span> Visualizing Multiple Regression: One Continuous Predictor, One Categorical<a href="regression.html#visualizing-multiple-regression-one-continuous-predictor-one-categorical" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>When you have one continuous predictor and one categorical predictor, you can simply plot separate regression lines showing the relationship between the continuous predictor and outcome at each level of the categorical variable. These regression lines can be placed within the same plot, or in separate plots.</p>
+<p>Let’s suppose we were trying to plot the interaction model we ran earlier, where we predicted Conscietiousness based on Neuroticism and gender (where for gender we only considered males and females, due to the low number of participants who reported their gender as non-binary). Therefore, we will use the big5_subset2 dataset for our plot, since that is the dataset where (1) gender has been subsetted to only males and females and (2) gender has been transformed to a factor.
+In these plots, the continuous predictor is typically placed on the x-axis. Then, if all regression models are placed in the same plot, different colors are used to represent the different levels of the categorical variables. If the regression models are in separate plots, we use a function called <code>facet_wrap()</code> to split up the plots based on a categorical variable.</p>
+<div class="sourceCode" id="cb155"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb155-1"><a href="regression.html#cb155-1" aria-hidden="true" tabindex="-1"></a><span class="co"># regression lines at each level, in the same plot</span></span>
+<span id="cb155-2"><a href="regression.html#cb155-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb155-3"><a href="regression.html#cb155-3" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> big5_subset2, <span class="fu">aes</span>(<span class="at">x =</span> NeuroSum, <span class="at">y =</span> ConscSum,</span>
+<span id="cb155-4"><a href="regression.html#cb155-4" aria-hidden="true" tabindex="-1"></a>                                <span class="at">color =</span> gender))<span class="sc">+</span></span>
+<span id="cb155-5"><a href="regression.html#cb155-5" aria-hidden="true" tabindex="-1"></a>  <span class="co"># we add color = gender so that our datapoints and regression</span></span>
+<span id="cb155-6"><a href="regression.html#cb155-6" aria-hidden="true" tabindex="-1"></a>  <span class="co"># lines have a different color for each group</span></span>
+<span id="cb155-7"><a href="regression.html#cb155-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>()<span class="sc">+</span></span>
+<span id="cb155-8"><a href="regression.html#cb155-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="at">method =</span> <span class="st">&quot;lm&quot;</span>, <span class="at">se =</span> <span class="cn">TRUE</span>)<span class="sc">+</span></span>
+<span id="cb155-9"><a href="regression.html#cb155-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_classic</span>()<span class="sc">+</span></span>
+<span id="cb155-10"><a href="regression.html#cb155-10" aria-hidden="true" tabindex="-1"></a>  <span class="co"># to make the labels for color more informative, we can use</span></span>
+<span id="cb155-11"><a href="regression.html#cb155-11" aria-hidden="true" tabindex="-1"></a>  <span class="co"># scale_color_discrete(), which lets us change the values of</span></span>
+<span id="cb155-12"><a href="regression.html#cb155-12" aria-hidden="true" tabindex="-1"></a>  <span class="co"># a discrete variable that we are using different colors for</span></span>
+<span id="cb155-13"><a href="regression.html#cb155-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_color_discrete</span>(<span class="at">labels =</span> <span class="fu">c</span>(<span class="st">&quot;Male&quot;</span>, <span class="st">&quot;Female&quot;</span>))<span class="sc">+</span></span>
+<span id="cb155-14"><a href="regression.html#cb155-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">&quot;Neuroticism&quot;</span>, <span class="at">y =</span> <span class="st">&quot;Conscientiousness&quot;</span>, <span class="at">color =</span> <span class="st">&quot;Gender&quot;</span>)</span></code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-68-1.png" width="672" /></p>
+<div class="sourceCode" id="cb156"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb156-1"><a href="regression.html#cb156-1" aria-hidden="true" tabindex="-1"></a><span class="co"># regression lines at each level, across different plots</span></span>
+<span id="cb156-2"><a href="regression.html#cb156-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb156-3"><a href="regression.html#cb156-3" aria-hidden="true" tabindex="-1"></a><span class="co"># in this case, you might want to change the values of the variable you are splitting into different plots so that the label is informative</span></span>
+<span id="cb156-4"><a href="regression.html#cb156-4" aria-hidden="true" tabindex="-1"></a><span class="co"># you can do this by directly modifying the dataset, but I will show how to do this by using an argument called labeller</span></span>
+<span id="cb156-5"><a href="regression.html#cb156-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb156-6"><a href="regression.html#cb156-6" aria-hidden="true" tabindex="-1"></a><span class="co"># what do you want the labels to be?</span></span>
+<span id="cb156-7"><a href="regression.html#cb156-7" aria-hidden="true" tabindex="-1"></a>gender.labs <span class="ot">=</span> <span class="fu">c</span>(<span class="st">&quot;Male&quot;</span>, <span class="st">&quot;Female&quot;</span>)</span>
+<span id="cb156-8"><a href="regression.html#cb156-8" aria-hidden="true" tabindex="-1"></a><span class="co"># what are the labels currently? Make sure the order matches with the order you used for the labels above?</span></span>
+<span id="cb156-9"><a href="regression.html#cb156-9" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(gender.labs) <span class="ot">=</span> <span class="fu">c</span>(<span class="st">&quot;1&quot;</span>, <span class="st">&quot;2&quot;</span>)</span>
+<span id="cb156-10"><a href="regression.html#cb156-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb156-11"><a href="regression.html#cb156-11" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> big5_subset2, <span class="fu">aes</span>(<span class="at">x =</span> NeuroSum, <span class="at">y =</span> ConscSum))<span class="sc">+</span></span>
+<span id="cb156-12"><a href="regression.html#cb156-12" aria-hidden="true" tabindex="-1"></a>  <span class="co"># because we will be splitting up the regression lines for each gender into different plots, we don&#39;t necessarily need to add different colors for each gender, but we could!</span></span>
+<span id="cb156-13"><a href="regression.html#cb156-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span> gender,</span>
+<span id="cb156-14"><a href="regression.html#cb156-14" aria-hidden="true" tabindex="-1"></a>             <span class="at">labeller =</span> <span class="fu">labeller</span>(<span class="at">gender =</span> gender.labs))<span class="sc">+</span></span>
+<span id="cb156-15"><a href="regression.html#cb156-15" aria-hidden="true" tabindex="-1"></a>  <span class="co"># in facet wrap, you can split your graph into different plots</span></span>
+<span id="cb156-16"><a href="regression.html#cb156-16" aria-hidden="true" tabindex="-1"></a>  <span class="co"># based on a categorical variable</span></span>
+<span id="cb156-17"><a href="regression.html#cb156-17" aria-hidden="true" tabindex="-1"></a>  <span class="co"># variables before the ~ will be arranged vertically, and variables</span></span>
+<span id="cb156-18"><a href="regression.html#cb156-18" aria-hidden="true" tabindex="-1"></a>  <span class="co"># after the ~ will be arranged horizontally</span></span>
+<span id="cb156-19"><a href="regression.html#cb156-19" aria-hidden="true" tabindex="-1"></a>  <span class="co"># then to add labels, you will use the argument:</span></span>
+<span id="cb156-20"><a href="regression.html#cb156-20" aria-hidden="true" tabindex="-1"></a>  <span class="co"># labeller = labeller(faceting.variable = variable.labels)</span></span>
+<span id="cb156-21"><a href="regression.html#cb156-21" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>()<span class="sc">+</span></span>
+<span id="cb156-22"><a href="regression.html#cb156-22" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="at">method =</span> <span class="st">&quot;lm&quot;</span>, <span class="at">se =</span> <span class="cn">TRUE</span>)<span class="sc">+</span></span>
+<span id="cb156-23"><a href="regression.html#cb156-23" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_classic</span>()<span class="sc">+</span></span>
+<span id="cb156-24"><a href="regression.html#cb156-24" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">&quot;Neuroticism&quot;</span>, <span class="at">y =</span> <span class="st">&quot;Conscietiousness&quot;</span>)</span></code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-68-2.png" width="672" /></p>
+<p>The choice between plotting both regression lines into the same plot versus different plots depends on the goals of your research - it is easier to compare regression lines if they are on the same plot, but that can get a little bit messy (especially when you have more than 2 categories). However, we as we can see in either regression plot, the relationship between Neuroticism and Conscientiousness is stronger for females than males (the line is steeper), which is what we got from our simple effects analysis.</p>
+</div>
+<div id="visualizing-multiple-regression-two-continuous-predictors" class="section level3 hasAnchor" number="7.3.2">
+<h3><span class="header-section-number">7.3.2</span> Visualizing Multiple Regression: Two Continuous Predictors<a href="regression.html#visualizing-multiple-regression-two-continuous-predictors" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>When you have two continuous predictor variables, the visualization is not as clean-cut, because there are no built-in categories that you can split your plots by. However, you might still be interested in creating this visualization, particularly when you have an interaction between two continuous variables.</p>
+<p>Therefore, it is pretty standard that when you plot the interaction between two continuous variables, that you form a categorical variable out of one of your continuous variables <strong>for illustrative purposes of how the relation between the remaining continuous predictor and outcome changes</strong>. (I am bolding this because normally we don’t want to categorize continuous variables!). The categorical variable you form is typically for people who are at the average level of the continuous variable, 1 SD above the average, and 1 SD below the average.</p>
+<p>Let us suppose we wanted to look at how Openness (our outcome variable) is predicted by Agreeableness and age. To visualize this, we will get the predicted values for the relation between Openness and Agreeableness at different ages (the average age, 1 SD above the average age, and 1 SD below the average age).</p>
+<p>In order to use the <code>predict</code> function, we need to provide it with two things: a lm model, and a dataset with the input values to generate predictions for. In this case, we want to use the original Agreeableness values from our dataset, but want to set age to one of three specific values. Therefore, we will create three new datasets, one for each value of age, and then predict from that.</p>
+<div class="sourceCode" id="cb157"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb157-1"><a href="regression.html#cb157-1" aria-hidden="true" tabindex="-1"></a><span class="co"># create a dataset with Agreeableness and average age</span></span>
+<span id="cb157-2"><a href="regression.html#cb157-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb157-3"><a href="regression.html#cb157-3" aria-hidden="true" tabindex="-1"></a>big5_averageage <span class="ot">=</span> big5[ , <span class="fu">c</span>(<span class="st">&quot;id&quot;</span>, <span class="st">&quot;AgreeablenessSum&quot;</span>)]</span>
+<span id="cb157-4"><a href="regression.html#cb157-4" aria-hidden="true" tabindex="-1"></a><span class="co"># now we create a column that contains the average value of age </span></span>
+<span id="cb157-5"><a href="regression.html#cb157-5" aria-hidden="true" tabindex="-1"></a><span class="co"># it has to be called age to match the name of the predictor in our linear model</span></span>
+<span id="cb157-6"><a href="regression.html#cb157-6" aria-hidden="true" tabindex="-1"></a>big5_averageage<span class="sc">$</span>age <span class="ot">=</span> <span class="fu">mean</span>(big5<span class="sc">$</span>age, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb157-7"><a href="regression.html#cb157-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb157-8"><a href="regression.html#cb157-8" aria-hidden="true" tabindex="-1"></a><span class="co"># get the predicted values if we used the values in this dataset as the input</span></span>
+<span id="cb157-9"><a href="regression.html#cb157-9" aria-hidden="true" tabindex="-1"></a><span class="co"># predict(modelname, newdataset)</span></span>
+<span id="cb157-10"><a href="regression.html#cb157-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb157-11"><a href="regression.html#cb157-11" aria-hidden="true" tabindex="-1"></a>multiplereg_interaction <span class="ot">=</span> <span class="fu">lm</span>(OpennessSum <span class="sc">~</span> AgreeablenessSum<span class="sc">*</span>age, <span class="at">data =</span> big5)</span>
+<span id="cb157-12"><a href="regression.html#cb157-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb157-13"><a href="regression.html#cb157-13" aria-hidden="true" tabindex="-1"></a>big5_averageage_predict <span class="ot">=</span> <span class="fu">predict</span>(multiplereg_interaction, big5_averageage)</span>
+<span id="cb157-14"><a href="regression.html#cb157-14" aria-hidden="true" tabindex="-1"></a><span class="co"># these predicted values show the relation between Agreeableness and Openness in our dataset, for someone who is average age</span></span>
+<span id="cb157-15"><a href="regression.html#cb157-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb157-16"><a href="regression.html#cb157-16" aria-hidden="true" tabindex="-1"></a><span class="co"># Repeat the process above for someone who is 1 SD below the average age</span></span>
+<span id="cb157-17"><a href="regression.html#cb157-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb157-18"><a href="regression.html#cb157-18" aria-hidden="true" tabindex="-1"></a>big5_sdbelow <span class="ot">=</span> big5[ , <span class="fu">c</span>(<span class="st">&quot;id&quot;</span>, <span class="st">&quot;AgreeablenessSum&quot;</span>)]</span>
+<span id="cb157-19"><a href="regression.html#cb157-19" aria-hidden="true" tabindex="-1"></a>big5_sdbelow<span class="sc">$</span>age <span class="ot">=</span> <span class="fu">mean</span>(big5<span class="sc">$</span>age, <span class="at">na.rm =</span> <span class="cn">TRUE</span>) <span class="sc">-</span> <span class="fu">sd</span>(big5<span class="sc">$</span>age, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb157-20"><a href="regression.html#cb157-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb157-21"><a href="regression.html#cb157-21" aria-hidden="true" tabindex="-1"></a>big5_sdbelow_predict <span class="ot">=</span> <span class="fu">predict</span>(multiplereg_interaction, big5_sdbelow)</span>
+<span id="cb157-22"><a href="regression.html#cb157-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb157-23"><a href="regression.html#cb157-23" aria-hidden="true" tabindex="-1"></a><span class="co"># Repeat the process above for someone who is 1 SD above the average age</span></span>
+<span id="cb157-24"><a href="regression.html#cb157-24" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb157-25"><a href="regression.html#cb157-25" aria-hidden="true" tabindex="-1"></a>big5_sdabove <span class="ot">=</span> big5[ , <span class="fu">c</span>(<span class="st">&quot;id&quot;</span>, <span class="st">&quot;AgreeablenessSum&quot;</span>)]</span>
+<span id="cb157-26"><a href="regression.html#cb157-26" aria-hidden="true" tabindex="-1"></a>big5_sdabove<span class="sc">$</span>age <span class="ot">=</span> <span class="fu">mean</span>(big5<span class="sc">$</span>age, <span class="at">na.rm =</span> <span class="cn">TRUE</span>) <span class="sc">+</span> <span class="fu">sd</span>(big5<span class="sc">$</span>age, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb157-27"><a href="regression.html#cb157-27" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb157-28"><a href="regression.html#cb157-28" aria-hidden="true" tabindex="-1"></a>big5_sdabove_predict <span class="ot">=</span> <span class="fu">predict</span>(multiplereg_interaction, big5_sdabove)</span>
+<span id="cb157-29"><a href="regression.html#cb157-29" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb157-30"><a href="regression.html#cb157-30" aria-hidden="true" tabindex="-1"></a><span class="co"># Now, to graph this, we gather all these predictions into one dataframe, along with the original Openness, Agreeableness, and age values</span></span>
+<span id="cb157-31"><a href="regression.html#cb157-31" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb157-32"><a href="regression.html#cb157-32" aria-hidden="true" tabindex="-1"></a>big5_plot <span class="ot">=</span> big5[, <span class="fu">c</span>(<span class="st">&quot;id&quot;</span>, <span class="st">&quot;OpennessSum&quot;</span>, <span class="st">&quot;AgreeablenessSum&quot;</span>, <span class="st">&quot;age&quot;</span>)]</span>
+<span id="cb157-33"><a href="regression.html#cb157-33" aria-hidden="true" tabindex="-1"></a>big5_plot<span class="sc">$</span>meanage_predict <span class="ot">=</span> big5_averageage_predict</span>
+<span id="cb157-34"><a href="regression.html#cb157-34" aria-hidden="true" tabindex="-1"></a>big5_plot<span class="sc">$</span>sdbelow_predict <span class="ot">=</span> big5_sdbelow_predict</span>
+<span id="cb157-35"><a href="regression.html#cb157-35" aria-hidden="true" tabindex="-1"></a>big5_plot<span class="sc">$</span>sdabove_predict <span class="ot">=</span> big5_sdabove_predict</span>
+<span id="cb157-36"><a href="regression.html#cb157-36" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb157-37"><a href="regression.html#cb157-37" aria-hidden="true" tabindex="-1"></a><span class="co"># However, we need to get all the predicted values into one column, and then have one column to tell us which age value these predictions are at</span></span>
+<span id="cb157-38"><a href="regression.html#cb157-38" aria-hidden="true" tabindex="-1"></a><span class="co"># This way, we can color our prediction lines</span></span>
+<span id="cb157-39"><a href="regression.html#cb157-39" aria-hidden="true" tabindex="-1"></a><span class="co"># to do this, we have to &quot;pivot&quot; our data into long format (collapsing values from multiple columns down into 1)</span></span>
+<span id="cb157-40"><a href="regression.html#cb157-40" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb157-41"><a href="regression.html#cb157-41" aria-hidden="true" tabindex="-1"></a><span class="co"># important arguments: </span></span>
+<span id="cb157-42"><a href="regression.html#cb157-42" aria-hidden="true" tabindex="-1"></a><span class="co"># data = the dataset you want to pivot</span></span>
+<span id="cb157-43"><a href="regression.html#cb157-43" aria-hidden="true" tabindex="-1"></a><span class="co"># columns = the columns you want to collapse down into one</span></span>
+<span id="cb157-44"><a href="regression.html#cb157-44" aria-hidden="true" tabindex="-1"></a><span class="co"># names_to = the name of the column that contains the old column names</span></span>
+<span id="cb157-45"><a href="regression.html#cb157-45" aria-hidden="true" tabindex="-1"></a><span class="co"># values_to = the name of the column you want the column values to go into</span></span>
+<span id="cb157-46"><a href="regression.html#cb157-46" aria-hidden="true" tabindex="-1"></a>big5_plot <span class="ot">=</span> tidyr<span class="sc">::</span><span class="fu">pivot_longer</span>(<span class="at">data =</span> big5_plot,</span>
+<span id="cb157-47"><a href="regression.html#cb157-47" aria-hidden="true" tabindex="-1"></a>                                <span class="at">cols =</span> <span class="fu">c</span>(<span class="st">&quot;meanage_predict&quot;</span>,</span>
+<span id="cb157-48"><a href="regression.html#cb157-48" aria-hidden="true" tabindex="-1"></a>                                         <span class="st">&quot;sdbelow_predict&quot;</span>,</span>
+<span id="cb157-49"><a href="regression.html#cb157-49" aria-hidden="true" tabindex="-1"></a>                                         <span class="st">&quot;sdabove_predict&quot;</span>),</span>
+<span id="cb157-50"><a href="regression.html#cb157-50" aria-hidden="true" tabindex="-1"></a>                                <span class="at">names_to =</span> <span class="st">&quot;agegroup&quot;</span>,</span>
+<span id="cb157-51"><a href="regression.html#cb157-51" aria-hidden="true" tabindex="-1"></a>                                <span class="at">values_to =</span> <span class="st">&quot;predicted&quot;</span>)</span>
+<span id="cb157-52"><a href="regression.html#cb157-52" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb157-53"><a href="regression.html#cb157-53" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(big5_plot)</span></code></pre></div>
+<div data-pagedtable="false">
+<script data-pagedtable-source type="application/json">
+{"columns":[{"label":["id"],"name":[1],"type":["int"],"align":["right"]},{"label":["OpennessSum"],"name":[2],"type":["int"],"align":["right"]},{"label":["AgreeablenessSum"],"name":[3],"type":["int"],"align":["right"]},{"label":["age"],"name":[4],"type":["int"],"align":["right"]},{"label":["agegroup"],"name":[5],"type":["chr"],"align":["left"]},{"label":["predicted"],"name":[6],"type":["dbl"],"align":["right"]}],"data":[{"1":"1","2":"38","3":"26","4":"26","5":"meanage_predict","6":"32.30439"},{"1":"1","2":"38","3":"26","4":"26","5":"sdbelow_predict","6":"32.64852"},{"1":"1","2":"38","3":"26","4":"26","5":"sdabove_predict","6":"31.96026"},{"1":"2","2":"29","3":"29","4":"21","5":"meanage_predict","6":"32.69509"},{"1":"2","2":"29","3":"29","4":"21","5":"sdbelow_predict","6":"32.81335"},{"1":"2","2":"29","3":"29","4":"21","5":"sdabove_predict","6":"32.57684"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
+  </script>
+</div>
+<div class="sourceCode" id="cb158"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb158-1"><a href="regression.html#cb158-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Now we can make a plot, with different colored lines for each age</span></span>
+<span id="cb158-2"><a href="regression.html#cb158-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb158-3"><a href="regression.html#cb158-3" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> big5_plot, <span class="fu">aes</span>(<span class="at">x =</span> AgreeablenessSum, <span class="at">y =</span> OpennessSum))<span class="sc">+</span></span>
+<span id="cb158-4"><a href="regression.html#cb158-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>()<span class="sc">+</span></span>
+<span id="cb158-5"><a href="regression.html#cb158-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="fu">aes</span>(<span class="at">x =</span> AgreeablenessSum, <span class="at">y =</span> predicted, <span class="at">color =</span> agegroup))<span class="sc">+</span></span>
+<span id="cb158-6"><a href="regression.html#cb158-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_classic</span>()</span></code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-69-1.png" width="672" /></p>
+<div class="sourceCode" id="cb159"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb159-1"><a href="regression.html#cb159-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Now we can see that we have three different lines - one showing the relation between Agreeableness and Openness for someone who is average age, one showing the relation for someone who is 1 SD above average age, and one for someone who is 1 SD below average age</span></span>
+<span id="cb159-2"><a href="regression.html#cb159-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb159-3"><a href="regression.html#cb159-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Let&#39;s make the graph a bit nicer by changing the labels on the axes, as well as the labels for the different age groups</span></span>
+<span id="cb159-4"><a href="regression.html#cb159-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb159-5"><a href="regression.html#cb159-5" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> big5_plot, <span class="fu">aes</span>(<span class="at">x =</span> AgreeablenessSum, <span class="at">y =</span> OpennessSum))<span class="sc">+</span></span>
+<span id="cb159-6"><a href="regression.html#cb159-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>()<span class="sc">+</span></span>
+<span id="cb159-7"><a href="regression.html#cb159-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="fu">aes</span>(<span class="at">x =</span> AgreeablenessSum, <span class="at">y =</span> predicted, <span class="at">color =</span> agegroup))<span class="sc">+</span></span>
+<span id="cb159-8"><a href="regression.html#cb159-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_color_discrete</span>(<span class="at">labels =</span> <span class="fu">c</span>(<span class="st">&quot;Average Age&quot;</span>, <span class="st">&quot;1 SD Above&quot;</span>, <span class="st">&quot;1 SD Below&quot;</span>))<span class="sc">+</span></span>
+<span id="cb159-9"><a href="regression.html#cb159-9" aria-hidden="true" tabindex="-1"></a><span class="co"># the order you put the new labels in has to match the current order (which is alphabetical, unless you changed the factor levels to be otherwise)</span></span>
+<span id="cb159-10"><a href="regression.html#cb159-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_classic</span>()<span class="sc">+</span></span>
+<span id="cb159-11"><a href="regression.html#cb159-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">&quot;Agreeableness&quot;</span>, <span class="at">y =</span> <span class="st">&quot;Openness&quot;</span>, <span class="at">color =</span> <span class="st">&quot;Age&quot;</span>)</span></code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-69-2.png" width="672" /></p>
+</div>
+<div id="visualizing-multiple-regression-polynomials" class="section level3 hasAnchor" number="7.3.3">
+<h3><span class="header-section-number">7.3.3</span> Visualizing Multiple Regression: Polynomials<a href="regression.html#visualizing-multiple-regression-polynomials" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Polynomials are a special case of multiple regression, in the sense that we’re not looking at how the relation between Predictor 1 and the outcome changes at the different levels of Predictor 2, we’re just trying to plot one regression line like we did with simple regression.</p>
+<p>Luckily, this just requires a small change to the geom_smooth part of the ggplot2 code!</p>
+<p>Suppose we wanted to plot the polynomial model we had estimated before: where <span class="math inline">\(age\)</span> and <span class="math inline">\(age^2\)</span> were both predictors of Neuroticism.</p>
+<div class="sourceCode" id="cb160"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb160-1"><a href="regression.html#cb160-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> big5, <span class="fu">aes</span>(<span class="at">x =</span> age, <span class="at">y =</span> NeuroSum))<span class="sc">+</span></span>
+<span id="cb160-2"><a href="regression.html#cb160-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>()<span class="sc">+</span> <span class="co"># plot the data</span></span>
+<span id="cb160-3"><a href="regression.html#cb160-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="at">method =</span> <span class="st">&quot;lm&quot;</span>, <span class="at">se =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb160-4"><a href="regression.html#cb160-4" aria-hidden="true" tabindex="-1"></a>              <span class="at">formula =</span> y <span class="sc">~</span> <span class="fu">poly</span>(x, <span class="dv">2</span>))<span class="sc">+</span> <span class="co"># even though our predictor was age and outcome was Neuroticism, use x and y in the formula argument</span></span>
+<span id="cb160-5"><a href="regression.html#cb160-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_classic</span>()<span class="sc">+</span></span>
+<span id="cb160-6"><a href="regression.html#cb160-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">&quot;Age&quot;</span>, <span class="at">y =</span> <span class="st">&quot;Neuroticism&quot;</span>, <span class="at">title =</span> <span class="st">&quot;Quadratic Relation between Age and Neuroticism&quot;</span>)</span></code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-70-1.png" width="672" /></p>
+</div>
+</div>
+<div id="checking-assumptions-of-the-regression-model" class="section level2 hasAnchor" number="7.4">
+<h2><span class="header-section-number">7.4</span> Checking Assumptions of the Regression Model<a href="regression.html#checking-assumptions-of-the-regression-model" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Linear regression makes 4 main assumptions:</p>
+<ol style="list-style-type: decimal">
+<li>Observations are independent from each other</li>
+<li>The relation between the predictor and outcome is linear</li>
+<li>The <strong>residuals</strong> of the model are normally distributed</li>
+<li>The <strong>residuals</strong> of the model have equal/constant variance (this is called homogeneity of variance or homoskedasticity)</li>
+</ol>
+<p>The first assumption is normally determined based on how you collected your data - is it reasonable to assume that different observations are independent from each other? In other words, the response of one observation has no impact on the response on another observation.</p>
+<p>To check assumptions 2-4, we can use a visual check, as well as formal statistical tests for assumptions 3 and 4. To get the visual plots to check these assumptions, we use the built-in <code>plot</code> function.</p>
+<div class="sourceCode" id="cb161"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb161-1"><a href="regression.html#cb161-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(model1) <span class="co"># the input of the plot() function is the model we want to check assumptions for </span></span></code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-71-1.png" width="672" /><img src="_main_files/figure-html/unnamed-chunk-71-2.png" width="672" /><img src="_main_files/figure-html/unnamed-chunk-71-3.png" width="672" /><img src="_main_files/figure-html/unnamed-chunk-71-4.png" width="672" /></p>
+<p>This returns four plots, but really we just need to look at the first 2 to examine our assumptions. The first plot (residuals versus fitted) can tell us whether assumption 2 (linear relation) and assumption 4 (homogeneity of variance) is met, and the second plot (normal QQ-plot) can tell us about assumption 3 (normality of residuals).</p>
+<p><strong>To check for linearity assumption</strong>: is the red line in the residuals versus fitted plot roughtly flat at y = 0 (does it match the gray dashed line)? If so, this assumption is met.</p>
+<p>In our example, the red line appears pretty flat, with maybe a slight uptick at the end, but on the whole I would say this supports the assumption that the relation is linear.</p>
+<p><strong>To check for homogeneity of variance</strong>: Does the spread of the residuals in the residuals vs fitted plot look pretty even, and the points are randomly scattered around the line y = 0? In other words, there is no clear pattern in the residuals versus fitted plot, or a fan-shape? If there is a pattern or fan-shape, this indicates the model is doing a better job predicting at certain values of your predictor than others, which we don’t want.</p>
+<p>In our example, the spread of the residuals looks pretty even and random across the fitted values, so homogeneity of variance is met.</p>
+<p><strong>To check or normality of residuals</strong>: Do the points in the normal QQ-plot fall along the dashed line y = x? If so, then the normality of residuals assumption is met.</p>
+<p>Again, although there is a slight deviation from the line at the top right of the graph (indicating the residuals might be slightly positively skewed), the plotted points roughly match the y = x line, so the residuals can be assumed to be normally distributed.</p>
+<p>However, these checks of the assumptions can be more based on your subjective opinion. Two people could look at the same graphs and potentially come to different conclusions about whether or not the assumptions are met. So do more formal ways of checking these assumptions exist?</p>
+<p>You can conduct White’s Test for Heterskedasticity to check for homogeneity of variance, and a Shapiro-Wilks test to check for normality of residuals. For both these tests, the null hypothesis is that the assumption is met (e.g., there is homogeneity or there is normality), so you want to <strong>fail to reject</strong> the null hypothesis in order to meet the assumptions.</p>
+<p>To conduct White’s Test, you can use the <code>white</code> function from the package <code>skedastic</code>, and for Shapiro-Wilks Test, you can use the <code>shapiro.test</code> function that is built into R.</p>
+<div class="sourceCode" id="cb162"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb162-1"><a href="regression.html#cb162-1" aria-hidden="true" tabindex="-1"></a><span class="fu">white</span>(model1) <span class="co"># for White&#39;s test, give the function your lm model as an argument</span></span></code></pre></div>
+<div data-pagedtable="false">
+<script data-pagedtable-source type="application/json">
+{"columns":[{"label":["statistic"],"name":[1],"type":["dbl"],"align":["right"]},{"label":["p.value"],"name":[2],"type":["dbl"],"align":["right"]},{"label":["parameter"],"name":[3],"type":["dbl"],"align":["right"]},{"label":["method"],"name":[4],"type":["chr"],"align":["left"]},{"label":["alternative"],"name":[5],"type":["chr"],"align":["left"]}],"data":[{"1":"0.8131036","2":"0.6659426","3":"2","4":"White's Test","5":"greater"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
+  </script>
+</div>
+<div class="sourceCode" id="cb163"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb163-1"><a href="regression.html#cb163-1" aria-hidden="true" tabindex="-1"></a><span class="fu">shapiro.test</span>(model1<span class="sc">$</span>residuals) <span class="co"># for the Shapiro-Wilks test, you need to give it the model residuals specifically</span></span></code></pre></div>
+<pre><code>## 
+##  Shapiro-Wilk normality test
+## 
+## data:  model1$residuals
+## W = 0.99231, p-value = 0.01117</code></pre>
+<p>So the p-value for White’s test was <span class="math inline">\(p = .67\)</span>, which means we fail to reject the null hypothesis, and we assume we have met the assumption of homogeneity of variance.</p>
+<p>The p-value for Shapiro-Wilk test was <span class="math inline">\(p = .01\)</span>, so we reject the null hypothesis. Therefore, although our visual inspection led us to believe we had normally-distributed residuals, based on this test we actually have non-normally distributed residuals.</p>
+<p>If the assumptions are violated, you can apply data transformations like you learned about in <a href="ttests.html#ttests">4</a> to try and make your residuals more normally distributed.</p>
+
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="correlation.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="multilevel.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"whatsapp": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": null,
+"text": null
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": null,
+"search": {
+"engine": "fuse",
+"options": null
+},
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/latest.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>

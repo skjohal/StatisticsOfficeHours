@@ -1,0 +1,502 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>3 Descriptive Statistics | Statistics ‘Office Hours’: Introduction to Common Statistical Methods in R</title>
+  <meta name="description" content="<p>This is a minimal example of using the bookdown package to write a book.
+The HTML output format for this example is bookdown::gitbook,
+set in the _output.yml file.</p>" />
+  <meta name="generator" content="bookdown 0.37 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="3 Descriptive Statistics | Statistics ‘Office Hours’: Introduction to Common Statistical Methods in R" />
+  <meta property="og:type" content="book" />
+  
+  <meta property="og:description" content="<p>This is a minimal example of using the bookdown package to write a book.
+The HTML output format for this example is bookdown::gitbook,
+set in the _output.yml file.</p>" />
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="3 Descriptive Statistics | Statistics ‘Office Hours’: Introduction to Common Statistical Methods in R" />
+  
+  <meta name="twitter:description" content="<p>This is a minimal example of using the bookdown package to write a book.
+The HTML output format for this example is bookdown::gitbook,
+set in the _output.yml file.</p>" />
+  
+
+<meta name="author" content="Simran K. Johal and Danielle Siegel" />
+
+
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="dataintro.html"/>
+<link rel="next" href="ttests.html"/>
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<link href="libs/pagedtable-1.1/css/pagedtable.css" rel="stylesheet" />
+<script src="libs/pagedtable-1.1/js/pagedtable.js"></script>
+<link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
+<link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
+
+
+<style type="text/css">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { color: #008000; } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { color: #008000; font-weight: bold; } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<style type="text/css">
+  
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+</style>
+
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Introduction</a></li>
+<li class="chapter" data-level="2" data-path="dataintro.html"><a href="dataintro.html"><i class="fa fa-check"></i><b>2</b> Introduction to the Data</a></li>
+<li class="chapter" data-level="3" data-path="descriptives.html"><a href="descriptives.html"><i class="fa fa-check"></i><b>3</b> Descriptive Statistics</a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="descriptives.html"><a href="descriptives.html#descriptive-statistics"><i class="fa fa-check"></i><b>3.1</b> Descriptive Statistics</a>
+<ul>
+<li class="chapter" data-level="3.1.1" data-path="descriptives.html"><a href="descriptives.html#descriptives-for-continuous-data"><i class="fa fa-check"></i><b>3.1.1</b> Descriptives for Continuous Data</a></li>
+<li class="chapter" data-level="3.1.2" data-path="descriptives.html"><a href="descriptives.html#descriptive-plots-for-continuous-variables"><i class="fa fa-check"></i><b>3.1.2</b> Descriptive Plots for Continuous Variables</a></li>
+<li class="chapter" data-level="3.1.3" data-path="descriptives.html"><a href="descriptives.html#categorical-variables"><i class="fa fa-check"></i><b>3.1.3</b> Categorical Variables</a></li>
+<li class="chapter" data-level="3.1.4" data-path="descriptives.html"><a href="descriptives.html#plots-of-categorical-data"><i class="fa fa-check"></i><b>3.1.4</b> Plots of Categorical Data</a></li>
+<li class="chapter" data-level="3.1.5" data-path="descriptives.html"><a href="descriptives.html#descriptive-plots-of-multiple-variables"><i class="fa fa-check"></i><b>3.1.5</b> Descriptive Plots of Multiple Variables</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="ttests.html"><a href="ttests.html"><i class="fa fa-check"></i><b>4</b> Two-Sample T-Tests</a>
+<ul>
+<li class="chapter" data-level="4.1" data-path="ttests.html"><a href="ttests.html#t-test-assumptions"><i class="fa fa-check"></i><b>4.1</b> T-test Assumptions</a>
+<ul>
+<li class="chapter" data-level="4.1.1" data-path="ttests.html"><a href="ttests.html#normality"><i class="fa fa-check"></i><b>4.1.1</b> Normality</a></li>
+<li class="chapter" data-level="4.1.2" data-path="ttests.html"><a href="ttests.html#homogeneity-of-variance-hov"><i class="fa fa-check"></i><b>4.1.2</b> Homogeneity of Variance (HOV)</a></li>
+<li class="chapter" data-level="4.1.3" data-path="ttests.html"><a href="ttests.html#independence-of-groups"><i class="fa fa-check"></i><b>4.1.3</b> Independence of Groups</a></li>
+</ul></li>
+<li class="chapter" data-level="4.2" data-path="ttests.html"><a href="ttests.html#conducting-and-interpreting-the-t-test"><i class="fa fa-check"></i><b>4.2</b> Conducting and Interpreting the t-test</a></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="anova.html"><a href="anova.html"><i class="fa fa-check"></i><b>5</b> Analysis of Variance (ANOVA)</a>
+<ul>
+<li class="chapter" data-level="5.1" data-path="anova.html"><a href="anova.html#assumptions-of-anova"><i class="fa fa-check"></i><b>5.1</b> Assumptions of ANOVA</a>
+<ul>
+<li class="chapter" data-level="5.1.1" data-path="anova.html"><a href="anova.html#normality-of-residuals"><i class="fa fa-check"></i><b>5.1.1</b> Normality of residuals</a></li>
+<li class="chapter" data-level="5.1.2" data-path="anova.html"><a href="anova.html#linearity-of-residuals"><i class="fa fa-check"></i><b>5.1.2</b> Linearity of residuals</a></li>
+<li class="chapter" data-level="5.1.3" data-path="anova.html"><a href="anova.html#homogeneity-of-variance-of-residuals"><i class="fa fa-check"></i><b>5.1.3</b> Homogeneity of variance (of residuals)</a></li>
+</ul></li>
+<li class="chapter" data-level="5.2" data-path="anova.html"><a href="anova.html#run-an-one-way-anova"><i class="fa fa-check"></i><b>5.2</b> Run an one-way ANOVA</a></li>
+<li class="chapter" data-level="5.3" data-path="anova.html"><a href="anova.html#run-a-post-hoc-analysis"><i class="fa fa-check"></i><b>5.3</b> Run a Post-hoc Analysis</a></li>
+<li class="chapter" data-level="5.4" data-path="anova.html"><a href="anova.html#run-a-factorial-anova"><i class="fa fa-check"></i><b>5.4</b> Run a factorial ANOVA</a>
+<ul>
+<li class="chapter" data-level="5.4.1" data-path="anova.html"><a href="anova.html#simple-main-effects-analysis"><i class="fa fa-check"></i><b>5.4.1</b> Simple Main Effects Analysis</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="correlation.html"><a href="correlation.html"><i class="fa fa-check"></i><b>6</b> Correlation and Tests of Correlations</a>
+<ul>
+<li class="chapter" data-level="6.1" data-path="correlation.html"><a href="correlation.html#estimating-correlations"><i class="fa fa-check"></i><b>6.1</b> Estimating Correlations</a>
+<ul>
+<li class="chapter" data-level="6.1.1" data-path="correlation.html"><a href="correlation.html#option-1-base-r"><i class="fa fa-check"></i><b>6.1.1</b> Option 1: Base R</a></li>
+<li class="chapter" data-level="6.1.2" data-path="correlation.html"><a href="correlation.html#option-2-ggplot"><i class="fa fa-check"></i><b>6.1.2</b> Option 2: ggplot</a></li>
+</ul></li>
+<li class="chapter" data-level="6.2" data-path="correlation.html"><a href="correlation.html#tests-for-correlations"><i class="fa fa-check"></i><b>6.2</b> Tests for Correlations</a></li>
+<li class="chapter" data-level="6.3" data-path="correlation.html"><a href="correlation.html#visualizing-correlations"><i class="fa fa-check"></i><b>6.3</b> Visualizing Correlations</a></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="regression.html"><a href="regression.html"><i class="fa fa-check"></i><b>7</b> Simple and Multiple Linear Regression</a>
+<ul>
+<li class="chapter" data-level="7.1" data-path="regression.html"><a href="regression.html#simple-regression"><i class="fa fa-check"></i><b>7.1</b> Simple Regression</a>
+<ul>
+<li class="chapter" data-level="7.1.1" data-path="regression.html"><a href="regression.html#simple-regression-with-a-continuous-predictor"><i class="fa fa-check"></i><b>7.1.1</b> Simple Regression with a Continuous Predictor</a></li>
+<li class="chapter" data-level="7.1.2" data-path="regression.html"><a href="regression.html#simple-regression-with-a-centered-continuous-predictor"><i class="fa fa-check"></i><b>7.1.2</b> Simple Regression with a Centered Continuous Predictor</a></li>
+<li class="chapter" data-level="7.1.3" data-path="regression.html"><a href="regression.html#simple-regression-with-a-binary-predictor"><i class="fa fa-check"></i><b>7.1.3</b> Simple Regression with a Binary Predictor</a></li>
+<li class="chapter" data-level="7.1.4" data-path="regression.html"><a href="regression.html#simple-regression-with-a-categorical-predictor-2-categories"><i class="fa fa-check"></i><b>7.1.4</b> Simple Regression with a Categorical Predictor (&gt; 2 categories)</a></li>
+</ul></li>
+<li class="chapter" data-level="7.2" data-path="regression.html"><a href="regression.html#multiple-regression"><i class="fa fa-check"></i><b>7.2</b> Multiple Regression</a>
+<ul>
+<li class="chapter" data-level="7.2.1" data-path="regression.html"><a href="regression.html#higher-order-polynomials"><i class="fa fa-check"></i><b>7.2.1</b> Higher-Order Polynomials</a></li>
+<li class="chapter" data-level="7.2.2" data-path="regression.html"><a href="regression.html#interactions"><i class="fa fa-check"></i><b>7.2.2</b> Interactions</a></li>
+</ul></li>
+<li class="chapter" data-level="7.3" data-path="regression.html"><a href="regression.html#visualizing-regression-lines"><i class="fa fa-check"></i><b>7.3</b> Visualizing Regression Lines</a>
+<ul>
+<li class="chapter" data-level="7.3.1" data-path="regression.html"><a href="regression.html#visualizing-multiple-regression-one-continuous-predictor-one-categorical"><i class="fa fa-check"></i><b>7.3.1</b> Visualizing Multiple Regression: One Continuous Predictor, One Categorical</a></li>
+<li class="chapter" data-level="7.3.2" data-path="regression.html"><a href="regression.html#visualizing-multiple-regression-two-continuous-predictors"><i class="fa fa-check"></i><b>7.3.2</b> Visualizing Multiple Regression: Two Continuous Predictors</a></li>
+<li class="chapter" data-level="7.3.3" data-path="regression.html"><a href="regression.html#visualizing-multiple-regression-polynomials"><i class="fa fa-check"></i><b>7.3.3</b> Visualizing Multiple Regression: Polynomials</a></li>
+</ul></li>
+<li class="chapter" data-level="7.4" data-path="regression.html"><a href="regression.html#checking-assumptions-of-the-regression-model"><i class="fa fa-check"></i><b>7.4</b> Checking Assumptions of the Regression Model</a></li>
+</ul></li>
+<li class="chapter" data-level="8" data-path="multilevel.html"><a href="multilevel.html"><i class="fa fa-check"></i><b>8</b> Multilevel Modeling</a>
+<ul>
+<li class="chapter" data-level="8.1" data-path="multilevel.html"><a href="multilevel.html#clarifying-some-terminology"><i class="fa fa-check"></i><b>8.1</b> Clarifying Some Terminology</a></li>
+<li class="chapter" data-level="8.2" data-path="multilevel.html"><a href="multilevel.html#the-intra-class-correlation-coefficient"><i class="fa fa-check"></i><b>8.2</b> The Intra-Class Correlation Coefficient</a></li>
+<li class="chapter" data-level="8.3" data-path="multilevel.html"><a href="multilevel.html#running-a-multilevel-model"><i class="fa fa-check"></i><b>8.3</b> Running a Multilevel Model</a>
+<ul>
+<li class="chapter" data-level="8.3.1" data-path="multilevel.html"><a href="multilevel.html#simple-multilevel-model"><i class="fa fa-check"></i><b>8.3.1</b> Simple Multilevel Model</a></li>
+</ul></li>
+<li class="chapter" data-level="8.4" data-path="multilevel.html"><a href="multilevel.html#visualizing-a-multilevel-model"><i class="fa fa-check"></i><b>8.4</b> Visualizing a Multilevel Model</a></li>
+</ul></li>
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Statistics ‘Office Hours’: Introduction to Common Statistical Methods in R</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="descriptives" class="section level1 hasAnchor" number="3">
+<h1><span class="header-section-number">3</span> Descriptive Statistics<a href="descriptives.html#descriptives" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<div id="descriptive-statistics" class="section level2 hasAnchor" number="3.1">
+<h2><span class="header-section-number">3.1</span> Descriptive Statistics<a href="descriptives.html#descriptive-statistics" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Before running your final statistical analysis, it’s useful to look at descriptive statistics and visualizations of your variables. This can help you avoid running statistics that may not be appropriate for your data, such as running a linear correlation on two variables that have a nonlinear relationship.</p>
+<div id="descriptives-for-continuous-data" class="section level3 hasAnchor" number="3.1.1">
+<h3><span class="header-section-number">3.1.1</span> Descriptives for Continuous Data<a href="descriptives.html#descriptives-for-continuous-data" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>For this example, we’ll be using the variable AgreeablenessSum from our example Big 5 Data Set. It is a simple sum score of the ten scale items (<span class="math inline">\(A1\)</span>-<span class="math inline">\(A10\)</span>) that measure Agreeableness.</p>
+<p>To get started, we can use the <code>summary</code> function on AgreeablenessSum to get some basic descriptives. Recall that we can specify a specific column within a dataset with the format: <code>dataset_name\$variable_name</code></p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="descriptives.html#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(big5<span class="sc">$</span>AgreeablenessSum)</span></code></pre></div>
+<pre><code>##    Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+##   21.00   30.00   32.00   32.07   34.00   48.00</code></pre>
+<p>The output of this function returns the minimum value, information about the median and interquartile range, the mean, and the maximum value. If there were missing values, they would also appear here as an “NA” column. These data are squeaky clean for demonstrative purposes, but looking at the <code>summary</code> output can also be useful for data cleaning. For example:</p>
+<p>Do the minimums and maximums make sense for the scale used? How much missing data is there? Does that seem reasonable for how your data were collected?</p>
+<p>There may be other descriptive stats you’re interested in, such as measures of variability (variance, standard deviation). The code block below provides several functions that return different descriptive statistics:</p>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="descriptives.html#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(big5<span class="sc">$</span>AgreeablenessSum) <span class="do">##mean</span></span></code></pre></div>
+<pre><code>## [1] 32.068</code></pre>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="descriptives.html#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">var</span>(big5<span class="sc">$</span>AgreeablenessSum) <span class="do">##variance</span></span></code></pre></div>
+<pre><code>## [1] 13.314</code></pre>
+<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="descriptives.html#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sd</span>(big5<span class="sc">$</span>AgreeablenessSum) <span class="do">##standard deviation</span></span></code></pre></div>
+<pre><code>## [1] 3.648836</code></pre>
+<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb13-1"><a href="descriptives.html#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="fu">IQR</span>(big5<span class="sc">$</span>AgreeablenessSum) <span class="do">##interquartile range</span></span></code></pre></div>
+<pre><code>## [1] 4</code></pre>
+<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb15-1"><a href="descriptives.html#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sum</span>(<span class="fu">is.na</span>(big5<span class="sc">$</span>AgreeablenessSum)) <span class="do">##total number of missing observations</span></span></code></pre></div>
+<pre><code>## [1] 0</code></pre>
+<div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb17-1"><a href="descriptives.html#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(big5<span class="sc">$</span>AgreeablenessSum) <span class="do">##frequency tables</span></span></code></pre></div>
+<pre><code>## 
+## 21 22 23 24 25 26 27 28 29 30 31 32 33 34 35 36 37 38 39 40 41 42 43 48 
+##  2  1  3  5  2 15 19 27 38 46 55 79 51 46 36 22 16 14  9  5  2  5  1  1</code></pre>
+</div>
+<div id="descriptive-plots-for-continuous-variables" class="section level3 hasAnchor" number="3.1.2">
+<h3><span class="header-section-number">3.1.2</span> Descriptive Plots for Continuous Variables<a href="descriptives.html#descriptive-plots-for-continuous-variables" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>While looking at numeric descriptions of variables can be useful, it’s much easier to plot variables to look at their distributions. For example, we can create a boxplot to visualize nearly all of the information provided in the <code>summary</code> output:</p>
+<div class="sourceCode" id="cb19"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb19-1"><a href="descriptives.html#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="fu">boxplot</span>(big5<span class="sc">$</span>AgreeablenessSum, </span>
+<span id="cb19-2"><a href="descriptives.html#cb19-2" aria-hidden="true" tabindex="-1"></a>        <span class="at">horizontal =</span> <span class="cn">TRUE</span>, <span class="do">##orient the plot horizontally</span></span>
+<span id="cb19-3"><a href="descriptives.html#cb19-3" aria-hidden="true" tabindex="-1"></a>        <span class="at">main =</span> <span class="st">&quot;Boxplot of Agreeableness Variable&quot;</span>, <span class="do">##name the plot</span></span>
+<span id="cb19-4"><a href="descriptives.html#cb19-4" aria-hidden="true" tabindex="-1"></a>        <span class="at">xlab =</span> <span class="st">&quot;Agreeableness Sum Score&quot;</span>) <span class="do">##label the x-axis</span></span></code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-6-1.png" width="672" /></p>
+<p>We could also look at the shape of our distribution using a histogram, or density
+plot:</p>
+<div class="sourceCode" id="cb20"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb20-1"><a href="descriptives.html#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="do">##create a histogram</span></span>
+<span id="cb20-2"><a href="descriptives.html#cb20-2" aria-hidden="true" tabindex="-1"></a><span class="fu">hist</span>(big5<span class="sc">$</span>AgreeablenessSum)</span></code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-7-1.png" width="672" /></p>
+<div class="sourceCode" id="cb21"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb21-1"><a href="descriptives.html#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="do">##Use the breaks argument to adjust bins by providing:</span></span>
+<span id="cb21-2"><a href="descriptives.html#cb21-2" aria-hidden="true" tabindex="-1"></a><span class="do">##A vector of user-specified cutoff values:</span></span>
+<span id="cb21-3"><a href="descriptives.html#cb21-3" aria-hidden="true" tabindex="-1"></a><span class="fu">hist</span>(big5<span class="sc">$</span>AgreeablenessSum, <span class="at">breaks=</span><span class="fu">c</span>(<span class="dv">15</span>,<span class="dv">22</span>,<span class="dv">23</span>,<span class="dv">36</span>,<span class="dv">42</span>,<span class="dv">60</span>)) </span></code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-7-2.png" width="672" /></p>
+<div class="sourceCode" id="cb22"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb22-1"><a href="descriptives.html#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="do">##A function, like seq(), that computes the breakpoints:</span></span>
+<span id="cb22-2"><a href="descriptives.html#cb22-2" aria-hidden="true" tabindex="-1"></a><span class="fu">hist</span>(big5<span class="sc">$</span>AgreeablenessSum, <span class="at">breaks=</span><span class="fu">seq</span>(<span class="dv">21</span>, <span class="dv">48</span>, <span class="at">by =</span> <span class="dv">3</span>)) </span></code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-7-3.png" width="672" /></p>
+<div class="sourceCode" id="cb23"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb23-1"><a href="descriptives.html#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="do">##A value representing the number of desired bins:</span></span>
+<span id="cb23-2"><a href="descriptives.html#cb23-2" aria-hidden="true" tabindex="-1"></a><span class="fu">hist</span>(big5<span class="sc">$</span>AgreeablenessSum, <span class="at">breaks=</span><span class="dv">22</span>) </span></code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-7-4.png" width="672" /></p>
+<div class="sourceCode" id="cb24"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb24-1"><a href="descriptives.html#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="do">##create a density plot</span></span>
+<span id="cb24-2"><a href="descriptives.html#cb24-2" aria-hidden="true" tabindex="-1"></a>density_values <span class="ot">&lt;-</span> <span class="fu">density</span>(big5<span class="sc">$</span>AgreeablenessSum)</span>
+<span id="cb24-3"><a href="descriptives.html#cb24-3" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(density_values)</span></code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-7-5.png" width="672" /></p>
+<p>While these plots get the job done to look at our distributions, they may not be
+as presentable as we’d like for posters of presentations. We can use a special set
+of functions in R’s <code>ggplot2</code> package to make more attractive graphs!</p>
+<p>In <code>ggplot</code>, we build graphs in layers. Let’s say I want to remake my histogram of
+Agreeableness in <code>ggplot</code>. First, we need to create the axes and background of the plot:</p>
+<div class="sourceCode" id="cb25"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb25-1"><a href="descriptives.html#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
+<span id="cb25-2"><a href="descriptives.html#cb25-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data=</span> big5, <span class="fu">aes</span>(<span class="at">x=</span>AgreeablenessSum))</span></code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-8-1.png" width="672" /></p>
+<p>In this first line of code, we’ve specified the dataset we’d like to work with, as
+well as the variables we’d like to plot in the <code>aes()</code> function. The argument x
+used in the <code>aes()</code> function corresponds to the x-axis of our graph. Now, we’re going
+to create the second layer of a graph using a geom. Geoms are specific to ggplot, and
+help us define the graph we’d like to create:</p>
+<div class="sourceCode" id="cb26"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb26-1"><a href="descriptives.html#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data=</span> big5, <span class="fu">aes</span>(<span class="at">x=</span>AgreeablenessSum))<span class="sc">+</span> <span class="do">##our original line of code</span></span>
+<span id="cb26-2"><a href="descriptives.html#cb26-2" aria-hidden="true" tabindex="-1"></a>  <span class="co"># add a plus sign at the end of each line before adding a new line</span></span>
+<span id="cb26-3"><a href="descriptives.html#cb26-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(<span class="at">bins=</span><span class="dv">25</span>)<span class="do">## new line</span></span></code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-9-1.png" width="672" /></p>
+<p>Now we’ve created a basic histogram in ggplot! We can continue to layer code
+onto our plots to get them to look the way we’d like:</p>
+<div class="sourceCode" id="cb27"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb27-1"><a href="descriptives.html#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data=</span> big5, <span class="fu">aes</span>(<span class="at">x=</span>AgreeablenessSum))<span class="sc">+</span></span>
+<span id="cb27-2"><a href="descriptives.html#cb27-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(<span class="at">bins=</span><span class="dv">25</span>, <span class="at">alpha =</span> .<span class="dv">6</span>, <span class="at">color=</span><span class="st">&quot;black&quot;</span>, <span class="at">size =</span> .<span class="dv">1</span>)<span class="sc">+</span></span>
+<span id="cb27-3"><a href="descriptives.html#cb27-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggtitle</span>(<span class="st">&quot;My Histogram&quot;</span>)<span class="sc">+</span></span>
+<span id="cb27-4"><a href="descriptives.html#cb27-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">y =</span> <span class="st">&quot;Frequency&quot;</span>, <span class="at">x=</span><span class="st">&quot;Agreeableness&quot;</span>)<span class="sc">+</span></span>
+<span id="cb27-5"><a href="descriptives.html#cb27-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_classic</span>()<span class="sc">+</span></span>
+<span id="cb27-6"><a href="descriptives.html#cb27-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">plot.title =</span> <span class="fu">element_text</span>(<span class="at">face =</span> <span class="st">&quot;bold&quot;</span>, <span class="at">hjust =</span> .<span class="dv">5</span>))</span></code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-10-1.png" width="672" /></p>
+<p>The ggplot2 package is very comprehensive, and cannot be gone over in its entirety
+here. However, I encourage you to check out the link below and try to google any
+specific issues you might be having. GGplot is fairly well documented, and there
+are a lot of good resources out there! There will also be relevant plots and code
+throughout this handout.</p>
+<p><a href="https://ggplot2.tidyverse.org/index.html">Click here for ggplot2 resources</a></p>
+</div>
+<div id="categorical-variables" class="section level3 hasAnchor" number="3.1.3">
+<h3><span class="header-section-number">3.1.3</span> Categorical Variables<a href="descriptives.html#categorical-variables" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>We can also look at descriptive statistics for categorical variables, although
+arithmetic values like means will no longer be available to us. Instead, we can
+visualize frequency of levels within a categorical variable. For instance, maybe we
+are interested in looking at how many observations in our data come from
+each continent. We can do this using the <code>table()</code> function:</p>
+<div class="sourceCode" id="cb28"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb28-1"><a href="descriptives.html#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(big5<span class="sc">$</span>continent)</span></code></pre></div>
+<pre><code>## 
+##   Africa Americas     Asia   Europe  Oceania 
+##      100      100      100      100      100</code></pre>
+<p>We are also often interested in looking at the breakdown of our sample across
+multiple categorical variables. How many folks within each continent are male or female?
+If we include two categorical variables in our table function, we will get table
+that returns our sample broken down by both groups. In the following output, our
+sample from Africa has 35 men (category 1) and 65 women (category 2).</p>
+<div class="sourceCode" id="cb30"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb30-1"><a href="descriptives.html#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(big5<span class="sc">$</span>continent, big5<span class="sc">$</span>gender)</span></code></pre></div>
+<pre><code>##           
+##             1  2  3
+##   Africa   35 65  0
+##   Americas 38 59  2
+##   Asia     49 50  1
+##   Europe   38 62  0
+##   Oceania  38 62  0</code></pre>
+</div>
+<div id="plots-of-categorical-data" class="section level3 hasAnchor" number="3.1.4">
+<h3><span class="header-section-number">3.1.4</span> Plots of Categorical Data<a href="descriptives.html#plots-of-categorical-data" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Barplots are a usual way to visualize and compare categorical groups. Here is
+a basic template for a frequency bar in ggplot:</p>
+<div class="sourceCode" id="cb32"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb32-1"><a href="descriptives.html#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data=</span><span class="fu">subset</span>(big5, <span class="sc">!</span><span class="fu">is.na</span>(engnat)), <span class="fu">aes</span>(<span class="fu">as.factor</span>(engnat)))<span class="sc">+</span></span>
+<span id="cb32-2"><a href="descriptives.html#cb32-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>()<span class="sc">+</span> <span class="do">##geom that specifies I want a barplot</span></span>
+<span id="cb32-3"><a href="descriptives.html#cb32-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggtitle</span>(<span class="st">&quot;Native English Speaker Status&quot;</span>)<span class="sc">+</span> <span class="do">##title</span></span>
+<span id="cb32-4"><a href="descriptives.html#cb32-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x=</span> <span class="st">&quot;Native English Speaker&quot;</span>)<span class="sc">+</span> <span class="do">##axis labels</span></span>
+<span id="cb32-5"><a href="descriptives.html#cb32-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_classic</span>()<span class="sc">+</span> <span class="do">##get rid of gridlines/grey background</span></span>
+<span id="cb32-6"><a href="descriptives.html#cb32-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">plot.title =</span> <span class="fu">element_text</span>(<span class="at">hjust =</span> .<span class="dv">5</span>)) <span class="do">## center title</span></span></code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-13-1.png" width="672" /></p>
+</div>
+<div id="descriptive-plots-of-multiple-variables" class="section level3 hasAnchor" number="3.1.5">
+<h3><span class="header-section-number">3.1.5</span> Descriptive Plots of Multiple Variables<a href="descriptives.html#descriptive-plots-of-multiple-variables" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Very often, we want graphs that help us visualize the trends in a continuous
+variable across different levels of a categorical variable. For instance, does agreeableness differ on average across people in different continents?</p>
+<p>Before plotting this in ggplot, we need to summarize our data. Since we’re interested in averages, we need to get the average agreeableness score within each continent. We can do this with a set of functions from the <code>dplyr()</code> package in R.</p>
+<ul>
+<li><code>group_by()</code>: Organizes data by levels of a categorical variable</li>
+<li><code>summarize()</code>: Performs some operation on your data</li>
+<li><code>%&gt;%</code>: This is a special operator in dyplr called a “pipe”. It allows you to
+break up a set of actions on a dataset across multiple lines. When you see a pipe, you can read it as “and then” in the code:</li>
+</ul>
+<div class="sourceCode" id="cb33"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb33-1"><a href="descriptives.html#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
+<span id="cb33-2"><a href="descriptives.html#cb33-2" aria-hidden="true" tabindex="-1"></a><span class="do">##create a new object called &quot;graphdata&quot;</span></span>
+<span id="cb33-3"><a href="descriptives.html#cb33-3" aria-hidden="true" tabindex="-1"></a>graphdata<span class="ot">&lt;-</span> big5 <span class="sc">%&gt;%</span> <span class="do">##take our data.. AND THEN</span></span>
+<span id="cb33-4"><a href="descriptives.html#cb33-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(continent) <span class="sc">%&gt;%</span> <span class="do">##Group that data by continent... AND THEN</span></span>
+<span id="cb33-5"><a href="descriptives.html#cb33-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">avg=</span> <span class="fu">mean</span>(AgreeablenessSum)) <span class="do">##Take the mean of the AgreeablenessSum data (which is grouped by continent)</span></span>
+<span id="cb33-6"><a href="descriptives.html#cb33-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb33-7"><a href="descriptives.html#cb33-7" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(graphdata)</span></code></pre></div>
+<pre><code>## # A tibble: 5 × 2
+##   continent   avg
+##   &lt;chr&gt;     &lt;dbl&gt;
+## 1 Africa     31.9
+## 2 Americas   31.4
+## 3 Asia       34.0
+## 4 Europe     31.3
+## 5 Oceania    31.8</code></pre>
+<p>We’ve created a new object in R that shows the levels of continent that we grouped the data by, as well as the mean Agreeableness scores for each continent group. We can now use <code>ggplot()</code> to graph the information in this data. Notice that in the initial ggplot function, the following has changed:</p>
+<ul>
+<li>For the data argument, I”m calling my new object “graphdata” instead of our original dataset “big5”</li>
+<li>The x argument “continent” references our column of groups in “graphdata”</li>
+<li>I’ve added a new argument called y in the <code>aes()</code> function. This specifies the variable we’d like to graph on our y axis. In this case, I want to graph the column of average Agreeableness stored in the “avg” column of our graphdata object</li>
+</ul>
+<p>I’ve added another new argument called fill in our <code>aes()</code> argument. Fill is an argument that colors the bars of the graph differently by levels of a group. In this case, I have filled the bars by the same variable that I’m graphing on the x axis (continent). This is a trick to get all the bars to be different colors!</p>
+<div class="sourceCode" id="cb35"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb35-1"><a href="descriptives.html#cb35-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data=</span> graphdata, <span class="fu">aes</span>(<span class="at">x=</span>continent, <span class="at">y=</span>avg, <span class="at">fill=</span>continent))<span class="sc">+</span></span>
+<span id="cb35-2"><a href="descriptives.html#cb35-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="at">stat=</span><span class="st">&quot;identity&quot;</span>)<span class="sc">+</span> <span class="do">##geom that specifies I want a barplot</span></span>
+<span id="cb35-3"><a href="descriptives.html#cb35-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggtitle</span>(<span class="st">&quot;Agreeableness Across Continents&quot;</span>)<span class="sc">+</span> <span class="do">##title</span></span>
+<span id="cb35-4"><a href="descriptives.html#cb35-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x=</span> <span class="st">&quot;Continents&quot;</span>, <span class="at">y=</span><span class="st">&quot;Agreeableness&quot;</span>)<span class="sc">+</span> <span class="do">##axis labels</span></span>
+<span id="cb35-5"><a href="descriptives.html#cb35-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_classic</span>()<span class="sc">+</span> <span class="do">##get rid of gridlines/grey background</span></span>
+<span id="cb35-6"><a href="descriptives.html#cb35-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_fill_manual</span>(<span class="at">values=</span><span class="fu">natparks.pals</span>(<span class="st">&quot;Yellowstone&quot;</span>, <span class="dv">5</span>))<span class="sc">+</span> <span class="do">##change the colors!</span></span>
+<span id="cb35-7"><a href="descriptives.html#cb35-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">plot.title =</span> <span class="fu">element_text</span>(<span class="at">hjust =</span> .<span class="dv">5</span>)) <span class="do">## center title</span></span></code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-15-1.png" width="672" /></p>
+<p>Here is another example of plotting multiple variables. In the graph below, I’ve created a scatterplot between two continuous variables, Agreeableness and Extraversion, and used the color argument to color the individual data points by which continent that participant is from:</p>
+<div class="sourceCode" id="cb36"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb36-1"><a href="descriptives.html#cb36-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data=</span>big5, <span class="fu">aes</span>(<span class="at">x=</span>AgreeablenessSum, <span class="at">y=</span>ExtraversionSum, <span class="at">color=</span>continent))<span class="sc">+</span></span>
+<span id="cb36-2"><a href="descriptives.html#cb36-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">alpha=</span>.<span class="dv">1</span>)<span class="sc">+</span> <span class="do">##geom that specifies I want a scatterplot</span></span>
+<span id="cb36-3"><a href="descriptives.html#cb36-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_jitter</span>(<span class="at">width=</span><span class="fl">1.5</span>)<span class="sc">+</span> <span class="do">##helps get rid of overlapping points</span></span>
+<span id="cb36-4"><a href="descriptives.html#cb36-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_classic</span>()<span class="sc">+</span></span>
+<span id="cb36-5"><a href="descriptives.html#cb36-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_color_manual</span>(<span class="at">values=</span><span class="fu">natparks.pals</span>(<span class="st">&quot;Arches2&quot;</span>, <span class="dv">5</span>))<span class="sc">+</span> </span>
+<span id="cb36-6"><a href="descriptives.html#cb36-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggtitle</span>(<span class="st">&quot;The Relationship of Agreeableness and Extraversion&quot;</span>)<span class="sc">+</span> <span class="do">##title</span></span>
+<span id="cb36-7"><a href="descriptives.html#cb36-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x=</span> <span class="st">&quot;Agreeableness&quot;</span>, <span class="at">y=</span><span class="st">&quot;Extraversion&quot;</span>)<span class="sc">+</span> <span class="do">##axis labels</span></span>
+<span id="cb36-8"><a href="descriptives.html#cb36-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">plot.title =</span> <span class="fu">element_text</span>(<span class="at">hjust =</span> .<span class="dv">5</span>)) <span class="do">## center title</span></span></code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-16-1.png" width="672" /></p>
+<p>Remember, these are just illustrations of the things you can do in ggplot2. Just because you can use lots of colors doesn’t necessarily mean you should :-). In this graph, color-coding by continent might make the graph more difficult to interpret.</p>
+
+</div>
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="dataintro.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="ttests.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"whatsapp": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": null,
+"text": null
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": null,
+"search": {
+"engine": "fuse",
+"options": null
+},
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/latest.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>

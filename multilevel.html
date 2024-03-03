@@ -1,0 +1,474 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>8 Multilevel Modeling | Statistics ‘Office Hours’: Introduction to Common Statistical Methods in R</title>
+  <meta name="description" content="<p>This is a minimal example of using the bookdown package to write a book.
+The HTML output format for this example is bookdown::gitbook,
+set in the _output.yml file.</p>" />
+  <meta name="generator" content="bookdown 0.37 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="8 Multilevel Modeling | Statistics ‘Office Hours’: Introduction to Common Statistical Methods in R" />
+  <meta property="og:type" content="book" />
+  
+  <meta property="og:description" content="<p>This is a minimal example of using the bookdown package to write a book.
+The HTML output format for this example is bookdown::gitbook,
+set in the _output.yml file.</p>" />
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="8 Multilevel Modeling | Statistics ‘Office Hours’: Introduction to Common Statistical Methods in R" />
+  
+  <meta name="twitter:description" content="<p>This is a minimal example of using the bookdown package to write a book.
+The HTML output format for this example is bookdown::gitbook,
+set in the _output.yml file.</p>" />
+  
+
+<meta name="author" content="Simran K. Johal and Danielle Siegel" />
+
+
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="regression.html"/>
+
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<link href="libs/pagedtable-1.1/css/pagedtable.css" rel="stylesheet" />
+<script src="libs/pagedtable-1.1/js/pagedtable.js"></script>
+<link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
+<link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
+
+
+<style type="text/css">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { color: #008000; } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { color: #008000; font-weight: bold; } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<style type="text/css">
+  
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+</style>
+
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Introduction</a></li>
+<li class="chapter" data-level="2" data-path="dataintro.html"><a href="dataintro.html"><i class="fa fa-check"></i><b>2</b> Introduction to the Data</a></li>
+<li class="chapter" data-level="3" data-path="descriptives.html"><a href="descriptives.html"><i class="fa fa-check"></i><b>3</b> Descriptive Statistics</a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="descriptives.html"><a href="descriptives.html#descriptive-statistics"><i class="fa fa-check"></i><b>3.1</b> Descriptive Statistics</a>
+<ul>
+<li class="chapter" data-level="3.1.1" data-path="descriptives.html"><a href="descriptives.html#descriptives-for-continuous-data"><i class="fa fa-check"></i><b>3.1.1</b> Descriptives for Continuous Data</a></li>
+<li class="chapter" data-level="3.1.2" data-path="descriptives.html"><a href="descriptives.html#descriptive-plots-for-continuous-variables"><i class="fa fa-check"></i><b>3.1.2</b> Descriptive Plots for Continuous Variables</a></li>
+<li class="chapter" data-level="3.1.3" data-path="descriptives.html"><a href="descriptives.html#categorical-variables"><i class="fa fa-check"></i><b>3.1.3</b> Categorical Variables</a></li>
+<li class="chapter" data-level="3.1.4" data-path="descriptives.html"><a href="descriptives.html#plots-of-categorical-data"><i class="fa fa-check"></i><b>3.1.4</b> Plots of Categorical Data</a></li>
+<li class="chapter" data-level="3.1.5" data-path="descriptives.html"><a href="descriptives.html#descriptive-plots-of-multiple-variables"><i class="fa fa-check"></i><b>3.1.5</b> Descriptive Plots of Multiple Variables</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="ttests.html"><a href="ttests.html"><i class="fa fa-check"></i><b>4</b> Two-Sample T-Tests</a>
+<ul>
+<li class="chapter" data-level="4.1" data-path="ttests.html"><a href="ttests.html#t-test-assumptions"><i class="fa fa-check"></i><b>4.1</b> T-test Assumptions</a>
+<ul>
+<li class="chapter" data-level="4.1.1" data-path="ttests.html"><a href="ttests.html#normality"><i class="fa fa-check"></i><b>4.1.1</b> Normality</a></li>
+<li class="chapter" data-level="4.1.2" data-path="ttests.html"><a href="ttests.html#homogeneity-of-variance-hov"><i class="fa fa-check"></i><b>4.1.2</b> Homogeneity of Variance (HOV)</a></li>
+<li class="chapter" data-level="4.1.3" data-path="ttests.html"><a href="ttests.html#independence-of-groups"><i class="fa fa-check"></i><b>4.1.3</b> Independence of Groups</a></li>
+</ul></li>
+<li class="chapter" data-level="4.2" data-path="ttests.html"><a href="ttests.html#conducting-and-interpreting-the-t-test"><i class="fa fa-check"></i><b>4.2</b> Conducting and Interpreting the t-test</a></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="anova.html"><a href="anova.html"><i class="fa fa-check"></i><b>5</b> Analysis of Variance (ANOVA)</a>
+<ul>
+<li class="chapter" data-level="5.1" data-path="anova.html"><a href="anova.html#assumptions-of-anova"><i class="fa fa-check"></i><b>5.1</b> Assumptions of ANOVA</a>
+<ul>
+<li class="chapter" data-level="5.1.1" data-path="anova.html"><a href="anova.html#normality-of-residuals"><i class="fa fa-check"></i><b>5.1.1</b> Normality of residuals</a></li>
+<li class="chapter" data-level="5.1.2" data-path="anova.html"><a href="anova.html#linearity-of-residuals"><i class="fa fa-check"></i><b>5.1.2</b> Linearity of residuals</a></li>
+<li class="chapter" data-level="5.1.3" data-path="anova.html"><a href="anova.html#homogeneity-of-variance-of-residuals"><i class="fa fa-check"></i><b>5.1.3</b> Homogeneity of variance (of residuals)</a></li>
+</ul></li>
+<li class="chapter" data-level="5.2" data-path="anova.html"><a href="anova.html#run-an-one-way-anova"><i class="fa fa-check"></i><b>5.2</b> Run an one-way ANOVA</a></li>
+<li class="chapter" data-level="5.3" data-path="anova.html"><a href="anova.html#run-a-post-hoc-analysis"><i class="fa fa-check"></i><b>5.3</b> Run a Post-hoc Analysis</a></li>
+<li class="chapter" data-level="5.4" data-path="anova.html"><a href="anova.html#run-a-factorial-anova"><i class="fa fa-check"></i><b>5.4</b> Run a factorial ANOVA</a>
+<ul>
+<li class="chapter" data-level="5.4.1" data-path="anova.html"><a href="anova.html#simple-main-effects-analysis"><i class="fa fa-check"></i><b>5.4.1</b> Simple Main Effects Analysis</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="correlation.html"><a href="correlation.html"><i class="fa fa-check"></i><b>6</b> Correlation and Tests of Correlations</a>
+<ul>
+<li class="chapter" data-level="6.1" data-path="correlation.html"><a href="correlation.html#estimating-correlations"><i class="fa fa-check"></i><b>6.1</b> Estimating Correlations</a>
+<ul>
+<li class="chapter" data-level="6.1.1" data-path="correlation.html"><a href="correlation.html#option-1-base-r"><i class="fa fa-check"></i><b>6.1.1</b> Option 1: Base R</a></li>
+<li class="chapter" data-level="6.1.2" data-path="correlation.html"><a href="correlation.html#option-2-ggplot"><i class="fa fa-check"></i><b>6.1.2</b> Option 2: ggplot</a></li>
+</ul></li>
+<li class="chapter" data-level="6.2" data-path="correlation.html"><a href="correlation.html#tests-for-correlations"><i class="fa fa-check"></i><b>6.2</b> Tests for Correlations</a></li>
+<li class="chapter" data-level="6.3" data-path="correlation.html"><a href="correlation.html#visualizing-correlations"><i class="fa fa-check"></i><b>6.3</b> Visualizing Correlations</a></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="regression.html"><a href="regression.html"><i class="fa fa-check"></i><b>7</b> Simple and Multiple Linear Regression</a>
+<ul>
+<li class="chapter" data-level="7.1" data-path="regression.html"><a href="regression.html#simple-regression"><i class="fa fa-check"></i><b>7.1</b> Simple Regression</a>
+<ul>
+<li class="chapter" data-level="7.1.1" data-path="regression.html"><a href="regression.html#simple-regression-with-a-continuous-predictor"><i class="fa fa-check"></i><b>7.1.1</b> Simple Regression with a Continuous Predictor</a></li>
+<li class="chapter" data-level="7.1.2" data-path="regression.html"><a href="regression.html#simple-regression-with-a-centered-continuous-predictor"><i class="fa fa-check"></i><b>7.1.2</b> Simple Regression with a Centered Continuous Predictor</a></li>
+<li class="chapter" data-level="7.1.3" data-path="regression.html"><a href="regression.html#simple-regression-with-a-binary-predictor"><i class="fa fa-check"></i><b>7.1.3</b> Simple Regression with a Binary Predictor</a></li>
+<li class="chapter" data-level="7.1.4" data-path="regression.html"><a href="regression.html#simple-regression-with-a-categorical-predictor-2-categories"><i class="fa fa-check"></i><b>7.1.4</b> Simple Regression with a Categorical Predictor (&gt; 2 categories)</a></li>
+</ul></li>
+<li class="chapter" data-level="7.2" data-path="regression.html"><a href="regression.html#multiple-regression"><i class="fa fa-check"></i><b>7.2</b> Multiple Regression</a>
+<ul>
+<li class="chapter" data-level="7.2.1" data-path="regression.html"><a href="regression.html#higher-order-polynomials"><i class="fa fa-check"></i><b>7.2.1</b> Higher-Order Polynomials</a></li>
+<li class="chapter" data-level="7.2.2" data-path="regression.html"><a href="regression.html#interactions"><i class="fa fa-check"></i><b>7.2.2</b> Interactions</a></li>
+</ul></li>
+<li class="chapter" data-level="7.3" data-path="regression.html"><a href="regression.html#visualizing-regression-lines"><i class="fa fa-check"></i><b>7.3</b> Visualizing Regression Lines</a>
+<ul>
+<li class="chapter" data-level="7.3.1" data-path="regression.html"><a href="regression.html#visualizing-multiple-regression-one-continuous-predictor-one-categorical"><i class="fa fa-check"></i><b>7.3.1</b> Visualizing Multiple Regression: One Continuous Predictor, One Categorical</a></li>
+<li class="chapter" data-level="7.3.2" data-path="regression.html"><a href="regression.html#visualizing-multiple-regression-two-continuous-predictors"><i class="fa fa-check"></i><b>7.3.2</b> Visualizing Multiple Regression: Two Continuous Predictors</a></li>
+<li class="chapter" data-level="7.3.3" data-path="regression.html"><a href="regression.html#visualizing-multiple-regression-polynomials"><i class="fa fa-check"></i><b>7.3.3</b> Visualizing Multiple Regression: Polynomials</a></li>
+</ul></li>
+<li class="chapter" data-level="7.4" data-path="regression.html"><a href="regression.html#checking-assumptions-of-the-regression-model"><i class="fa fa-check"></i><b>7.4</b> Checking Assumptions of the Regression Model</a></li>
+</ul></li>
+<li class="chapter" data-level="8" data-path="multilevel.html"><a href="multilevel.html"><i class="fa fa-check"></i><b>8</b> Multilevel Modeling</a>
+<ul>
+<li class="chapter" data-level="8.1" data-path="multilevel.html"><a href="multilevel.html#clarifying-some-terminology"><i class="fa fa-check"></i><b>8.1</b> Clarifying Some Terminology</a></li>
+<li class="chapter" data-level="8.2" data-path="multilevel.html"><a href="multilevel.html#the-intra-class-correlation-coefficient"><i class="fa fa-check"></i><b>8.2</b> The Intra-Class Correlation Coefficient</a></li>
+<li class="chapter" data-level="8.3" data-path="multilevel.html"><a href="multilevel.html#running-a-multilevel-model"><i class="fa fa-check"></i><b>8.3</b> Running a Multilevel Model</a>
+<ul>
+<li class="chapter" data-level="8.3.1" data-path="multilevel.html"><a href="multilevel.html#simple-multilevel-model"><i class="fa fa-check"></i><b>8.3.1</b> Simple Multilevel Model</a></li>
+</ul></li>
+<li class="chapter" data-level="8.4" data-path="multilevel.html"><a href="multilevel.html#visualizing-a-multilevel-model"><i class="fa fa-check"></i><b>8.4</b> Visualizing a Multilevel Model</a></li>
+</ul></li>
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Statistics ‘Office Hours’: Introduction to Common Statistical Methods in R</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="multilevel" class="section level1 hasAnchor" number="8">
+<h1><span class="header-section-number">8</span> Multilevel Modeling<a href="multilevel.html#multilevel" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<p>Remember that one of the assumptions of linear regression that we learned about in the last chapter was that our observations are independent from each other. However, in your research, you may be working with data that are instead <em>clustered</em> in some way - for example, you might have responses from students within the same classroom (students are clustered within the classroom), or repeated measures from the same individual across time or different trials in an experiment (multiple observations are clustered within the same individual).</p>
+<p>In these cases, your data are no longer independent - observations from the same cluster are more likely to be similar to each other than observations from different clusters. This would be most obvious for repeated measurements from the same individual across time/trials - a single person is likely to respond or behave similarly across timepoints/trials, compared to the responses from a completely different person.</p>
+<p>When you have clustered data like this, but you want to run a regression model, you would instead want to use a <strong>multilevel model</strong> (this can also be called <strong>hierarchical linear modeling</strong> or <strong>mixed effects models</strong>). This is because if you run a normal linear regression when you have clustered data, your model ignores the fact that your data are no longer independent, and so the standard errors it estimates are too small (which could lead to your inferential tests being too liberal!).</p>
+<p>There are two popular packages you can use to run multilevel models in R: <code>lme4</code> and <code>nlme</code>. I will focus on using <code>lme4</code>, although similar results can be obtained from <code>nlme</code> (which is more suited to nonlinear models). If you want more details on <code>lme4</code>, you can read <a href="https://people.math.ethz.ch/~maechler/MEMo-pages/lMMwR.pdf">this tutorial</a>.</p>
+<div class="sourceCode" id="cb165"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb165-1"><a href="multilevel.html#cb165-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2) <span class="co"># for general data visualization</span></span>
+<span id="cb165-2"><a href="multilevel.html#cb165-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggpubr) <span class="co"># for arranging plots</span></span>
+<span id="cb165-3"><a href="multilevel.html#cb165-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(performance) <span class="co"># to calculate ICC</span></span>
+<span id="cb165-4"><a href="multilevel.html#cb165-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(lme4) <span class="co"># for multilevel modeling</span></span>
+<span id="cb165-5"><a href="multilevel.html#cb165-5" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(lmerTest) <span class="co"># useful for inferential tests in multilevel models, since lme4 does not return p-values</span></span></code></pre></div>
+<div id="clarifying-some-terminology" class="section level2 hasAnchor" number="8.1">
+<h2><span class="header-section-number">8.1</span> Clarifying Some Terminology<a href="multilevel.html#clarifying-some-terminology" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>As we discuss multilevel models, there are some two terms that need to be defined first:</p>
+<ul>
+<li><p><strong>Fixed effects</strong>: Fixed effects refer to the coefficients representing the relation between the predictors and outcome variable, averaged across clusters or groups. In other words, fixed effects describe the average values of the estimated parameters.</p></li>
+<li><p><strong>Random effects</strong>: Random effects describe which parameters are allowed to vary across the different groups or clusters. Not all parameters have to vary across groups or clusters - you can specify based on what you think is most likely.</p></li>
+</ul>
+<p>Now those terms have been defined, let’s work through some multilevel models. For our examples, suppose that we wanted to examine the relation between age and Neuroticism (like we did before), but this time, we want to account for the fact that participants are clustered within continents (people from the same continent are likely to be more similar than people from other continents).</p>
+</div>
+<div id="the-intra-class-correlation-coefficient" class="section level2 hasAnchor" number="8.2">
+<h2><span class="header-section-number">8.2</span> The Intra-Class Correlation Coefficient<a href="multilevel.html#the-intra-class-correlation-coefficient" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Oftentimes, before running a multilevel model, it is useful to calculate an <em>intra-class correlation coefficient (ICC)</em>. The intra-class correlation coefficient tells you how much of the variability in your outcome is due to the variability across different clusters. It ranges from 0 (no dependency in the data due to continents, e.g., people from the same continent are equally as similar as people from different continents) to 1 (complete dependency due to continents, so people from the same continent are exactly alike and are different than people from other continents),</p>
+<p>The rule of thumb for the ICC is that greater than .05 is considered substantial variation (and thus, is an indication that a multilevel model might be more appropriate).</p>
+<p>To calculate the ICC, we first need to run a model that contains only an intercept for our outcome, but also has a random intercept. This tells us how much difference there is in the expected value of our outcome across groups. We can then use the <code>icc</code> function from the <code>performance</code> package.</p>
+<p>When specifying a mutlievel model with the function <code>lmer</code>, you write the regression formula like you normally would (e.g., <code>dependent ~ indepdendent</code>). To add random effects (i.e., to let parameters vary across groups/clusters), you simply add them in parentheses, by writing <code>+ (whatever parameters you want random effects on, separated by + signs | clustering variable)</code>.</p>
+<div class="sourceCode" id="cb166"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb166-1"><a href="multilevel.html#cb166-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 1 represents the intercept, so I have no predictors in my model, just an intercept, but I want that intercept to vary across continents</span></span>
+<span id="cb166-2"><a href="multilevel.html#cb166-2" aria-hidden="true" tabindex="-1"></a>interceptonly <span class="ot">=</span> <span class="fu">lmer</span>(NeuroSum <span class="sc">~</span> <span class="dv">1</span> <span class="sc">+</span> (<span class="dv">1</span> <span class="sc">|</span> continent), <span class="at">data =</span> big5)</span>
+<span id="cb166-3"><a href="multilevel.html#cb166-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb166-4"><a href="multilevel.html#cb166-4" aria-hidden="true" tabindex="-1"></a><span class="fu">icc</span>(interceptonly)</span></code></pre></div>
+<div data-pagedtable="false">
+<script data-pagedtable-source type="application/json">
+{"columns":[{"label":["ICC_adjusted"],"name":[1],"type":["dbl"],"align":["right"]},{"label":["ICC_unadjusted"],"name":[2],"type":["dbl"],"align":["right"]},{"label":["optional"],"name":[3],"type":["lgl"],"align":["right"]}],"data":[{"1":"0.01648104","2":"0.01648104","3":"FALSE"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
+  </script>
+</div>
+<p>The ICC is 0.016, which means that about 1.6% of the variance in our outcome is due to differences between clusters (in this case, continents). This is less than the rule of thumb value of .05 that I mentioned before, but we will continue with our example regardless.</p>
+</div>
+<div id="running-a-multilevel-model" class="section level2 hasAnchor" number="8.3">
+<h2><span class="header-section-number">8.3</span> Running a Multilevel Model<a href="multilevel.html#running-a-multilevel-model" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="simple-multilevel-model" class="section level3 hasAnchor" number="8.3.1">
+<h3><span class="header-section-number">8.3.1</span> Simple Multilevel Model<a href="multilevel.html#simple-multilevel-model" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>First, to provide a point of comparison, let’s run the regression model without accounting for the clustering. Note that I am using centered age in the model, just to have better interpretation of the intercept!</p>
+<div class="sourceCode" id="cb167"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb167-1"><a href="multilevel.html#cb167-1" aria-hidden="true" tabindex="-1"></a>nocluster_model <span class="ot">=</span> <span class="fu">lm</span>(NeuroSum <span class="sc">~</span> age_centered, <span class="at">data =</span> big5)</span>
+<span id="cb167-2"><a href="multilevel.html#cb167-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb167-3"><a href="multilevel.html#cb167-3" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(nocluster_model)</span></code></pre></div>
+<pre><code>## 
+## Call:
+## lm(formula = NeuroSum ~ age_centered, data = big5)
+## 
+## Residuals:
+##      Min       1Q   Median       3Q      Max 
+## -20.1376  -5.1411  -0.0165   4.8568  16.6089 
+## 
+## Coefficients:
+##              Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept)  31.17400    0.30565 101.994  &lt; 2e-16 ***
+## age_centered -0.12535    0.02594  -4.832 1.81e-06 ***
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Residual standard error: 6.834 on 498 degrees of freedom
+## Multiple R-squared:  0.04478,    Adjusted R-squared:  0.04286 
+## F-statistic: 23.34 on 1 and 498 DF,  p-value: 1.806e-06</code></pre>
+<p>Now, let’s run the multilevel model. We will include random effects for both the intercept and the slope. What this means is that we think that different continents have different baseline levels of Neuroticism (random intercept), and that the relation between age and Neuroticism can differ across continents.</p>
+<p>As a reminder, the way that we can specify random effects in <code>lmer</code> is by first specifying our usual regression model (e.g., NeuroSum ~ age), but then in parentheses, adding (1 + age | continent). The parentheses indicates that these are random effects, the | continent says that the grouping or clustering variable is the continent, and 1 indicates a random intercept while age indicates a random age effect.</p>
+<div class="sourceCode" id="cb169"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb169-1"><a href="multilevel.html#cb169-1" aria-hidden="true" tabindex="-1"></a>cluster_model <span class="ot">=</span> <span class="fu">lmer</span>(NeuroSum <span class="sc">~</span> age_centered <span class="sc">+</span> (<span class="dv">1</span> <span class="sc">+</span> age_centered <span class="sc">|</span> continent), <span class="at">data =</span> big5)</span>
+<span id="cb169-2"><a href="multilevel.html#cb169-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb169-3"><a href="multilevel.html#cb169-3" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(cluster_model)</span></code></pre></div>
+<pre><code>## Linear mixed model fit by REML. t-tests use Satterthwaite&#39;s method [
+## lmerModLmerTest]
+## Formula: NeuroSum ~ age_centered + (1 + age_centered | continent)
+##    Data: big5
+## 
+## REML criterion at convergence: 3342.9
+## 
+## Scaled residuals: 
+##      Min       1Q   Median       3Q      Max 
+## -2.90826 -0.76895 -0.01166  0.71718  2.36771 
+## 
+## Random effects:
+##  Groups    Name         Variance  Std.Dev. Corr 
+##  continent (Intercept)   0.448075 0.66938       
+##            age_centered  0.001588 0.03986  -1.00
+##  Residual               46.193981 6.79662       
+## Number of obs: 500, groups:  continent, 5
+## 
+## Fixed effects:
+##              Estimate Std. Error       df t value Pr(&gt;|t|)    
+## (Intercept)  31.13101    0.42713  4.54254  72.885 3.81e-08 ***
+## age_centered -0.12264    0.03155  4.74889  -3.887   0.0128 *  
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Correlation of Fixed Effects:
+##             (Intr)
+## age_centerd -0.397
+## optimizer (nloptwrap) convergence code: 0 (OK)
+## boundary (singular) fit: see help(&#39;isSingular&#39;)</code></pre>
+<p>What does this output tell us?</p>
+<p>The <strong>fixed effects</strong> tell us the average effects in our population - e.g., on average, across continents, what is the intercept and slope of our model? These can be interpreted like normal regression coefficients: the intercept represents the expected level of Neuroticism for someone who is of average age, while the slope of age tells us that for every 1 year change in age, we expect a person’s Neuroticism to decrease by 0.12 points.</p>
+<p>The <strong>random effects</strong> aren’t actually parameters that get estimated: instead, they are variances (and covariances) of the parameters that we have allowed to differ across continents. That is, the variance of the intercept term tells us how much we expect the intercept to vary across continents, the variance of the slope term tells us how much we expect the slope of age to differ across continents, and the correlation tells us how we expect a country’s intercept to relate to their slope of age.</p>
+<p><em>Note: You might see that we had a warning message in our model - that the fit of our model is “singular”. This is likely because the variance of our random slope is close to 0 (.002), indicating that this slope doesn’t really differ across continents. This can lead to the singularity warning.</em></p>
+<p>How does this differ from the regression results when we did not account for the clustering?</p>
+<pre><code>## 
+## OLS versus Multilevel Regression Results
+## ============================================================
+##                               Dependent variable:           
+##                     ----------------------------------------
+##                                   Neuroticism               
+##                               OLS                linear     
+##                                              mixed-effects  
+##                            OLS Model        Multilevel Model
+## ------------------------------------------------------------
+## Constant                   31.174***           31.131***    
+##                             (0.306)             (0.427)     
+##                                                             
+## age_centered               -0.125***           -0.123***    
+##                             (0.026)             (0.032)     
+##                                                             
+## ------------------------------------------------------------
+## Observations                  500                 500       
+## R2                           0.045                          
+## Adjusted R2                  0.043                          
+## Log Likelihood                                 -1,671.466   
+## Akaike Inf. Crit.                              3,354.932    
+## Bayesian Inf. Crit.                            3,380.220    
+## Residual Std. Error    6.834 (df = 498)                     
+## F Statistic         23.344*** (df = 1; 498)                 
+## ============================================================
+## Note:                            *p&lt;0.1; **p&lt;0.05; ***p&lt;0.01</code></pre>
+<p>You’ll notice that our intercept and slope parameters are actually pretty much the same - in both cases, the intercept is around 31, and the slope is around -0.12. The only differences are in the <em>standard errors</em> of these parameters - the standard errors of the intercept and slope in the multilevel model (0.43 and 0.032, respectively) are larger than the standard errors in the regression model (0.31 and 0.026, respectively). In this case, this difference did not change the inferential results (e.g., the effect of age is still significant), but you could imagine that having a standard error that is too small may lead us to reject the null hypothesis incorrectly.</p>
+<p>To visually illustrate the differences between a regression model, or a model with random intercept and slope, look at the graphs below.</p>
+<p><img src="_main_files/figure-html/unnamed-chunk-78-1.png" width="672" /></p>
+<p>In these graphs, the thick blue line represents the average trajectory - e.g., across all continents, what is the predicted relation between age and neuroticism. However, in the OLS model on the far right, the single line shown means that we expect this relation to hold for any individual in our sample, regardless of what continent they are from. In the model with a random intercept (middle), different continents are allowed to have different intercepts (random intercept) but the relation between age and neuroticism remains the same (fixed slope). This can be seen in how the different colored lines for each continent are parallel to each other, but just shifted vertically. Finally, the model with random intercept and random slope (far left), different continents are allowed to have both different intercepts and different slopes, which is represented by how the different colored lines have different starting points and different levels of steepness.</p>
+</div>
+</div>
+<div id="visualizing-a-multilevel-model" class="section level2 hasAnchor" number="8.4">
+<h2><span class="header-section-number">8.4</span> Visualizing a Multilevel Model<a href="multilevel.html#visualizing-a-multilevel-model" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Since a multilevel model is just a regression model that accounts for clustering, you can use all the techniques we learned about in the previous chapter to visualize the regression models (e.g, using <code>geom_smooth</code>). However, we might also want to include different lines for each cluster (in this case, continent) to see how the intercepts and slopes differ across our different clusters.</p>
+<p>To do this, we just add a new column to our dataset that includes the predicted values for each individual. These predicted values will take into account the differences in intercept/slope across the different continents, so we can just use different colored lines for each continent to see the differences in predicted regression equations.</p>
+<div class="sourceCode" id="cb172"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb172-1"><a href="multilevel.html#cb172-1" aria-hidden="true" tabindex="-1"></a><span class="co"># add a column of predicted values to your dataset</span></span>
+<span id="cb172-2"><a href="multilevel.html#cb172-2" aria-hidden="true" tabindex="-1"></a>big5<span class="sc">$</span>mlm_predict <span class="ot">=</span> <span class="fu">predict</span>(cluster_model)</span>
+<span id="cb172-3"><a href="multilevel.html#cb172-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb172-4"><a href="multilevel.html#cb172-4" aria-hidden="true" tabindex="-1"></a><span class="co"># the outcome variable is now our predicted values</span></span>
+<span id="cb172-5"><a href="multilevel.html#cb172-5" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> big5, <span class="fu">aes</span>(<span class="at">x =</span> age, <span class="at">y =</span> mlm_predict))<span class="sc">+</span></span>
+<span id="cb172-6"><a href="multilevel.html#cb172-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="fu">aes</span>(<span class="at">color =</span> continent), <span class="at">alpha =</span> <span class="fl">0.5</span>)<span class="sc">+</span> <span class="co"># individual lines for each continent</span></span>
+<span id="cb172-7"><a href="multilevel.html#cb172-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="at">method =</span> <span class="st">&quot;lm&quot;</span>, <span class="at">linewidth =</span> <span class="fl">0.75</span>, <span class="at">se =</span> <span class="cn">FALSE</span>,</span>
+<span id="cb172-8"><a href="multilevel.html#cb172-8" aria-hidden="true" tabindex="-1"></a>              <span class="at">color =</span> <span class="st">&quot;black&quot;</span>)<span class="sc">+</span> <span class="co"># a predicted regression equation - this will be the regression equation based on fixed effects</span></span>
+<span id="cb172-9"><a href="multilevel.html#cb172-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_classic</span>()<span class="sc">+</span></span>
+<span id="cb172-10"><a href="multilevel.html#cb172-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">&quot;Age&quot;</span>, <span class="at">y =</span> <span class="st">&quot;Predicted Neuroticism&quot;</span>, <span class="at">color =</span> <span class="st">&quot;Continent&quot;</span>,</span>
+<span id="cb172-11"><a href="multilevel.html#cb172-11" aria-hidden="true" tabindex="-1"></a>       <span class="at">title =</span> <span class="st">&quot;Relation between Age and Neuroticism by Continent&quot;</span>)</span></code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-79-1.png" width="672" /></p>
+
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="regression.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"whatsapp": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": null,
+"text": null
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": null,
+"search": {
+"engine": "fuse",
+"options": null
+},
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/latest.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>

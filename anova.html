@@ -1,0 +1,657 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>5 Analysis of Variance (ANOVA) | Statistics ‘Office Hours’: Introduction to Common Statistical Methods in R</title>
+  <meta name="description" content="<p>This is a minimal example of using the bookdown package to write a book.
+The HTML output format for this example is bookdown::gitbook,
+set in the _output.yml file.</p>" />
+  <meta name="generator" content="bookdown 0.37 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="5 Analysis of Variance (ANOVA) | Statistics ‘Office Hours’: Introduction to Common Statistical Methods in R" />
+  <meta property="og:type" content="book" />
+  
+  <meta property="og:description" content="<p>This is a minimal example of using the bookdown package to write a book.
+The HTML output format for this example is bookdown::gitbook,
+set in the _output.yml file.</p>" />
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="5 Analysis of Variance (ANOVA) | Statistics ‘Office Hours’: Introduction to Common Statistical Methods in R" />
+  
+  <meta name="twitter:description" content="<p>This is a minimal example of using the bookdown package to write a book.
+The HTML output format for this example is bookdown::gitbook,
+set in the _output.yml file.</p>" />
+  
+
+<meta name="author" content="Simran K. Johal and Danielle Siegel" />
+
+
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="ttests.html"/>
+<link rel="next" href="correlation.html"/>
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<link href="libs/pagedtable-1.1/css/pagedtable.css" rel="stylesheet" />
+<script src="libs/pagedtable-1.1/js/pagedtable.js"></script>
+<link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
+<link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
+
+
+<style type="text/css">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { color: #008000; } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { color: #008000; font-weight: bold; } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<style type="text/css">
+  
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+</style>
+
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Introduction</a></li>
+<li class="chapter" data-level="2" data-path="dataintro.html"><a href="dataintro.html"><i class="fa fa-check"></i><b>2</b> Introduction to the Data</a></li>
+<li class="chapter" data-level="3" data-path="descriptives.html"><a href="descriptives.html"><i class="fa fa-check"></i><b>3</b> Descriptive Statistics</a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="descriptives.html"><a href="descriptives.html#descriptive-statistics"><i class="fa fa-check"></i><b>3.1</b> Descriptive Statistics</a>
+<ul>
+<li class="chapter" data-level="3.1.1" data-path="descriptives.html"><a href="descriptives.html#descriptives-for-continuous-data"><i class="fa fa-check"></i><b>3.1.1</b> Descriptives for Continuous Data</a></li>
+<li class="chapter" data-level="3.1.2" data-path="descriptives.html"><a href="descriptives.html#descriptive-plots-for-continuous-variables"><i class="fa fa-check"></i><b>3.1.2</b> Descriptive Plots for Continuous Variables</a></li>
+<li class="chapter" data-level="3.1.3" data-path="descriptives.html"><a href="descriptives.html#categorical-variables"><i class="fa fa-check"></i><b>3.1.3</b> Categorical Variables</a></li>
+<li class="chapter" data-level="3.1.4" data-path="descriptives.html"><a href="descriptives.html#plots-of-categorical-data"><i class="fa fa-check"></i><b>3.1.4</b> Plots of Categorical Data</a></li>
+<li class="chapter" data-level="3.1.5" data-path="descriptives.html"><a href="descriptives.html#descriptive-plots-of-multiple-variables"><i class="fa fa-check"></i><b>3.1.5</b> Descriptive Plots of Multiple Variables</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="ttests.html"><a href="ttests.html"><i class="fa fa-check"></i><b>4</b> Two-Sample T-Tests</a>
+<ul>
+<li class="chapter" data-level="4.1" data-path="ttests.html"><a href="ttests.html#t-test-assumptions"><i class="fa fa-check"></i><b>4.1</b> T-test Assumptions</a>
+<ul>
+<li class="chapter" data-level="4.1.1" data-path="ttests.html"><a href="ttests.html#normality"><i class="fa fa-check"></i><b>4.1.1</b> Normality</a></li>
+<li class="chapter" data-level="4.1.2" data-path="ttests.html"><a href="ttests.html#homogeneity-of-variance-hov"><i class="fa fa-check"></i><b>4.1.2</b> Homogeneity of Variance (HOV)</a></li>
+<li class="chapter" data-level="4.1.3" data-path="ttests.html"><a href="ttests.html#independence-of-groups"><i class="fa fa-check"></i><b>4.1.3</b> Independence of Groups</a></li>
+</ul></li>
+<li class="chapter" data-level="4.2" data-path="ttests.html"><a href="ttests.html#conducting-and-interpreting-the-t-test"><i class="fa fa-check"></i><b>4.2</b> Conducting and Interpreting the t-test</a></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="anova.html"><a href="anova.html"><i class="fa fa-check"></i><b>5</b> Analysis of Variance (ANOVA)</a>
+<ul>
+<li class="chapter" data-level="5.1" data-path="anova.html"><a href="anova.html#assumptions-of-anova"><i class="fa fa-check"></i><b>5.1</b> Assumptions of ANOVA</a>
+<ul>
+<li class="chapter" data-level="5.1.1" data-path="anova.html"><a href="anova.html#normality-of-residuals"><i class="fa fa-check"></i><b>5.1.1</b> Normality of residuals</a></li>
+<li class="chapter" data-level="5.1.2" data-path="anova.html"><a href="anova.html#linearity-of-residuals"><i class="fa fa-check"></i><b>5.1.2</b> Linearity of residuals</a></li>
+<li class="chapter" data-level="5.1.3" data-path="anova.html"><a href="anova.html#homogeneity-of-variance-of-residuals"><i class="fa fa-check"></i><b>5.1.3</b> Homogeneity of variance (of residuals)</a></li>
+</ul></li>
+<li class="chapter" data-level="5.2" data-path="anova.html"><a href="anova.html#run-an-one-way-anova"><i class="fa fa-check"></i><b>5.2</b> Run an one-way ANOVA</a></li>
+<li class="chapter" data-level="5.3" data-path="anova.html"><a href="anova.html#run-a-post-hoc-analysis"><i class="fa fa-check"></i><b>5.3</b> Run a Post-hoc Analysis</a></li>
+<li class="chapter" data-level="5.4" data-path="anova.html"><a href="anova.html#run-a-factorial-anova"><i class="fa fa-check"></i><b>5.4</b> Run a factorial ANOVA</a>
+<ul>
+<li class="chapter" data-level="5.4.1" data-path="anova.html"><a href="anova.html#simple-main-effects-analysis"><i class="fa fa-check"></i><b>5.4.1</b> Simple Main Effects Analysis</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="correlation.html"><a href="correlation.html"><i class="fa fa-check"></i><b>6</b> Correlation and Tests of Correlations</a>
+<ul>
+<li class="chapter" data-level="6.1" data-path="correlation.html"><a href="correlation.html#estimating-correlations"><i class="fa fa-check"></i><b>6.1</b> Estimating Correlations</a>
+<ul>
+<li class="chapter" data-level="6.1.1" data-path="correlation.html"><a href="correlation.html#option-1-base-r"><i class="fa fa-check"></i><b>6.1.1</b> Option 1: Base R</a></li>
+<li class="chapter" data-level="6.1.2" data-path="correlation.html"><a href="correlation.html#option-2-ggplot"><i class="fa fa-check"></i><b>6.1.2</b> Option 2: ggplot</a></li>
+</ul></li>
+<li class="chapter" data-level="6.2" data-path="correlation.html"><a href="correlation.html#tests-for-correlations"><i class="fa fa-check"></i><b>6.2</b> Tests for Correlations</a></li>
+<li class="chapter" data-level="6.3" data-path="correlation.html"><a href="correlation.html#visualizing-correlations"><i class="fa fa-check"></i><b>6.3</b> Visualizing Correlations</a></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="regression.html"><a href="regression.html"><i class="fa fa-check"></i><b>7</b> Simple and Multiple Linear Regression</a>
+<ul>
+<li class="chapter" data-level="7.1" data-path="regression.html"><a href="regression.html#simple-regression"><i class="fa fa-check"></i><b>7.1</b> Simple Regression</a>
+<ul>
+<li class="chapter" data-level="7.1.1" data-path="regression.html"><a href="regression.html#simple-regression-with-a-continuous-predictor"><i class="fa fa-check"></i><b>7.1.1</b> Simple Regression with a Continuous Predictor</a></li>
+<li class="chapter" data-level="7.1.2" data-path="regression.html"><a href="regression.html#simple-regression-with-a-centered-continuous-predictor"><i class="fa fa-check"></i><b>7.1.2</b> Simple Regression with a Centered Continuous Predictor</a></li>
+<li class="chapter" data-level="7.1.3" data-path="regression.html"><a href="regression.html#simple-regression-with-a-binary-predictor"><i class="fa fa-check"></i><b>7.1.3</b> Simple Regression with a Binary Predictor</a></li>
+<li class="chapter" data-level="7.1.4" data-path="regression.html"><a href="regression.html#simple-regression-with-a-categorical-predictor-2-categories"><i class="fa fa-check"></i><b>7.1.4</b> Simple Regression with a Categorical Predictor (&gt; 2 categories)</a></li>
+</ul></li>
+<li class="chapter" data-level="7.2" data-path="regression.html"><a href="regression.html#multiple-regression"><i class="fa fa-check"></i><b>7.2</b> Multiple Regression</a>
+<ul>
+<li class="chapter" data-level="7.2.1" data-path="regression.html"><a href="regression.html#higher-order-polynomials"><i class="fa fa-check"></i><b>7.2.1</b> Higher-Order Polynomials</a></li>
+<li class="chapter" data-level="7.2.2" data-path="regression.html"><a href="regression.html#interactions"><i class="fa fa-check"></i><b>7.2.2</b> Interactions</a></li>
+</ul></li>
+<li class="chapter" data-level="7.3" data-path="regression.html"><a href="regression.html#visualizing-regression-lines"><i class="fa fa-check"></i><b>7.3</b> Visualizing Regression Lines</a>
+<ul>
+<li class="chapter" data-level="7.3.1" data-path="regression.html"><a href="regression.html#visualizing-multiple-regression-one-continuous-predictor-one-categorical"><i class="fa fa-check"></i><b>7.3.1</b> Visualizing Multiple Regression: One Continuous Predictor, One Categorical</a></li>
+<li class="chapter" data-level="7.3.2" data-path="regression.html"><a href="regression.html#visualizing-multiple-regression-two-continuous-predictors"><i class="fa fa-check"></i><b>7.3.2</b> Visualizing Multiple Regression: Two Continuous Predictors</a></li>
+<li class="chapter" data-level="7.3.3" data-path="regression.html"><a href="regression.html#visualizing-multiple-regression-polynomials"><i class="fa fa-check"></i><b>7.3.3</b> Visualizing Multiple Regression: Polynomials</a></li>
+</ul></li>
+<li class="chapter" data-level="7.4" data-path="regression.html"><a href="regression.html#checking-assumptions-of-the-regression-model"><i class="fa fa-check"></i><b>7.4</b> Checking Assumptions of the Regression Model</a></li>
+</ul></li>
+<li class="chapter" data-level="8" data-path="multilevel.html"><a href="multilevel.html"><i class="fa fa-check"></i><b>8</b> Multilevel Modeling</a>
+<ul>
+<li class="chapter" data-level="8.1" data-path="multilevel.html"><a href="multilevel.html#clarifying-some-terminology"><i class="fa fa-check"></i><b>8.1</b> Clarifying Some Terminology</a></li>
+<li class="chapter" data-level="8.2" data-path="multilevel.html"><a href="multilevel.html#the-intra-class-correlation-coefficient"><i class="fa fa-check"></i><b>8.2</b> The Intra-Class Correlation Coefficient</a></li>
+<li class="chapter" data-level="8.3" data-path="multilevel.html"><a href="multilevel.html#running-a-multilevel-model"><i class="fa fa-check"></i><b>8.3</b> Running a Multilevel Model</a>
+<ul>
+<li class="chapter" data-level="8.3.1" data-path="multilevel.html"><a href="multilevel.html#simple-multilevel-model"><i class="fa fa-check"></i><b>8.3.1</b> Simple Multilevel Model</a></li>
+</ul></li>
+<li class="chapter" data-level="8.4" data-path="multilevel.html"><a href="multilevel.html#visualizing-a-multilevel-model"><i class="fa fa-check"></i><b>8.4</b> Visualizing a Multilevel Model</a></li>
+</ul></li>
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Statistics ‘Office Hours’: Introduction to Common Statistical Methods in R</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="anova" class="section level1 hasAnchor" number="5">
+<h1><span class="header-section-number">5</span> Analysis of Variance (ANOVA)<a href="anova.html#anova" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<p>ANOVA is appropriate if you would like to test whether mean differences across three or more groups are significantly different from each other. This section will go over two types of between-subjects ANOVAs, called one-way ANOVA and factorial ANOVA. If you’re interested in doing a within-subjects analysis with repeated measures, we encourage you to review the section in this handout on multilevel modeling.</p>
+<p><strong>Note</strong>: Regression and ANOVA are equivalent analyses, although its common to use ANOVA when looking at exclusively categorical predictors. The example used in this section of the handout for one-way ANOVA is equivalent to the example in the regression section. Throughout this section, we will run ANOVA using <code>aov()</code>, but they can also be run with <code>lm()</code>. We encourage you to review the regression section for interpretation of the <code>lm()</code> output.</p>
+<p>For our first example, let’s say we want to know if there are any significant mean differences in Openness across the groups in our continent variable. We call this analysis a one-way ANOVA, because we have a single categorical predictor (in this case, with five levels) and a single continuous outcome. Our null hypothesis is:</p>
+<p><span class="math display">\[\mu_{Americas} = \mu_{Europe} = \mu_{Asia} = \mu_{Europe} = \mu_{Oceania}\]</span></p>
+<p>And our alternative hypothesis is at least one set of these means is not equal. The ANOVA informs us that there are significant mean differences among our groups, but does not provide information on where those group differences are (called an omnibus test). After running the analysis, we will use a follow up analysis called a post-hoc test to figure out which group comparisons are significantly different.</p>
+<div id="assumptions-of-anova" class="section level2 hasAnchor" number="5.1">
+<h2><span class="header-section-number">5.1</span> Assumptions of ANOVA<a href="anova.html#assumptions-of-anova" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>You can think of the ANOVA as an extension of a t-test, and we recommend reviewing the section on t-test assumptions. We will discuss them again here and use many of the same techniques, with a focus on the <em>residuals</em> of the analysis. While there won’t be a technical explanation of what residuals are and why we want them to be normally distributed, we provide a practical overview of some graphs you can use to check ANOVA assumptions:</p>
+<div id="normality-of-residuals" class="section level3 hasAnchor" number="5.1.1">
+<h3><span class="header-section-number">5.1.1</span> Normality of residuals<a href="anova.html#normality-of-residuals" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Just like with t-tests, we want to examine the normality of our data. Although for t-tests we only examined normality of our raw data, we want to examine the normality of the residuals of our analysis. Below is a QQ-plot similar to those we constructed for t-tests, except this one plots the residuals of our analysis instead of a raw distribution of scores. The interpretation is the same– we want the points to hug the diagonal line as closely as possible. Here, we see some deviations at both tails of the plot.</p>
+<p>As with t-tests, some solutions may be to try data transformations on the variables– often, making the raw distributions more normal leads to a more normal residual distribution. We can also rely on properties of the CLT and say we have sufficient sample size to move forward. T-test and ANOVA are robust to normality violations, which means that they still return mostly accurate results even if our data aren’t quite normal.</p>
+<div class="sourceCode" id="cb64"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb64-1"><a href="anova.html#cb64-1" aria-hidden="true" tabindex="-1"></a><span class="do">##QQplot of residuals</span></span>
+<span id="cb64-2"><a href="anova.html#cb64-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="fu">lm</span>(ExtraversionSum <span class="sc">~</span> continent, <span class="at">data=</span>big5), <span class="at">which =</span> <span class="dv">2</span>)</span></code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-29-1.png" width="672" /></p>
+</div>
+<div id="linearity-of-residuals" class="section level3 hasAnchor" number="5.1.2">
+<h3><span class="header-section-number">5.1.2</span> Linearity of residuals<a href="anova.html#linearity-of-residuals" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Another assumption of these tests is that the relationships among variables are linear. The plot below is a residuals vs fitted plot. It plots the predictions (fitted values) your model made for each individual against the residuals (the differences between an individual’s actual value on Openness and what the ANOVA predicted that value to be). For linearity, we want to make sure the red line in this plot is straight and centered at 0.</p>
+<div class="sourceCode" id="cb65"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb65-1"><a href="anova.html#cb65-1" aria-hidden="true" tabindex="-1"></a><span class="do">##Residuals vs fitted plot</span></span>
+<span id="cb65-2"><a href="anova.html#cb65-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="fu">lm</span>(OpennessSum <span class="sc">~</span> continent, <span class="at">data=</span>big5), <span class="at">which =</span> <span class="dv">1</span>)</span></code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-30-1.png" width="672" /></p>
+</div>
+<div id="homogeneity-of-variance-of-residuals" class="section level3 hasAnchor" number="5.1.3">
+<h3><span class="header-section-number">5.1.3</span> Homogeneity of variance (of residuals)<a href="anova.html#homogeneity-of-variance-of-residuals" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>We can also use the residuals vs fitted plot to assess whether the groups have equal variances. This time, we’re examining the vertical spread of the residuals around the red line. In this case, each group has similar spread. Ideally, the residuals vs fitted plot should look like a random cloud of points, with no clear patterns or clustering. The clusters you see in this plot are because we have a single categorical variable, so the model only makes five estimates (a mean estimate for each continent).</p>
+<p><a href="https://stats.stackexchange.com/questions/76226/interpreting-the-residuals-vs-fitted-values-plot-for-verifying-the-assumptions">Click here</a> for more examples of what a residuals vs fitted plot should (and shouldn’t) look like.</p>
+<div class="sourceCode" id="cb66"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb66-1"><a href="anova.html#cb66-1" aria-hidden="true" tabindex="-1"></a>big5 <span class="sc">%&gt;%</span></span>
+<span id="cb66-2"><a href="anova.html#cb66-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(continent)<span class="sc">%&gt;%</span></span>
+<span id="cb66-3"><a href="anova.html#cb66-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">var =</span> <span class="fu">var</span>(OpennessSum))</span></code></pre></div>
+<div data-pagedtable="false">
+<script data-pagedtable-source type="application/json">
+{"columns":[{"label":["continent"],"name":[1],"type":["chr"],"align":["left"]},{"label":["var"],"name":[2],"type":["dbl"],"align":["right"]}],"data":[{"1":"Africa","2":"17.51515"},{"1":"Americas","2":"13.98222"},{"1":"Asia","2":"13.61808"},{"1":"Europe","2":"17.42990"},{"1":"Oceania","2":"14.25242"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
+  </script>
+</div>
+<div class="sourceCode" id="cb67"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb67-1"><a href="anova.html#cb67-1" aria-hidden="true" tabindex="-1"></a><span class="do">##Residuals vs fitted plot</span></span>
+<span id="cb67-2"><a href="anova.html#cb67-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="fu">lm</span>(OpennessSum <span class="sc">~</span> continent, <span class="at">data=</span>big5), <span class="at">which =</span> <span class="dv">1</span>)</span></code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-31-1.png" width="672" /></p>
+</div>
+</div>
+<div id="run-an-one-way-anova" class="section level2 hasAnchor" number="5.2">
+<h2><span class="header-section-number">5.2</span> Run an one-way ANOVA<a href="anova.html#run-an-one-way-anova" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>The code below runs a one-way ANOVA. The structure of this code will be the same as it is for the t-test, where the formula is <code>aov(outcome~grouping_variable)</code></p>
+<div class="sourceCode" id="cb68"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb68-1"><a href="anova.html#cb68-1" aria-hidden="true" tabindex="-1"></a>oneway_anova<span class="ot">&lt;-</span><span class="fu">aov</span>(OpennessSum <span class="sc">~</span> continent, <span class="at">data=</span>big5)</span>
+<span id="cb68-2"><a href="anova.html#cb68-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(oneway_anova)</span></code></pre></div>
+<pre><code>##              Df Sum Sq Mean Sq F value Pr(&gt;F)  
+## continent     4    177   44.29   2.883 0.0222 *
+## Residuals   495   7603   15.36                 
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</code></pre>
+<p>If you see major issues with assumptions, there is code below for a few alternate options to run your analysis, such as a correction analogous to Welch’s correction for t-tests, the Huber White Robustness correction, and code for a nonparametric version of ANOVA. While the mechanics of these alternatives won’t be discussed here, we encourage you to learn more about these options if your project data has severe deviations from the assumptions of ANOVA. Choosing to use an ANOVA regardless of assumption violations can lead to untrustworthy results.</p>
+<div class="sourceCode" id="cb70"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb70-1"><a href="anova.html#cb70-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(car) <span class="co"># for Anova</span></span>
+<span id="cb70-2"><a href="anova.html#cb70-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(lmPerm) <span class="co"># for permutation test</span></span>
+<span id="cb70-3"><a href="anova.html#cb70-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb70-4"><a href="anova.html#cb70-4" aria-hidden="true" tabindex="-1"></a><span class="do">##Issues with HOV- ANOVA with Welch&#39;s correction</span></span>
+<span id="cb70-5"><a href="anova.html#cb70-5" aria-hidden="true" tabindex="-1"></a><span class="fu">oneway.test</span>(OpennessSum <span class="sc">~</span> continent, <span class="at">data =</span> big5, <span class="at">var.equal =</span> <span class="cn">FALSE</span>)</span></code></pre></div>
+<pre><code>## 
+##  One-way analysis of means (not assuming equal variances)
+## 
+## data:  OpennessSum and continent
+## F = 3.1272, num df = 4.00, denom df = 247.32, p-value = 0.01557</code></pre>
+<div class="sourceCode" id="cb72"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb72-1"><a href="anova.html#cb72-1" aria-hidden="true" tabindex="-1"></a><span class="do">##Issues with normality and HOV</span></span>
+<span id="cb72-2"><a href="anova.html#cb72-2" aria-hidden="true" tabindex="-1"></a><span class="do">##Huber White Robust Correction</span></span>
+<span id="cb72-3"><a href="anova.html#cb72-3" aria-hidden="true" tabindex="-1"></a>oneway_anova<span class="ot">&lt;-</span><span class="fu">aov</span>(OpennessSum <span class="sc">~</span> continent, <span class="at">data=</span>big5)</span>
+<span id="cb72-4"><a href="anova.html#cb72-4" aria-hidden="true" tabindex="-1"></a><span class="fu">Anova</span>(oneway_anova, <span class="at">white.adjust =</span> <span class="cn">TRUE</span>) <span class="co"># notice for this we need to use the Anova() function, not anova() or aov()</span></span></code></pre></div>
+<pre><code>## Coefficient covariances computed by hccm()</code></pre>
+<div data-pagedtable="false">
+<script data-pagedtable-source type="application/json">
+{"columns":[{"label":[""],"name":["_rn_"],"type":[""],"align":["left"]},{"label":["Df"],"name":[1],"type":["dbl"],"align":["right"]},{"label":["F"],"name":[2],"type":["dbl"],"align":["right"]},{"label":["Pr(>F)"],"name":[3],"type":["dbl"],"align":["right"]}],"data":[{"1":"4","2":"3.120945","3":"0.01490547","_rn_":"continent"},{"1":"495","2":"NA","3":"NA","_rn_":"Residuals"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
+  </script>
+</div>
+<div class="sourceCode" id="cb74"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb74-1"><a href="anova.html#cb74-1" aria-hidden="true" tabindex="-1"></a><span class="do">##Permutation test</span></span>
+<span id="cb74-2"><a href="anova.html#cb74-2" aria-hidden="true" tabindex="-1"></a>anova_perm<span class="ot">&lt;-</span> <span class="fu">lmp</span>(OpennessSum<span class="sc">~</span>continent, <span class="at">data =</span> big5)</span></code></pre></div>
+<pre><code>## [1] &quot;Settings:  unique SS &quot;</code></pre>
+<div class="sourceCode" id="cb76"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb76-1"><a href="anova.html#cb76-1" aria-hidden="true" tabindex="-1"></a><span class="fu">anova</span>(anova_perm)</span></code></pre></div>
+<pre><code>## Analysis of Variance Table
+## 
+## Response: OpennessSum
+##             Df R Sum Sq R Mean Sq Iter Pr(Prob)   
+## continent1   4    177.1    44.287 5000   0.0026 **
+## Residuals  495   7603.0    15.360                 
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</code></pre>
+</div>
+<div id="run-a-post-hoc-analysis" class="section level2 hasAnchor" number="5.3">
+<h2><span class="header-section-number">5.3</span> Run a Post-hoc Analysis<a href="anova.html#run-a-post-hoc-analysis" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Note that a post-hoc analysis is only useful if the omnibus ANOVA returns a significant result. If you run a post-hoc analysis on a nonsignificant ANOVA, any pairwise comparisons from a post-hoc analysis will also be nonsignificant.</p>
+<p>Since our omnibus ANOVA is significant, we know that there is a significant mean difference among at least one pair of five continents. The simplest way to look at the pairwise comparisons of each group would be to use a series of t-tests examining the groups. However, when we do multiple statistical tests, we inflate our chances for type 1 error (a false positive result). Using an appropriate post-hoc test allows us look at pairwise comparisons while controlling our type one error rate.</p>
+<p>The code below runs a Tukey’s Honestly Significant Difference test (more commonly refered to as a Tukey test). This is a type of post-hoc test that will return every possible pairwise comparison in your data with signficance values that have been corrected for multiple testing. You can interpret the p-values from this output the same way you would interpret significance for a t-test, with a <em>p</em> &lt; .05 cutoff.</p>
+<div class="sourceCode" id="cb78"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb78-1"><a href="anova.html#cb78-1" aria-hidden="true" tabindex="-1"></a><span class="fu">TukeyHSD</span>(oneway_anova)</span></code></pre></div>
+<pre><code>##   Tukey multiple comparisons of means
+##     95% family-wise confidence level
+## 
+## Fit: aov(formula = OpennessSum ~ continent, data = big5)
+## 
+## $continent
+##                   diff        lwr       upr     p adj
+## Americas-Africa  -0.16 -1.6774539 1.3574539 0.9984808
+## Asia-Africa      -1.49 -3.0074539 0.0274539 0.0571107
+## Europe-Africa    -0.02 -1.5374539 1.4974539 0.9999996
+## Oceania-Africa    0.11 -1.4074539 1.6274539 0.9996535
+## Asia-Americas    -1.33 -2.8474539 0.1874539 0.1170761
+## Europe-Americas   0.14 -1.3774539 1.6574539 0.9991013
+## Oceania-Americas  0.27 -1.2474539 1.7874539 0.9885310
+## Europe-Asia       1.47 -0.0474539 2.9874539 0.0628077
+## Oceania-Asia      1.60  0.0825461 3.1174539 0.0329635
+## Oceania-Europe    0.13 -1.3874539 1.6474539 0.9993291</code></pre>
+<p>We can see here that only one pairwise comparison meets our <em>p</em> &lt; .05 cutoff. Oceania and Asia have a significant mean difference of 1.60 on Openness (this means that the first group, Oceania, has a mean that is 1.6 higher than average Openness for Asia).</p>
+<p>Below is an example writeup for a one-way ANOVA and Tukey test post-hoc analysis. In order for your writeup, you will need information from your <code>aov()</code> summary, your Tukey test results, and some descriptive statistics:</p>
+<div class="sourceCode" id="cb80"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb80-1"><a href="anova.html#cb80-1" aria-hidden="true" tabindex="-1"></a>big5 <span class="sc">%&gt;%</span></span>
+<span id="cb80-2"><a href="anova.html#cb80-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(continent)<span class="sc">%&gt;%</span></span>
+<span id="cb80-3"><a href="anova.html#cb80-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">mean=</span> <span class="fu">mean</span>(OpennessSum),</span>
+<span id="cb80-4"><a href="anova.html#cb80-4" aria-hidden="true" tabindex="-1"></a>            <span class="at">sd =</span> <span class="fu">sd</span>(OpennessSum),</span>
+<span id="cb80-5"><a href="anova.html#cb80-5" aria-hidden="true" tabindex="-1"></a>            <span class="at">n =</span> <span class="fu">n</span>())</span></code></pre></div>
+<div data-pagedtable="false">
+<script data-pagedtable-source type="application/json">
+{"columns":[{"label":["continent"],"name":[1],"type":["chr"],"align":["left"]},{"label":["mean"],"name":[2],"type":["dbl"],"align":["right"]},{"label":["sd"],"name":[3],"type":["dbl"],"align":["right"]},{"label":["n"],"name":[4],"type":["int"],"align":["right"]}],"data":[{"1":"Africa","2":"33.40","3":"4.185111","4":"100"},{"1":"Americas","2":"33.24","3":"3.739281","4":"100"},{"1":"Asia","2":"31.91","3":"3.690268","4":"100"},{"1":"Europe","2":"33.38","3":"4.174913","4":"100"},{"1":"Oceania","2":"33.51","3":"3.775238","4":"100"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
+  </script>
+</div>
+<div class="sourceCode" id="cb81"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb81-1"><a href="anova.html#cb81-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(oneway_anova)</span></code></pre></div>
+<pre><code>##              Df Sum Sq Mean Sq F value Pr(&gt;F)  
+## continent     4    177   44.29   2.883 0.0222 *
+## Residuals   495   7603   15.36                 
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</code></pre>
+<div class="sourceCode" id="cb83"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb83-1"><a href="anova.html#cb83-1" aria-hidden="true" tabindex="-1"></a><span class="fu">TukeyHSD</span>(oneway_anova)</span></code></pre></div>
+<pre><code>##   Tukey multiple comparisons of means
+##     95% family-wise confidence level
+## 
+## Fit: aov(formula = OpennessSum ~ continent, data = big5)
+## 
+## $continent
+##                   diff        lwr       upr     p adj
+## Americas-Africa  -0.16 -1.6774539 1.3574539 0.9984808
+## Asia-Africa      -1.49 -3.0074539 0.0274539 0.0571107
+## Europe-Africa    -0.02 -1.5374539 1.4974539 0.9999996
+## Oceania-Africa    0.11 -1.4074539 1.6274539 0.9996535
+## Asia-Americas    -1.33 -2.8474539 0.1874539 0.1170761
+## Europe-Americas   0.14 -1.3774539 1.6574539 0.9991013
+## Oceania-Americas  0.27 -1.2474539 1.7874539 0.9885310
+## Europe-Asia       1.47 -0.0474539 2.9874539 0.0628077
+## Oceania-Asia      1.60  0.0825461 3.1174539 0.0329635
+## Oceania-Europe    0.13 -1.3874539 1.6474539 0.9993291</code></pre>
+<p>A one-way ANOVA examining mean differences in Openness across continents returned a significant result, <em>F</em>(4,495) = 2.88, <em>p</em> = .02. A post-hoc Tukey test suggests a significant mean difference in Openness between Oceania (<em>M</em> = 33.5,<em>SD</em> = 3.78) and Asia (<em>M</em> = 31.9,<em>SD</em> = 3.69), <em>p</em> = .03. All other pairwise comparisons were nonsignficant.</p>
+<p><strong>Note</strong>: Just because results are not significant does not mean they’re not worth reporting! With a large amount of results like in this analysis, it is much easier to include a table rather than write everything out in the writeup.</p>
+<p>Another popular test for multiple comparisons is the Bonferroni correction, which creates a new p-value cutoff by dividing the normal p value cutoff (.05) by the number of tests you want to run. In the example above, we ran 10 pairwise comparisons. Let’s calculate a new cutoff using Bonferroni’s criterion.</p>
+<div class="sourceCode" id="cb85"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb85-1"><a href="anova.html#cb85-1" aria-hidden="true" tabindex="-1"></a>.<span class="dv">05</span><span class="sc">/</span><span class="dv">10</span></span></code></pre></div>
+<pre><code>## [1] 0.005</code></pre>
+<p>If we chose to use Bonferroni’s correction instead of a Tukey test, we would not say a result is significant unless it meets a new cutoff of <em>p</em> &lt; .005. While it’s easy to implement and useful to know, many consider the Bonferroni correction to be too stringent.</p>
+<p>These are just two examples of possible post-hoc tests you can use to interpret the results of an ANOVA. Some may be more appropriate than others based on your research question, and some may be more widely used in some subfields compared to others. We won’t exhaust post-hoc tests here, but make sure you’re using something to correct for multiple comparisons!</p>
+</div>
+<div id="run-a-factorial-anova" class="section level2 hasAnchor" number="5.4">
+<h2><span class="header-section-number">5.4</span> Run a factorial ANOVA<a href="anova.html#run-a-factorial-anova" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Many of you will be interested in running an ANOVA with multiple categorical variables, an analysis we call factorial ANOVA. We refer to the design of a factorial ANOVA by the number of predictor variables we have, and the number of levels within each variable. In the example below, we are going to predict average neuroticism from two predictor variables, continent and gender. Since continent has 5 levels (Oceania, Asia, Americas, Europe, Africa) and gender has three levels (Male, Female, Other), we would call this analysis a 5x3 factorial ANOVA.</p>
+<p>In factorial designs, we are often interested in the interaction between our two predictor variables. That is, we’re not just interested in the impact of continent and gender separately on average neuroticism, but also whether the two groups are dependent on each other. For instance, maybe being from America predicts higher average neuroticism, but only for males. Interaction terms help us understand these nuances about how our predictor variables affect each other. For more information on interactions, review the Multiple Regression section of the handout.</p>
+<p>The code for the analysis is below. In the formula for <code>aov()</code>, we’ve included the gender variable separated from the continent variable by an asterisk (*). This is shorthand to tell R to include both variables in the analysis, as well as their interaction term.</p>
+<div class="sourceCode" id="cb87"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb87-1"><a href="anova.html#cb87-1" aria-hidden="true" tabindex="-1"></a>twoway_anova<span class="ot">&lt;-</span><span class="fu">aov</span>(NeuroSum <span class="sc">~</span> continent<span class="sc">*</span>gender, <span class="at">data=</span>big5)</span>
+<span id="cb87-2"><a href="anova.html#cb87-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(twoway_anova)</span></code></pre></div>
+<pre><code>##                   Df Sum Sq Mean Sq F value  Pr(&gt;F)   
+## continent          4    513  128.18   2.738 0.02826 * 
+## gender             1    288  288.40   6.160 0.01340 * 
+## continent:gender   4    632  157.88   3.373 0.00975 **
+## Residuals        489  22892   46.81                   
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 1 observation deleted due to missingness</code></pre>
+<div class="sourceCode" id="cb89"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb89-1"><a href="anova.html#cb89-1" aria-hidden="true" tabindex="-1"></a><span class="do">##alternative but identical formula  specification:</span></span>
+<span id="cb89-2"><a href="anova.html#cb89-2" aria-hidden="true" tabindex="-1"></a>example2<span class="ot">&lt;-</span><span class="fu">aov</span>(NeuroSum <span class="sc">~</span> continent<span class="sc">+</span>gender<span class="sc">+</span>continent<span class="sc">:</span>gender, <span class="at">data=</span>big5)</span>
+<span id="cb89-3"><a href="anova.html#cb89-3" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(example2)</span></code></pre></div>
+<pre><code>##                   Df Sum Sq Mean Sq F value  Pr(&gt;F)   
+## continent          4    513  128.18   2.738 0.02826 * 
+## gender             1    288  288.40   6.160 0.01340 * 
+## continent:gender   4    632  157.88   3.373 0.00975 **
+## Residuals        489  22892   46.81                   
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 1 observation deleted due to missingness</code></pre>
+<p>We see from our results that we have three significant effects– the main effect of continent is significant, the main effect of gender is significant, and the interaction term is significant. <strong>IMPORTANT:</strong> When we have a significant interaction term, we do not want to interpret the main effects of our analysis, because they will always misrepresent some aspect of our results. Let’s visualize the interaction and see what happens if we try to interpret main effects.</p>
+<div class="sourceCode" id="cb91"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb91-1"><a href="anova.html#cb91-1" aria-hidden="true" tabindex="-1"></a><span class="do">##Rename gender variable levels for graph legend</span></span>
+<span id="cb91-2"><a href="anova.html#cb91-2" aria-hidden="true" tabindex="-1"></a>big5<span class="sc">$</span>Gender<span class="ot">&lt;-</span> <span class="fu">as.factor</span>(big5<span class="sc">$</span>gender)</span>
+<span id="cb91-3"><a href="anova.html#cb91-3" aria-hidden="true" tabindex="-1"></a><span class="fu">levels</span>(big5<span class="sc">$</span>Gender) <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;Male&quot;</span>,<span class="st">&quot;Female&quot;</span>,<span class="st">&quot;Other&quot;</span>)</span>
+<span id="cb91-4"><a href="anova.html#cb91-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb91-5"><a href="anova.html#cb91-5" aria-hidden="true" tabindex="-1"></a><span class="do">##summarize means for plot</span></span>
+<span id="cb91-6"><a href="anova.html#cb91-6" aria-hidden="true" tabindex="-1"></a>plotdat<span class="ot">&lt;-</span> big5<span class="sc">%&gt;%</span> </span>
+<span id="cb91-7"><a href="anova.html#cb91-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(continent, Gender) <span class="sc">%&gt;%</span> </span>
+<span id="cb91-8"><a href="anova.html#cb91-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">groupm =</span> <span class="fu">mean</span>(NeuroSum))</span>
+<span id="cb91-9"><a href="anova.html#cb91-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb91-10"><a href="anova.html#cb91-10" aria-hidden="true" tabindex="-1"></a><span class="do">##graph means</span></span>
+<span id="cb91-11"><a href="anova.html#cb91-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="at">data=</span><span class="fu">subset</span>(plotdat, <span class="sc">!</span><span class="fu">is.na</span>(Gender)), </span>
+<span id="cb91-12"><a href="anova.html#cb91-12" aria-hidden="true" tabindex="-1"></a>         <span class="fu">aes</span>(<span class="at">x =</span> continent, <span class="at">y =</span> groupm, <span class="at">color =</span> Gender))<span class="sc">+</span></span>
+<span id="cb91-13"><a href="anova.html#cb91-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="fu">aes</span>(<span class="at">group =</span> Gender)) <span class="sc">+</span></span>
+<span id="cb91-14"><a href="anova.html#cb91-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>()<span class="sc">+</span></span>
+<span id="cb91-15"><a href="anova.html#cb91-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggtitle</span>(<span class="st">&quot;Neuroticism Across Continent and Gender&quot;</span>)<span class="sc">+</span> <span class="do">##title</span></span>
+<span id="cb91-16"><a href="anova.html#cb91-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x=</span> <span class="st">&quot;Continent&quot;</span>, <span class="at">y=</span><span class="st">&quot;Average Neuroticism&quot;</span>)<span class="sc">+</span></span>
+<span id="cb91-17"><a href="anova.html#cb91-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_classic</span>()</span></code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-38-1.png" width="672" /></p>
+<p>Here is average neuroticism of both groups plotted together on a single line graph. From here, it becomes clear that the interpretations of the main effects of our analysis become inaccurate when there is an interaction term. When we interpret a main effect, we do not take into account any other groups in the analysis. Let’s look at the means across the male and female levels of our gender variable:</p>
+<div class="sourceCode" id="cb92"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb92-1"><a href="anova.html#cb92-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(big5<span class="sc">$</span>NeuroSum[big5<span class="sc">$</span>gender <span class="sc">==</span> <span class="dv">1</span>], <span class="at">na.rm =</span> <span class="cn">TRUE</span>)</span></code></pre></div>
+<pre><code>## [1] 30.28788</code></pre>
+<div class="sourceCode" id="cb94"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb94-1"><a href="anova.html#cb94-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(big5<span class="sc">$</span>NeuroSum[big5<span class="sc">$</span>gender <span class="sc">==</span> <span class="dv">2</span>], <span class="at">na.rm =</span> <span class="cn">TRUE</span>)</span></code></pre></div>
+<pre><code>## [1] 31.80201</code></pre>
+<p>If we interpret the main effect of gender on neuroticism, we might conclude that female participants have higher average neuroticism than males. However, if we look at our interaction graph, that is not always correct! Men have higher neuroticism scores in the Americas. That is to say, the effect of gender on average neuroticism DEPENDS on the continent variable.</p>
+<div id="simple-main-effects-analysis" class="section level3 hasAnchor" number="5.4.1">
+<h3><span class="header-section-number">5.4.1</span> Simple Main Effects Analysis<a href="anova.html#simple-main-effects-analysis" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Disclaimer: Simple main effects analysis requires recalculating some values from different portions of output. Some basic code is provided here, but we recommend reviewing the mechanics of ANOVA (e.g., the different sums of squares values, what the F ratio is) if you choose to conduct these!</p>
+<p>To assess a significant interaction, we can follow up with a simple main effects analysis, where we test one variable at each level of the other variable. In the code below, I subset the dataset to each of the five levels of continent, then run one-way anovas predicting average neuroticism from gender.</p>
+<div class="sourceCode" id="cb96"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb96-1"><a href="anova.html#cb96-1" aria-hidden="true" tabindex="-1"></a><span class="do">##Create five data subsets</span></span>
+<span id="cb96-2"><a href="anova.html#cb96-2" aria-hidden="true" tabindex="-1"></a>Amer <span class="ot">&lt;-</span> big5[big5<span class="sc">$</span>continent <span class="sc">==</span> <span class="st">&quot;Americas&quot;</span>,]</span>
+<span id="cb96-3"><a href="anova.html#cb96-3" aria-hidden="true" tabindex="-1"></a>Euro <span class="ot">&lt;-</span> big5[big5<span class="sc">$</span>continent <span class="sc">==</span> <span class="st">&quot;Europe&quot;</span>,]</span>
+<span id="cb96-4"><a href="anova.html#cb96-4" aria-hidden="true" tabindex="-1"></a>Ocean <span class="ot">&lt;-</span> big5[big5<span class="sc">$</span>continent <span class="sc">==</span> <span class="st">&quot;Oceania&quot;</span>,]</span>
+<span id="cb96-5"><a href="anova.html#cb96-5" aria-hidden="true" tabindex="-1"></a>Afr <span class="ot">&lt;-</span> big5[big5<span class="sc">$</span>continent <span class="sc">==</span> <span class="st">&quot;Africa&quot;</span>,]</span>
+<span id="cb96-6"><a href="anova.html#cb96-6" aria-hidden="true" tabindex="-1"></a>Asia <span class="ot">&lt;-</span> big5[big5<span class="sc">$</span>continent <span class="sc">==</span> <span class="st">&quot;Asia&quot;</span>,]</span>
+<span id="cb96-7"><a href="anova.html#cb96-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb96-8"><a href="anova.html#cb96-8" aria-hidden="true" tabindex="-1"></a><span class="do">##Run one-way anovas for each subset</span></span>
+<span id="cb96-9"><a href="anova.html#cb96-9" aria-hidden="true" tabindex="-1"></a>SME1<span class="ot">&lt;-</span> <span class="fu">lm</span>(NeuroSum <span class="sc">~</span> gender, <span class="at">data =</span> Amer)</span>
+<span id="cb96-10"><a href="anova.html#cb96-10" aria-hidden="true" tabindex="-1"></a>SME2<span class="ot">&lt;-</span> <span class="fu">lm</span>(NeuroSum <span class="sc">~</span> gender, <span class="at">data =</span> Euro)</span>
+<span id="cb96-11"><a href="anova.html#cb96-11" aria-hidden="true" tabindex="-1"></a>SME3<span class="ot">&lt;-</span> <span class="fu">lm</span>(NeuroSum <span class="sc">~</span> gender, <span class="at">data =</span> Ocean)</span>
+<span id="cb96-12"><a href="anova.html#cb96-12" aria-hidden="true" tabindex="-1"></a>SME4<span class="ot">&lt;-</span> <span class="fu">lm</span>(NeuroSum <span class="sc">~</span> gender, <span class="at">data =</span> Afr)</span>
+<span id="cb96-13"><a href="anova.html#cb96-13" aria-hidden="true" tabindex="-1"></a>SME5<span class="ot">&lt;-</span> <span class="fu">lm</span>(NeuroSum <span class="sc">~</span> gender, <span class="at">data =</span> Asia)</span>
+<span id="cb96-14"><a href="anova.html#cb96-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb96-15"><a href="anova.html#cb96-15" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(SME1)</span></code></pre></div>
+<pre><code>## 
+## Call:
+## lm(formula = NeuroSum ~ gender, data = Amer)
+## 
+## Residuals:
+##     Min      1Q  Median      3Q     Max 
+## -14.505  -5.275  -0.045   4.955  17.955 
+## 
+## Coefficients:
+##             Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept)   34.964      2.147  16.286   &lt;2e-16 ***
+## gender        -2.459      1.250  -1.967    0.052 .  
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Residual standard error: 6.485 on 97 degrees of freedom
+##   (1 observation deleted due to missingness)
+## Multiple R-squared:  0.03837,    Adjusted R-squared:  0.02846 
+## F-statistic: 3.871 on 1 and 97 DF,  p-value: 0.05199</code></pre>
+<div class="sourceCode" id="cb98"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb98-1"><a href="anova.html#cb98-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(SME2)</span></code></pre></div>
+<pre><code>## 
+## Call:
+## lm(formula = NeuroSum ~ gender, data = Euro)
+## 
+## Residuals:
+##      Min       1Q   Median       3Q      Max 
+## -15.9677  -4.8143   0.6346   5.0323  13.0323 
+## 
+## Coefficients:
+##             Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept)   28.559      2.285  12.496   &lt;2e-16 ***
+## gender         2.205      1.351   1.631    0.106    
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Residual standard error: 6.56 on 98 degrees of freedom
+## Multiple R-squared:  0.02644,    Adjusted R-squared:  0.0165 
+## F-statistic: 2.661 on 1 and 98 DF,  p-value: 0.106</code></pre>
+<div class="sourceCode" id="cb100"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb100-1"><a href="anova.html#cb100-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(SME3)</span></code></pre></div>
+<pre><code>## 
+## Call:
+## lm(formula = NeuroSum ~ gender, data = Ocean)
+## 
+## Residuals:
+##     Min      1Q  Median      3Q     Max 
+## -14.306  -5.737  -1.306   5.263  15.263 
+## 
+## Coefficients:
+##             Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept)   26.167      2.411  10.854   &lt;2e-16 ***
+## gender         2.570      1.426   1.802   0.0745 .  
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Residual standard error: 6.92 on 98 degrees of freedom
+## Multiple R-squared:  0.03209,    Adjusted R-squared:  0.02221 
+## F-statistic: 3.249 on 1 and 98 DF,  p-value: 0.07455</code></pre>
+<div class="sourceCode" id="cb102"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb102-1"><a href="anova.html#cb102-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(SME4)</span></code></pre></div>
+<pre><code>## 
+## Call:
+## lm(formula = NeuroSum ~ gender, data = Afr)
+## 
+## Residuals:
+##      Min       1Q   Median       3Q      Max 
+## -18.9714  -6.4769  -0.2242   5.0286  16.5231 
+## 
+## Coefficients:
+##             Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept)   27.466      2.758   9.958   &lt;2e-16 ***
+## gender         1.505      1.606   0.938    0.351    
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Residual standard error: 7.659 on 98 degrees of freedom
+## Multiple R-squared:  0.008889,   Adjusted R-squared:  -0.001224 
+## F-statistic: 0.8789 on 1 and 98 DF,  p-value: 0.3508</code></pre>
+<div class="sourceCode" id="cb104"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb104-1"><a href="anova.html#cb104-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(SME5)</span></code></pre></div>
+<pre><code>## 
+## Call:
+## lm(formula = NeuroSum ~ gender, data = Asia)
+## 
+## Residuals:
+##     Min      1Q  Median      3Q     Max 
+## -16.480  -4.480  -0.480   4.765  16.520 
+## 
+## Coefficients:
+##             Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept)   26.461      2.014  13.137  &lt; 2e-16 ***
+## gender         4.019      1.254   3.205  0.00182 ** 
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Residual standard error: 6.511 on 98 degrees of freedom
+## Multiple R-squared:  0.09488,    Adjusted R-squared:  0.08564 
+## F-statistic: 10.27 on 1 and 98 DF,  p-value: 0.001823</code></pre>
+<p>For each simple main effects analysis, we recalculate our <em>F</em> statistic and <em>p</em> value using a value from our original ANOVA with the interaction, called the mean squares residual. Using the SME for gender @ Asia, I refit our ANOVA with the <code>lm()</code> function and pull out the information I need to recalculate <em>F</em>:</p>
+<div class="sourceCode" id="cb106"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb106-1"><a href="anova.html#cb106-1" aria-hidden="true" tabindex="-1"></a>twoway_reg<span class="ot">&lt;-</span><span class="fu">lm</span>(NeuroSum <span class="sc">~</span> continent<span class="sc">*</span>gender, <span class="at">data=</span>big5) <span class="do">##our original analysis</span></span>
+<span id="cb106-2"><a href="anova.html#cb106-2" aria-hidden="true" tabindex="-1"></a>MSres<span class="ot">&lt;-</span><span class="fu">anova</span>(twoway_reg)[[<span class="st">&quot;Mean Sq&quot;</span>]][<span class="dv">4</span>] <span class="do">##MS residual from factorial ANOVA</span></span>
+<span id="cb106-3"><a href="anova.html#cb106-3" aria-hidden="true" tabindex="-1"></a>MSgender<span class="ot">&lt;-</span><span class="fu">anova</span>(SME5)[[<span class="st">&quot;Mean Sq&quot;</span>]][<span class="dv">1</span>] <span class="do">##MS groups from SME one-way ANOVA</span></span></code></pre></div>
+<p>Our F statistic is calculated by dividing the mean squares value from the SME analysis by the mean squares residual from the factorial ANOVA. Then, we use the <code>pf()</code> function to calculate our new F statistic’s corresponding p value:</p>
+<div class="sourceCode" id="cb107"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb107-1"><a href="anova.html#cb107-1" aria-hidden="true" tabindex="-1"></a>F<span class="ot">&lt;-</span>MSgender<span class="sc">/</span>MSres</span>
+<span id="cb107-2"><a href="anova.html#cb107-2" aria-hidden="true" tabindex="-1"></a>F</span></code></pre></div>
+<pre><code>## [1] 9.303278</code></pre>
+<div class="sourceCode" id="cb109"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb109-1"><a href="anova.html#cb109-1" aria-hidden="true" tabindex="-1"></a><span class="fu">pf</span>(F,<span class="at">df1=</span><span class="dv">1</span>, <span class="at">df2=</span><span class="dv">487</span>, <span class="at">lower.tail =</span> <span class="cn">FALSE</span>)</span></code></pre></div>
+<pre><code>## [1] 0.002412113</code></pre>
+<p>Below is an example writeup for a factorial ANOVA with a significant interaction term:</p>
+<p>A 5 (Continent: Americas, Asia, Africa, Europe, and Oceania) x 3 (Gender: Male, Female, Other) factorial ANOVA suggests a significant effect of continent (<em>F</em>(4, 487) = 2.73, <em>p</em> = .02), gender (<em>F</em>(2, 487) = 3.80, <em>p</em> = .02), and their interaction (<em>F</em>(5,487) = 2.54, <em>p</em> = .02).A simple main effects analysis found significant gender effects for Asia(<em>F</em>(1,487) = 9.3, <em>p</em> = .002), and no gender differences across all other continents.</p>
+<ul>
+<li><p><strong>Note:</strong> It would be best to present all results, even nonsignificant ones, in a table!</p></li>
+<li><p><strong>Note II:</strong> You may have noticed that the simple main effects analysis tells us that there are significant gender differences for Asia, but not what those gender differences are. You can follow up an SME even further with another pairwise comparison. Remember that, unless corrected for multiple comparisons, using several statistical tests will increase your chance of getting false positive results. Use something like the Bonferroni correction (see #ttests post-hoc section) in order to control your type 1 error rate.</p></li>
+</ul>
+
+</div>
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="ttests.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="correlation.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"whatsapp": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": null,
+"text": null
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": null,
+"search": {
+"engine": "fuse",
+"options": null
+},
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/latest.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>
