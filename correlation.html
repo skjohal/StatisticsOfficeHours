@@ -259,7 +259,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div class="sourceCode" id="cb112"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb112-1"><a href="correlation.html#cb112-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="at">x =</span> big5<span class="sc">$</span>age, big5<span class="sc">$</span>ConscSum,</span>
 <span id="cb112-2"><a href="correlation.html#cb112-2" aria-hidden="true" tabindex="-1"></a>     <span class="at">xlab =</span> <span class="st">&quot;Age&quot;</span>, <span class="at">ylab =</span> <span class="st">&quot;Conscientiousness&quot;</span>,</span>
 <span id="cb112-3"><a href="correlation.html#cb112-3" aria-hidden="true" tabindex="-1"></a>     <span class="at">main =</span> <span class="st">&quot;Plot of Age versus Conscientiousness&quot;</span>)</span></code></pre></div>
-<p><img src="_main_files/figure-html/unnamed-chunk-44-1.png" width="672" /></p>
+<p><img src="main_files/figure-html/unnamed-chunk-44-1.png" width="672" /></p>
 <p>Now that we know the relation is linear enough, we can calculate a correlation.</p>
 <p>To estimate a correlation, we use the <code>cor</code> function.</p>
 <div class="sourceCode" id="cb113"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb113-1"><a href="correlation.html#cb113-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cor</span>(<span class="at">x =</span> big5<span class="sc">$</span>age, <span class="at">y =</span> big5<span class="sc">$</span>ConscSum)</span></code></pre></div>
@@ -274,7 +274,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>The arguments of the <code>pairs</code> function is mainly the dataframe you want to plot, as well as (optionally) the labels for your variable names.</p>
 <div class="sourceCode" id="cb115"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb115-1"><a href="correlation.html#cb115-1" aria-hidden="true" tabindex="-1"></a><span class="fu">pairs</span>(<span class="at">x =</span> big5[,<span class="fu">c</span>(<span class="st">&quot;age&quot;</span>, <span class="st">&quot;OpennessSum&quot;</span>, <span class="st">&quot;ExtraversionSum&quot;</span>, <span class="st">&quot;ConscSum&quot;</span>, <span class="st">&quot;AgreeablenessSum&quot;</span>, <span class="st">&quot;NeuroSum&quot;</span>)],</span>
 <span id="cb115-2"><a href="correlation.html#cb115-2" aria-hidden="true" tabindex="-1"></a>      <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">&quot;Age&quot;</span>, <span class="st">&quot;Openness&quot;</span>, <span class="st">&quot;Extraversion&quot;</span>, <span class="st">&quot;Conscientiousness&quot;</span>, <span class="st">&quot;Agreeableness&quot;</span>, <span class="st">&quot;Neuroticism&quot;</span>))</span></code></pre></div>
-<p><img src="_main_files/figure-html/unnamed-chunk-46-1.png" width="672" /></p>
+<p><img src="main_files/figure-html/unnamed-chunk-46-1.png" width="672" /></p>
 </div>
 <div id="option-2-ggplot" class="section level3 hasAnchor" number="6.1.2">
 <h3><span class="header-section-number">6.1.2</span> Option 2: ggplot<a href="correlation.html#option-2-ggplot" class="anchor-section" aria-label="Anchor link to header"></a></h3>
@@ -282,7 +282,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>Just like the <code>pairs</code> function, all you need to give <code>ggpairs</code> is the dataframe with the variables you want to make pairwise scatterplots from. You can also add labels using the <code>columnLabels</code> argument.</p>
 <div class="sourceCode" id="cb116"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb116-1"><a href="correlation.html#cb116-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggpairs</span>(big5[,<span class="fu">c</span>(<span class="st">&quot;age&quot;</span>, <span class="st">&quot;OpennessSum&quot;</span>, <span class="st">&quot;ExtraversionSum&quot;</span>, <span class="st">&quot;ConscSum&quot;</span>, <span class="st">&quot;AgreeablenessSum&quot;</span>, <span class="st">&quot;NeuroSum&quot;</span>)],</span>
 <span id="cb116-2"><a href="correlation.html#cb116-2" aria-hidden="true" tabindex="-1"></a>      <span class="at">columnLabels =</span> <span class="fu">c</span>(<span class="st">&quot;Age&quot;</span>, <span class="st">&quot;Openness&quot;</span>, <span class="st">&quot;Extraversion&quot;</span>, <span class="st">&quot;Conscientiousness&quot;</span>, <span class="st">&quot;Agreeableness&quot;</span>, <span class="st">&quot;Neuroticism&quot;</span>))</span></code></pre></div>
-<p><img src="_main_files/figure-html/unnamed-chunk-47-1.png" width="672" /></p>
+<p><img src="main_files/figure-html/unnamed-chunk-47-1.png" width="672" /></p>
 <p>Now you can see we have a lot more information: In addition to the same scatterplots we had before, we now have the distribution of each individual variable (so we can see if it’s normally distributed or skewed), plus an estimate of the correlation between each variable pair (stars indicate whether that correlation is statistically significant from 0 or not).</p>
 <p>Once we’ve glanced at our data plot and assessed whether correlations between these variables make sense, we can calculate the correlation matrix (I wrapped this in a <code>round</code> statement so the final result is easier to read):</p>
 <div class="sourceCode" id="cb117"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb117-1"><a href="correlation.html#cb117-1" aria-hidden="true" tabindex="-1"></a><span class="fu">round</span>(<span class="fu">cor</span>(big5[, <span class="fu">c</span>(<span class="st">&quot;age&quot;</span>, <span class="st">&quot;OpennessSum&quot;</span>, <span class="st">&quot;ExtraversionSum&quot;</span>, <span class="st">&quot;ConscSum&quot;</span>, <span class="st">&quot;AgreeablenessSum&quot;</span>, <span class="st">&quot;NeuroSum&quot;</span>)], <span class="at">use =</span> <span class="st">&quot;everything&quot;</span>), <span class="dv">2</span>)</span></code></pre></div>
@@ -351,7 +351,7 @@ With the <code>ggcorrplot</code> function, you need to provide the correlation m
 <span id="cb122-9"><a href="correlation.html#cb122-9" aria-hidden="true" tabindex="-1"></a><span class="fu">ggcorrplot</span>(<span class="at">corr =</span> cor_matrix,</span>
 <span id="cb122-10"><a href="correlation.html#cb122-10" aria-hidden="true" tabindex="-1"></a>           <span class="at">type =</span> <span class="st">&quot;lower&quot;</span>,</span>
 <span id="cb122-11"><a href="correlation.html#cb122-11" aria-hidden="true" tabindex="-1"></a>           <span class="at">outline.color =</span> <span class="st">&quot;black&quot;</span>)</span></code></pre></div>
-<p><img src="_main_files/figure-html/unnamed-chunk-51-1.png" width="672" /></p>
+<p><img src="main_files/figure-html/unnamed-chunk-51-1.png" width="672" /></p>
 <p>With this heat map, reddish values correspond to positive correlations, while bluish colors correspond to negative correlations. The darker the color, the stronger (closer to -1 or 1) the correlation is. This allows us to, at a glance, assess the relations between our variables.</p>
 <p>[As a side note, you can change the colors if you prefer, by providing 3 colors (for negative, zero, and positive correlation values) to the colors argument in the <code>ggcorrplot</code> function.]</p>
 <p>However, we have now lost information on the exact values of the estimated correlations. If we want that back, we can add another argument to the <code>ggcorrplot</code> function: <code>lab = TRUE</code>, which places the correlation coefficient on top of the plot.</p>
@@ -361,7 +361,7 @@ With the <code>ggcorrplot</code> function, you need to provide the correlation m
 <span id="cb123-4"><a href="correlation.html#cb123-4" aria-hidden="true" tabindex="-1"></a>           <span class="at">lab =</span> <span class="cn">TRUE</span>,</span>
 <span id="cb123-5"><a href="correlation.html#cb123-5" aria-hidden="true" tabindex="-1"></a>           <span class="at">lab_size =</span> <span class="dv">3</span>,</span>
 <span id="cb123-6"><a href="correlation.html#cb123-6" aria-hidden="true" tabindex="-1"></a>           <span class="at">lab_col =</span> <span class="st">&quot;black&quot;</span>)</span></code></pre></div>
-<p><img src="_main_files/figure-html/unnamed-chunk-52-1.png" width="672" /></p>
+<p><img src="main_files/figure-html/unnamed-chunk-52-1.png" width="672" /></p>
 <div class="sourceCode" id="cb124"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb124-1"><a href="correlation.html#cb124-1" aria-hidden="true" tabindex="-1"></a><span class="co"># lab_size: How big do you want the labeled correlation coefficients to be</span></span>
 <span id="cb124-2"><a href="correlation.html#cb124-2" aria-hidden="true" tabindex="-1"></a><span class="co"># lab_color: What color do you want the text for the correlation coefficients to be</span></span></code></pre></div>
 <p>If we wanted to use shape as well as color to help us evaluate our correlations, we could plot a <strong>correlelogram</strong>. Luckily, this can easily be done by setting method = “circle” in the <code>ggcorrplot</code> function.</p>
@@ -372,7 +372,7 @@ With the <code>ggcorrplot</code> function, you need to provide the correlation m
 <span id="cb125-5"><a href="correlation.html#cb125-5" aria-hidden="true" tabindex="-1"></a>           <span class="at">lab =</span> <span class="cn">TRUE</span>,</span>
 <span id="cb125-6"><a href="correlation.html#cb125-6" aria-hidden="true" tabindex="-1"></a>           <span class="at">lab_size =</span> <span class="dv">2</span>,</span>
 <span id="cb125-7"><a href="correlation.html#cb125-7" aria-hidden="true" tabindex="-1"></a>           <span class="at">lab_col =</span> <span class="st">&quot;black&quot;</span>)</span></code></pre></div>
-<p><img src="_main_files/figure-html/unnamed-chunk-53-1.png" width="672" /></p>
+<p><img src="main_files/figure-html/unnamed-chunk-53-1.png" width="672" /></p>
 <p>Now, not only do darker or lighter colors tell us the strength of the correlation coefficient, but bigger circles correspond to stronger correlation coefficients as well!</p>
 
 </div>
