@@ -245,8 +245,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>The dataset that we will be using throughout our examples is a dataset on the Big 5 Personality Test, taken from the <a href="https://openpsychometrics.org/about/">Open-Source Psychometrics Project</a>.</p>
 <p>During the Big 5 Personality Test, participants answer questions from the Big-Five Factor Markers from the International Personality Item Pool (IPIP). This contains fifty items that measure the Big 5 personality traits (Openness, Conscientiousness, Extraversion, Agreeableness, Neuroticism), and participants rate how true each item is to them on a five-point scale (1 = Disagree, 5 = Agree).</p>
 <p>To date, over 19,000 people have completed this personality assessment. To make this dataset more manageable for our purposes, I took a stratified random sample of 500 participants, with 100 people from each continent (Africa, Americas, Asia, Europe, and Oceania).</p>
-<p>Let’s load in the dataset, and take a quick look at what it contains. Make sure to change the file path in read.csv to wherever you are keeping the dataset.</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="dataintro.html#cb1-1" aria-hidden="true" tabindex="-1"></a>big5 <span class="ot">=</span> <span class="fu">read.csv</span>(<span class="st">&quot;Big5_Workshop.csv&quot;</span>)</span></code></pre></div>
+<p>Let’s load in the dataset (which can also be found on this book’s <a href="https://github.com/skjohal/StatisticsOfficeHours/blob/main/Big5_Workshop.csv">Github page</a>), and take a quick look at what it contains. Make sure to change the file path in read.csv to wherever you are keeping the dataset.</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="dataintro.html#cb1-1" aria-hidden="true" tabindex="-1"></a>big5 <span class="ot">=</span> <span class="fu">read.csv</span>(<span class="fu">url</span>(<span class="st">&quot;https://raw.githubusercontent.com/skjohal/StatisticsOfficeHours/main/Big5_Workshop.csv&quot;</span>))</span></code></pre></div>
 <p>To get an idea of what this data looks like, we can use <code>head</code> to view the first few rows, or <code>summary</code> to get an idea of the type for each column.</p>
 <div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="dataintro.html#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(big5)</span></code></pre></div>
 <div data-pagedtable="false">
@@ -443,7 +443,7 @@ gitbook.start({
 "link": null,
 "text": null
 },
-"download": null,
+"download": ["_main.pdf"],
 "search": {
 "engine": "fuse",
 "options": null
