@@ -303,7 +303,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb131-4"><a href="regression.html#cb131-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_classic</span>()<span class="sc">+</span> <span class="co"># removes some of the background</span></span>
 <span id="cb131-5"><a href="regression.html#cb131-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">&quot;Age&quot;</span>, <span class="at">y =</span> <span class="st">&quot;Neuroticism&quot;</span>, <span class="at">title =</span> <span class="st">&quot;Plot of Age versus Neuroticism&quot;</span>) <span class="co"># add plot labels so people seeing this plot on its own know what it&#39;s about!</span></span></code></pre></div>
 <pre><code>## `geom_smooth()` using formula = &#39;y ~ x&#39;</code></pre>
-<p><img src="_main_files/figure-html/unnamed-chunk-57-1.png" width="672" /></p>
+<p><img src="_main_files/figure-html/unnamed-chunk-58-1.png" width="672" /></p>
 </div>
 <div id="simple-regression-with-a-centered-continuous-predictor" class="section level3 hasAnchor" number="7.1.2">
 <h3><span class="header-section-number">7.1.2</span> Simple Regression with a Centered Continuous Predictor<a href="regression.html#simple-regression-with-a-centered-continuous-predictor" class="anchor-section" aria-label="Anchor link to header"></a></h3>
@@ -347,7 +347,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>Although regression is typically conducted with a continuous predictor, it can also handle binary or categorical predictor variables. We will first walk through the interpretation of the regression model when the predictor is binary (only 2 categories), and then go on to when the predictor is categorical (&gt;2 categories). In the case of a simple regression model with a binary predictor variable, this is the same as conducting a t-test to examine whether there are group differences in the mean of our continuous variable!</p>
 <p>To run a linear regression with a binary variable, first make sure your binary variable is saved as a factor in R. Suppose we wanted to examine whether there were differences in average levels of Openness for people who were left versus right-handed (remember this from our #ttests section?).</p>
 <div class="sourceCode" id="cb135"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb135-1"><a href="regression.html#cb135-1" aria-hidden="true" tabindex="-1"></a><span class="fu">class</span>(big5<span class="sc">$</span>hand) <span class="co"># currently, the class of our handedness variable is an integer; in fact it has the values 0 (didn&#39;t answer the question), 1 (right-handed), 2 (left-handed), 3 (both)</span></span></code></pre></div>
-<pre><code>## [1] &quot;integer&quot;</code></pre>
+<pre><code>## [1] &quot;numeric&quot;</code></pre>
 <div class="sourceCode" id="cb137"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb137-1"><a href="regression.html#cb137-1" aria-hidden="true" tabindex="-1"></a><span class="co"># since I just want to compare left- and right-handed participants, I will just create a subset of the data with only those participants for this example</span></span>
 <span id="cb137-2"><a href="regression.html#cb137-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb137-3"><a href="regression.html#cb137-3" aria-hidden="true" tabindex="-1"></a>big5_subset <span class="ot">=</span> big5[big5<span class="sc">$</span>hand <span class="sc">==</span> <span class="dv">1</span> <span class="sc">|</span> big5<span class="sc">$</span>hand <span class="sc">==</span> <span class="dv">2</span>, ]</span>
@@ -520,7 +520,7 @@ Openness for participants from Africa.</li>
 <span id="cb147-4"><a href="regression.html#cb147-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_abline</span>(<span class="at">intercept =</span> <span class="fl">37.996</span>, <span class="at">slope =</span> <span class="sc">-</span><span class="fl">0.364</span>, <span class="at">linetype =</span> <span class="st">&quot;dashed&quot;</span>)<span class="sc">+</span></span>
 <span id="cb147-5"><a href="regression.html#cb147-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_classic</span>()<span class="sc">+</span></span>
 <span id="cb147-6"><a href="regression.html#cb147-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">&quot;Age&quot;</span>, <span class="at">y =</span> <span class="st">&quot;Neuroticism&quot;</span>)</span></code></pre></div>
-<p><img src="_main_files/figure-html/unnamed-chunk-64-1.png" width="672" /></p>
+<p><img src="_main_files/figure-html/unnamed-chunk-65-1.png" width="672" /></p>
 </div>
 <div id="interactions" class="section level3 hasAnchor" number="7.2.2">
 <h3><span class="header-section-number">7.2.2</span> Interactions<a href="regression.html#interactions" class="anchor-section" aria-label="Anchor link to header"></a></h3>
@@ -631,7 +631,7 @@ Openness for participants from Africa.</li>
 <span id="cb154-3"><a href="regression.html#cb154-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="at">method =</span> <span class="st">&quot;lm&quot;</span>, <span class="at">se =</span> <span class="cn">TRUE</span>)<span class="sc">+</span> <span class="co"># to overlay the estimated regrssion line along with the standard error of the line</span></span>
 <span id="cb154-4"><a href="regression.html#cb154-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_classic</span>()<span class="sc">+</span></span>
 <span id="cb154-5"><a href="regression.html#cb154-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">&quot;Age&quot;</span>, <span class="at">y =</span> <span class="st">&quot;Neuroticism&quot;</span>, <span class="at">title =</span> <span class="st">&quot;Age versus Neuroticism&quot;</span>)</span></code></pre></div>
-<p><img src="_main_files/figure-html/unnamed-chunk-67-1.png" width="672" /></p>
+<p><img src="_main_files/figure-html/unnamed-chunk-68-1.png" width="672" /></p>
 <p>Things get a little more complicated once you have have multiple predictor variables. We will talk about the situation with 2 predictor variables (one continuous predictor, and the other predictor is either categorical, continuous, or a polynomial term). These approaches can then be extended if you have more than 2 predictor variables, although it’s likely to get a lot messier.</p>
 <div id="visualizing-multiple-regression-one-continuous-predictor-one-categorical" class="section level3 hasAnchor" number="7.3.1">
 <h3><span class="header-section-number">7.3.1</span> Visualizing Multiple Regression: One Continuous Predictor, One Categorical<a href="regression.html#visualizing-multiple-regression-one-continuous-predictor-one-categorical" class="anchor-section" aria-label="Anchor link to header"></a></h3>
@@ -652,7 +652,7 @@ In these plots, the continuous predictor is typically placed on the x-axis. Then
 <span id="cb155-12"><a href="regression.html#cb155-12" aria-hidden="true" tabindex="-1"></a>  <span class="co"># a discrete variable that we are using different colors for</span></span>
 <span id="cb155-13"><a href="regression.html#cb155-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_color_discrete</span>(<span class="at">labels =</span> <span class="fu">c</span>(<span class="st">&quot;Male&quot;</span>, <span class="st">&quot;Female&quot;</span>))<span class="sc">+</span></span>
 <span id="cb155-14"><a href="regression.html#cb155-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">&quot;Neuroticism&quot;</span>, <span class="at">y =</span> <span class="st">&quot;Conscientiousness&quot;</span>, <span class="at">color =</span> <span class="st">&quot;Gender&quot;</span>)</span></code></pre></div>
-<p><img src="_main_files/figure-html/unnamed-chunk-68-1.png" width="672" /></p>
+<p><img src="_main_files/figure-html/unnamed-chunk-69-1.png" width="672" /></p>
 <div class="sourceCode" id="cb156"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb156-1"><a href="regression.html#cb156-1" aria-hidden="true" tabindex="-1"></a><span class="co"># regression lines at each level, across different plots</span></span>
 <span id="cb156-2"><a href="regression.html#cb156-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb156-3"><a href="regression.html#cb156-3" aria-hidden="true" tabindex="-1"></a><span class="co"># in this case, you might want to change the values of the variable you are splitting into different plots so that the label is informative</span></span>
@@ -677,7 +677,7 @@ In these plots, the continuous predictor is typically placed on the x-axis. Then
 <span id="cb156-22"><a href="regression.html#cb156-22" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="at">method =</span> <span class="st">&quot;lm&quot;</span>, <span class="at">se =</span> <span class="cn">TRUE</span>)<span class="sc">+</span></span>
 <span id="cb156-23"><a href="regression.html#cb156-23" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_classic</span>()<span class="sc">+</span></span>
 <span id="cb156-24"><a href="regression.html#cb156-24" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">&quot;Neuroticism&quot;</span>, <span class="at">y =</span> <span class="st">&quot;Conscietiousness&quot;</span>)</span></code></pre></div>
-<p><img src="_main_files/figure-html/unnamed-chunk-68-2.png" width="672" /></p>
+<p><img src="_main_files/figure-html/unnamed-chunk-69-2.png" width="672" /></p>
 <p>The choice between plotting both regression lines into the same plot versus different plots depends on the goals of your research - it is easier to compare regression lines if they are on the same plot, but that can get a little bit messy (especially when you have more than 2 categories). However, we as we can see in either regression plot, the relationship between Neuroticism and Conscientiousness is stronger for females than males (the line is steeper), which is what we got from our simple effects analysis.</p>
 </div>
 <div id="visualizing-multiple-regression-two-continuous-predictors" class="section level3 hasAnchor" number="7.3.2">
@@ -741,7 +741,7 @@ In these plots, the continuous predictor is typically placed on the x-axis. Then
 <span id="cb157-53"><a href="regression.html#cb157-53" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(big5_plot)</span></code></pre></div>
 <div data-pagedtable="false">
 <script data-pagedtable-source type="application/json">
-{"columns":[{"label":["id"],"name":[1],"type":["int"],"align":["right"]},{"label":["OpennessSum"],"name":[2],"type":["int"],"align":["right"]},{"label":["AgreeablenessSum"],"name":[3],"type":["int"],"align":["right"]},{"label":["age"],"name":[4],"type":["int"],"align":["right"]},{"label":["agegroup"],"name":[5],"type":["chr"],"align":["left"]},{"label":["predicted"],"name":[6],"type":["dbl"],"align":["right"]}],"data":[{"1":"1","2":"38","3":"26","4":"26","5":"meanage_predict","6":"32.30439"},{"1":"1","2":"38","3":"26","4":"26","5":"sdbelow_predict","6":"32.64852"},{"1":"1","2":"38","3":"26","4":"26","5":"sdabove_predict","6":"31.96026"},{"1":"2","2":"29","3":"29","4":"21","5":"meanage_predict","6":"32.69509"},{"1":"2","2":"29","3":"29","4":"21","5":"sdbelow_predict","6":"32.81335"},{"1":"2","2":"29","3":"29","4":"21","5":"sdabove_predict","6":"32.57684"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
+{"columns":[{"label":["id"],"name":[1],"type":["dbl"],"align":["right"]},{"label":["OpennessSum"],"name":[2],"type":["dbl"],"align":["right"]},{"label":["AgreeablenessSum"],"name":[3],"type":["dbl"],"align":["right"]},{"label":["age"],"name":[4],"type":["dbl"],"align":["right"]},{"label":["agegroup"],"name":[5],"type":["chr"],"align":["left"]},{"label":["predicted"],"name":[6],"type":["dbl"],"align":["right"]}],"data":[{"1":"1","2":"38","3":"26","4":"26","5":"meanage_predict","6":"32.30439"},{"1":"1","2":"38","3":"26","4":"26","5":"sdbelow_predict","6":"32.64852"},{"1":"1","2":"38","3":"26","4":"26","5":"sdabove_predict","6":"31.96026"},{"1":"2","2":"29","3":"29","4":"21","5":"meanage_predict","6":"32.69509"},{"1":"2","2":"29","3":"29","4":"21","5":"sdbelow_predict","6":"32.81335"},{"1":"2","2":"29","3":"29","4":"21","5":"sdabove_predict","6":"32.57684"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
   </script>
 </div>
 <div class="sourceCode" id="cb158"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb158-1"><a href="regression.html#cb158-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Now we can make a plot, with different colored lines for each age</span></span>
@@ -750,7 +750,7 @@ In these plots, the continuous predictor is typically placed on the x-axis. Then
 <span id="cb158-4"><a href="regression.html#cb158-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>()<span class="sc">+</span></span>
 <span id="cb158-5"><a href="regression.html#cb158-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="fu">aes</span>(<span class="at">x =</span> AgreeablenessSum, <span class="at">y =</span> predicted, <span class="at">color =</span> agegroup))<span class="sc">+</span></span>
 <span id="cb158-6"><a href="regression.html#cb158-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_classic</span>()</span></code></pre></div>
-<p><img src="_main_files/figure-html/unnamed-chunk-69-1.png" width="672" /></p>
+<p><img src="_main_files/figure-html/unnamed-chunk-70-1.png" width="672" /></p>
 <div class="sourceCode" id="cb159"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb159-1"><a href="regression.html#cb159-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Now we can see that we have three different lines - one showing the relation between Agreeableness and Openness for someone who is average age, one showing the relation for someone who is 1 SD above average age, and one for someone who is 1 SD below average age</span></span>
 <span id="cb159-2"><a href="regression.html#cb159-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb159-3"><a href="regression.html#cb159-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Let&#39;s make the graph a bit nicer by changing the labels on the axes, as well as the labels for the different age groups</span></span>
@@ -762,7 +762,7 @@ In these plots, the continuous predictor is typically placed on the x-axis. Then
 <span id="cb159-9"><a href="regression.html#cb159-9" aria-hidden="true" tabindex="-1"></a><span class="co"># the order you put the new labels in has to match the current order (which is alphabetical, unless you changed the factor levels to be otherwise)</span></span>
 <span id="cb159-10"><a href="regression.html#cb159-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_classic</span>()<span class="sc">+</span></span>
 <span id="cb159-11"><a href="regression.html#cb159-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">&quot;Agreeableness&quot;</span>, <span class="at">y =</span> <span class="st">&quot;Openness&quot;</span>, <span class="at">color =</span> <span class="st">&quot;Age&quot;</span>)</span></code></pre></div>
-<p><img src="_main_files/figure-html/unnamed-chunk-69-2.png" width="672" /></p>
+<p><img src="_main_files/figure-html/unnamed-chunk-70-2.png" width="672" /></p>
 </div>
 <div id="visualizing-multiple-regression-polynomials" class="section level3 hasAnchor" number="7.3.3">
 <h3><span class="header-section-number">7.3.3</span> Visualizing Multiple Regression: Polynomials<a href="regression.html#visualizing-multiple-regression-polynomials" class="anchor-section" aria-label="Anchor link to header"></a></h3>
@@ -775,7 +775,7 @@ In these plots, the continuous predictor is typically placed on the x-axis. Then
 <span id="cb160-4"><a href="regression.html#cb160-4" aria-hidden="true" tabindex="-1"></a>              <span class="at">formula =</span> y <span class="sc">~</span> <span class="fu">poly</span>(x, <span class="dv">2</span>))<span class="sc">+</span> <span class="co"># even though our predictor was age and outcome was Neuroticism, use x and y in the formula argument</span></span>
 <span id="cb160-5"><a href="regression.html#cb160-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_classic</span>()<span class="sc">+</span></span>
 <span id="cb160-6"><a href="regression.html#cb160-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">&quot;Age&quot;</span>, <span class="at">y =</span> <span class="st">&quot;Neuroticism&quot;</span>, <span class="at">title =</span> <span class="st">&quot;Quadratic Relation between Age and Neuroticism&quot;</span>)</span></code></pre></div>
-<p><img src="_main_files/figure-html/unnamed-chunk-70-1.png" width="672" /></p>
+<p><img src="_main_files/figure-html/unnamed-chunk-71-1.png" width="672" /></p>
 </div>
 </div>
 <div id="checking-assumptions-of-the-regression-model" class="section level2 hasAnchor" number="7.4">
@@ -790,7 +790,7 @@ In these plots, the continuous predictor is typically placed on the x-axis. Then
 <p>The first assumption is normally determined based on how you collected your data - is it reasonable to assume that different observations are independent from each other? In other words, the response of one observation has no impact on the response on another observation.</p>
 <p>To check assumptions 2-4, we can use a visual check, as well as formal statistical tests for assumptions 3 and 4. To get the visual plots to check these assumptions, we use the built-in <code>plot</code> function.</p>
 <div class="sourceCode" id="cb161"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb161-1"><a href="regression.html#cb161-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(model1) <span class="co"># the input of the plot() function is the model we want to check assumptions for </span></span></code></pre></div>
-<p><img src="_main_files/figure-html/unnamed-chunk-71-1.png" width="672" /><img src="_main_files/figure-html/unnamed-chunk-71-2.png" width="672" /><img src="_main_files/figure-html/unnamed-chunk-71-3.png" width="672" /><img src="_main_files/figure-html/unnamed-chunk-71-4.png" width="672" /></p>
+<p><img src="_main_files/figure-html/unnamed-chunk-72-1.png" width="672" /><img src="_main_files/figure-html/unnamed-chunk-72-2.png" width="672" /><img src="_main_files/figure-html/unnamed-chunk-72-3.png" width="672" /><img src="_main_files/figure-html/unnamed-chunk-72-4.png" width="672" /></p>
 <p>This returns four plots, but really we just need to look at the first 2 to examine our assumptions. The first plot (residuals versus fitted) can tell us whether assumption 2 (linear relation) and assumption 4 (homogeneity of variance) is met, and the second plot (normal QQ-plot) can tell us about assumption 3 (normality of residuals).</p>
 <p><strong>To check for linearity assumption</strong>: is the red line in the residuals versus fitted plot roughtly flat at y = 0 (does it match the gray dashed line)? If so, this assumption is met.</p>
 <p>In our example, the red line appears pretty flat, with maybe a slight uptick at the end, but on the whole I would say this supports the assumption that the relation is linear.</p>
@@ -867,7 +867,7 @@ gitbook.start({
 "link": null,
 "text": null
 },
-"download": null,
+"download": ["_main.pdf"],
 "search": {
 "engine": "fuse",
 "options": null
